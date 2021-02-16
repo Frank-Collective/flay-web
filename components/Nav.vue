@@ -99,8 +99,12 @@ export default {
 
 <style lang="scss" scoped>
 .nav {
-  padding: 10px;
+  position: fixed;
+  width: calc(100% - 20px);
+  max-width: calc(1600px - 20px);
+  padding: 10px 10px 0;
   user-select: none;
+  z-index: 10;
 
   .inner {
     border: 1px solid $black;
@@ -225,7 +229,7 @@ export default {
           display: flex;
           align-items: center;
           width: 10px;
-          transition: width 0.15s cubic-bezier(0.23, 1, 0.32, 1), border-bottom 0.5s;
+          transition: width 0.25s, border-bottom 0.5s;
 
           @include breakpoint(small) {
             border-bottom: 1px solid $black;

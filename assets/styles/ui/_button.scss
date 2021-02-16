@@ -1,0 +1,32 @@
+.button {
+  &.primary {
+    display: inline-block;
+    @include font-object-sans-regular;
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 0em;
+    line-height: 1.5;
+    border: 1px solid $black;
+    color: $black;
+    text-decoration: none;
+    padding: 0.73em 2.4em;
+
+    &:hover {
+      background: $white;
+    }
+  }
+  &.secondary {
+    display: inline-block;
+    @include font-object-sans-regular;
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 0em;
+    line-height: 1.5;
+    color: $black;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

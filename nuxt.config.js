@@ -31,7 +31,11 @@ export default {
   css: ['~/assets/styles/global.scss'],
   // Sass resources available to VUE files
   styleResources: {
-    scss: ['~/assets/styles/resources/_vars.scss', '~/assets/styles/resources/_mixins.scss'],
+    scss: [
+      '~/assets/styles/resources/_vars.scss',
+      '~/assets/styles/resources/_mixins.scss',
+      '~/assets/styles/resources/_typography.scss',
+    ],
   },
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins

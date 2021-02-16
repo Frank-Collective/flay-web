@@ -1,0 +1,116 @@
+@mixin font-maelstrom {
+  font-family: 'Maelstrom-Sans-Regular';
+  font-style: normal;
+  font-weight: bold;
+}
+
+@mixin font-object-sans-regular {
+  font-family: 'Object-Sans-Regular';
+  font-style: normal;
+  font-weight: 400;
+}
+
+@mixin font-object-sans-bold {
+  font-family: 'Object-Sans-Bold';
+  font-style: normal;
+  font-weight: 400;
+}
+
+h1,
+.h1 {
+  @include font-maelstrom;
+  font-size: 400px;
+  line-height: 1;
+  letter-spacing: 0.1em;
+
+  @include breakpoint(xlarge) {
+    font-size: 27.8vw;
+  }
+
+  @include breakpoint(medium) {
+    font-size: 200px;
+  }
+}
+
+h2,
+.h2 {
+  @include font-maelstrom;
+  font-size: 200px;
+  line-height: 1;
+  letter-spacing: 0.1em;
+
+  @include breakpoint(medium) {
+    font-size: 64px;
+  }
+}
+
+h3,
+.h3 {
+  @include font-object-sans-regular;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 1;
+  letter-spacing: 0em;
+  margin-bottom: 0.6em;
+
+  @include breakpoint(medium) {
+    font-size: 35px;
+  }
+}
+
+h4,
+.h4 {
+  @include font-object-sans-regular;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 1.2;
+  letter-spacing: -0.05em;
+  margin-bottom: 0.6em;
+
+  @include breakpoint(medium) {
+    font-size: 20px;
+  }
+}
+
+h5,
+.h5 {
+  @include font-object-sans-regular;
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: -0.05em;
+  margin-bottom: 0.6em;
+
+  @include breakpoint(medium) {
+    font-size: 15px;
+  }
+}
+
+h6,
+.h6 {
+  @include font-object-sans-bold;
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: -0.05em;
+  margin-bottom: 0.6em;
+
+  @include breakpoint(medium) {
+    font-size: 15px;
+  }
+}
+
+p {
+  @include font-object-sans-regular;
+  font-size: 20px;
+  line-height: 1.5;
+  letter-spacing: 0em;
+  margin-bottom: 1.2em;
+
+  @include breakpoint(medium) {
+    font-size: 14px;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
