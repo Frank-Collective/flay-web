@@ -1,6 +1,29 @@
-// Variables
-//@import 'resources/vars';
+// Reset
+@import 'vendor/reset';
+
+// Helpers
+@import 'resources/helpers';
+
+// Fonts
+@import 'resources/fonts';
+
+html {
+  font-family: 'Object-Sans-Regular';
+  font-size: 16px;
+  word-spacing: 1px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
 
 body {
-  // background: $some-color;
+  background: $light-grayish-orange;
+}
+
+.page-wrapper {
+  margin: 0 auto;
+  max-width: 1600px;
+  // border: 1px solid black;
 }

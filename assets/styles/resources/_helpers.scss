@@ -1,0 +1,5 @@
+.mobile-only {
+  @include breakpoint(smallup) {
+    display: none !important;
+  }
+}
