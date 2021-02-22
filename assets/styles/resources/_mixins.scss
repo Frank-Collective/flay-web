@@ -1,3 +1,4 @@
+$maxlarge: 1600px;
 $xlarge: 1440px;
 $large: 1200px;
 $medium: 1024px;
@@ -5,7 +6,11 @@ $small: 768px;
 $tiny: 480px;
 
 @mixin breakpoint($point) {
-  @if $point == xlarge {
+  @if $point == maxlarge {
+    @media (max-width: $maxlarge - 1px) {
+      @content;
+    }
+  } @else if $point == xlarge {
     @media (max-width: $xlarge - 1px) {
       @content;
     }

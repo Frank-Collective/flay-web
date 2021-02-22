@@ -9,7 +9,50 @@
       "
       :link="{ text: 'My Story', url: '/about' }"
     />
-    <CardGrid :headerText="'Portfolio'" :headerLink="{ text: 'View All', url: '/portfolio' }" />
+
+    <section class="portfolio">
+      <div class="inner">
+        <div class="header">
+          <nuxt-link to="/portfolio" tabindex="0"><h3>Portfolio</h3></nuxt-link>
+          <div class="cta">
+            <nuxt-link class="button primary" to="/portfolio" tabindex="0">View All</nuxt-link>
+            <nuxt-link class="button secondary" to="/portfolio" tabindex="0">View All</nuxt-link>
+          </div>
+        </div>
+        <div class="grid">
+          <Card :featured="true" :bgColor="'#D8CAA5'" />
+          <Card />
+          <Card :bgColor="'#F9A252'" />
+          <Card :bgColor="'#9E99AD'" />
+          <Card :bgColor="'#D75E3E'" />
+          <Card :bgColor="'#C85C5C'" />
+          <Card :bgColor="'#CCB6E7'" />
+        </div>
+      </div>
+    </section>
+
+    <Carousel :headerText="'Daily Special'" :headerLink="{ text: 'View All', url: '/daily-special' }" />
+
+    <section class="shop">
+      <div class="inner">
+        <div class="header">
+          <nuxt-link to="/shop" tabindex="0"
+            ><h3><img src="/images/Shop.svg" alt="" /></h3
+          ></nuxt-link>
+          <div class="cta">
+            <nuxt-link class="button primary" to="/shop" tabindex="0">Shop All</nuxt-link>
+            <nuxt-link class="button secondary" to="/shop" tabindex="0">Shop All</nuxt-link>
+          </div>
+        </div>
+        <div class="grid">
+          <ProductCard :bgColor="'#80B0DE'" />
+          <ProductCard :bgColor="'#84C698'" />
+          <ProductCard :bgColor="'#C3FF4E'" />
+        </div>
+      </div>
+    </section>
+
+    <SocialFeed />
   </div>
 </template>
 
@@ -17,4 +60,151 @@
 export default {}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.portfolio {
+  padding: 20px 10px 100px;
+
+  @include breakpoint(small) {
+    padding-bottom: 0;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+
+    .header {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 3vw;
+      margin: 66px 0 0;
+
+      @include breakpoint(small) {
+        flex-direction: column;
+        margin: 66px 0;
+      }
+
+      h3 {
+        margin-bottom: 0.3em;
+      }
+
+      .cta {
+        .primary {
+          display: none;
+
+          @include breakpoint(small) {
+            display: inline-block;
+          }
+        }
+        .secondary {
+          @include breakpoint(small) {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .grid {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      width: calc(100% + 10px);
+      left: -5px;
+      padding-bottom: 5px;
+
+      @include breakpoint(small) {
+        width: auto;
+        left: auto;
+      }
+    }
+  }
+}
+
+.shop {
+  padding: 0 10px;
+
+  @include breakpoint(small) {
+    padding: 0;
+  }
+
+  .inner {
+    display: flex;
+    flex-direction: column;
+
+    .header {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 5vw;
+      margin: 66px 0 66px;
+
+      @include breakpoint(medium) {
+        margin-bottom: 30px;
+      }
+
+      @include breakpoint(small) {
+        flex-direction: column;
+        margin: 66px 0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      h3 {
+        margin-bottom: 0;
+
+        @include breakpoint(small) {
+          width: calc(100% + 50px);
+          margin-bottom: 0.5em;
+        }
+
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      .cta {
+        position: absolute;
+        right: 3vw;
+        bottom: 0;
+
+        @include breakpoint(small) {
+          position: relative;
+          right: auto;
+          bottom: auto;
+        }
+
+        .primary {
+          display: none;
+
+          @include breakpoint(small) {
+            display: inline-block;
+          }
+        }
+        .secondary {
+          @include breakpoint(small) {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .grid {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      width: calc(100% + 10px);
+      left: -5px;
+      padding-bottom: 5px;
+
+      @include breakpoint(small) {
+        width: auto;
+        left: auto;
+        padding: 0 10px;
+      }
+    }
+  }
+}
+</style>

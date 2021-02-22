@@ -13,7 +13,7 @@
             gonna love it.
           </p>
           <div class="cta">
-            <a href="##" class="button primary">Coming Soon</a>
+            <a href="#" class="button primary">Coming Soon</a>
           </div>
         </div>
       </div>
@@ -74,6 +74,12 @@ export default {
             img {
               transform: translate(-10px, -10px);
               filter: grayscale(0%);
+            }
+          }
+
+          .cta {
+            .button {
+              background: $white;
             }
           }
         }

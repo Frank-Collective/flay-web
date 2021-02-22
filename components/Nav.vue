@@ -338,7 +338,7 @@ export default {
 
           @include breakpoint(small) {
             font-size: 35px;
-            font-family: 'Object-Sans-Bold';
+            font-weight: bold;
             margin-left: 0;
             margin-bottom: 1em;
           }
