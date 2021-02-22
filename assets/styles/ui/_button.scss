@@ -1,4 +1,5 @@
 .button {
+  text-align: center;
   &.primary {
     display: inline-block;
     @include font-object-sans-regular;

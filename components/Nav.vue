@@ -100,8 +100,8 @@ export default {
 <style lang="scss" scoped>
 .nav {
   position: fixed;
-  width: calc(100% - 20px);
-  max-width: calc(1600px - 20px);
+  width: 100%;
+  max-width: 1600px;
   padding: 10px 10px 0;
   user-select: none;
   z-index: 10;

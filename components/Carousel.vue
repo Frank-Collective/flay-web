@@ -174,7 +174,7 @@ export default {
       position: relative;
       .slides {
         .slide {
-          width: 100%;
+          width: calc(100% + 1px);
           min-height: 610px;
           display: flex;
 

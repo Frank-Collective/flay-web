@@ -142,22 +142,22 @@ export default {}
       left: -5px;
 
       .social-card {
-        width: calc(25% - 10px);
+        width: 25%;
         height: 381px;
         padding: 5px;
 
         @include breakpoint(maxlarge) {
-          width: calc(25% - 10px);
+          width: 25%;
           height: 23.87vw;
         }
 
         @include breakpoint(medium) {
-          width: calc(33.333333% - 10px);
+          width: 33.333333;
           height: 30.8vw;
         }
 
         @include breakpoint(small) {
-          width: calc(50% - 10px);
+          width: 50%;
           height: 47vw;
         }
 

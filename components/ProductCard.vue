@@ -38,12 +38,12 @@ export default {
 <style lang="scss" scoped>
 .card {
   position: relative;
-  width: calc(33.333333% - 10px);
+  width: 33.333333%;
   flex-shrink: 0;
   padding: 5px;
 
   @include breakpoint(medium) {
-    width: calc(50% - 10px);
+    width: 50%;
   }
 
   @include breakpoint(small) {
