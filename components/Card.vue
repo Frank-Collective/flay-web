@@ -145,6 +145,7 @@ export default {
             @include breakpoint(small) {
               transform: translate(-10px, -10px);
               filter: grayscale(0%);
+              border: 1px solid $black;
             }
           }
         }

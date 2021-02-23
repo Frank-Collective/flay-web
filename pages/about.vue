@@ -212,11 +212,23 @@ export default {
     flex-direction: column;
     align-items: center;
 
+    @include breakpoint(small) {
+      align-items: flex-start;
+    }
+
     figure {
       display: flex;
       align-items: center;
       padding: 10px;
       margin: 0;
+      width: 100%;
+
+      @include breakpoint(small) {
+        flex-direction: column;
+        align-items: flex-start;
+        width: calc(100% - 10px);
+        margin-bottom: 70px;
+      }
 
       .image {
         position: relative;
@@ -225,6 +237,10 @@ export default {
         max-height: 610px;
         min-height: 224px;
         border: 1px solid $black;
+
+        @include breakpoint(small) {
+          width: 100%;
+        }
 
         &:after {
           content: '';
@@ -236,10 +252,6 @@ export default {
           height: 100%;
           border: 1px solid $black;
           z-index: 0;
-
-          @include breakpoint(medium) {
-            left: -10px;
-          }
         }
 
         img {
@@ -264,6 +276,7 @@ export default {
 
         @include breakpoint(small) {
           font-size: 150px;
+          left: 65%;
         }
       }
     }
