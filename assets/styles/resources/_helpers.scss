@@ -3,3 +3,186 @@
     display: none !important;
   }
 }
+
+.boxed-content {
+  position: relative;
+  border: 1px solid $black;
+  margin: 0 10vw;
+  padding: 6vw 10vw;
+
+  @include breakpoint(small) {
+    text-align: center;
+    margin: 0 20px 0 10px;
+    padding: 50px 40px 20px;
+  }
+
+  &:after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    border: 1px solid $black;
+    top: -10px;
+    left: 10px;
+
+    @include breakpoint(small) {
+      top: 10px;
+    }
+  }
+}
+
+.filters {
+  position: relative;
+  border: 1px solid $black;
+  height: 125px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+
+  ul {
+    display: flex;
+    justify-content: center;
+
+    @include breakpoint(medium) {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      width: calc(100% + 2px);
+      left: -1px;
+      top: 100%;
+      z-index: 2;
+      background: $light-grayish-orange;
+      border: 1px solid $black;
+      padding: 40px 10px 50px;
+    }
+
+    &.open {
+      @include breakpoint(medium) {
+        display: flex;
+      }
+    }
+
+    li {
+      @include font-object-sans-regular;
+      font-size: 20px;
+      line-height: calc(30 / 20);
+      margin: 0 2em;
+      cursor: pointer;
+
+      @include breakpoint(medium) {
+        margin: 0;
+        padding: 0.5em 1.25em;
+      }
+
+      &:hover {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .toggler {
+    display: none;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 10px;
+
+    @include breakpoint(medium) {
+      display: flex;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      @include font-object-sans-regular;
+      font-size: 20px;
+      line-height: 1;
+      padding: 0 0 0 1.2em;
+    }
+
+    .toggle-btn {
+      position: relative;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      margin-right: 25px;
+
+      div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 1px;
+        background: $black;
+
+        &:nth-of-type(2) {
+          transform: translate(-50%, -50%) rotate(90deg);
+        }
+      }
+    }
+  }
+}
+
+.section-spacer {
+  height: 7vw;
+  max-height: 200px;
+  // border: 1px solid pink;
+
+  @include breakpoint(small) {
+    height: 40px;
+  }
+
+  &--half {
+    height: 3.5vw;
+    max-height: 100px;
+
+    @include breakpoint(small) {
+      height: 20px;
+    }
+  }
+
+  &.hide-mobile {
+    @include breakpoint(small) {
+      display: none;
+    }
+  }
+}
+
+.black-scrollbar {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  &::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #000000;
+    border: 0px none #ffffff;
+    border-radius: 0px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #000000;
+  }
+  &::-webkit-scrollbar-thumb:active {
+    background: #000000;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f8f5ee;
+    border: 0px none #ffffff;
+    border-radius: 0px;
+  }
+  &::-webkit-scrollbar-track:hover {
+    background: #f8f5ee;
+  }
+  &::-webkit-scrollbar-track:active {
+    background: #f8f5ee;
+  }
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}

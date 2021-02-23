@@ -33,10 +33,10 @@
           </div>
         </div>
         <ul>
-          <li><nuxt-link to="/portfolio" tabindex="0">Portfolio</nuxt-link></li>
-          <li><nuxt-link to="/about" tabindex="0">About</nuxt-link></li>
-          <li><nuxt-link to="/shop" tabindex="0">Shop</nuxt-link></li>
-          <li class="mobile-only"><nuxt-link to="/contact" tabindex="0">Contact</nuxt-link></li>
+          <li v-on:click="toggleMobileMenu"><nuxt-link to="/portfolio" tabindex="0">Portfolio</nuxt-link></li>
+          <li v-on:click="toggleMobileMenu"><nuxt-link to="/about" tabindex="0">About</nuxt-link></li>
+          <li v-on:click="toggleMobileMenu"><nuxt-link to="/shop" tabindex="0">Shop</nuxt-link></li>
+          <li v-on:click="toggleMobileMenu" class="mobile-only"><nuxt-link to="/contact" tabindex="0">Contact</nuxt-link></li>
         </ul>
       </div>
       <div class="burger-btn" v-on:click="toggleMobileMenu">

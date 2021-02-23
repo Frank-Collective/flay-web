@@ -45,7 +45,7 @@
     </header>
     <section class="portfolio-grid">
       <div class="inner">
-        <div class="grid-filters">
+        <div class="filters">
           <ul v-bind:class="{ open: filtersOpen }">
             <li>All</li>
             <li>Restaurants</li>
@@ -218,99 +218,6 @@ export default {
   .inner {
     display: flex;
     flex-direction: column;
-
-    .grid-filters {
-      position: relative;
-      border: 1px solid $black;
-      height: 125px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 5px;
-
-      ul {
-        display: flex;
-        justify-content: center;
-
-        @include breakpoint(medium) {
-          display: none;
-          flex-direction: column;
-          position: absolute;
-          width: calc(100% + 2px);
-          left: -1px;
-          top: 100%;
-          z-index: 2;
-          background: $light-grayish-orange;
-          border: 1px solid $black;
-          padding: 40px 10px 50px;
-        }
-
-        &.open {
-          @include breakpoint(medium) {
-            display: flex;
-          }
-        }
-
-        li {
-          @include font-object-sans-regular;
-          font-size: 20px;
-          line-height: calc(30 / 20);
-          margin: 0 2em;
-          cursor: pointer;
-
-          @include breakpoint(medium) {
-            margin: 0;
-            padding: 0.5em 1.25em;
-          }
-
-          &:hover {
-            font-weight: bold;
-          }
-        }
-      }
-
-      .toggler {
-        display: none;
-        justify-content: space-between;
-        width: 100%;
-        padding: 0 10px;
-
-        @include breakpoint(medium) {
-          display: flex;
-        }
-
-        span {
-          display: flex;
-          align-items: center;
-          @include font-object-sans-regular;
-          font-size: 20px;
-          line-height: 1;
-          padding: 0 0 0 1.2em;
-        }
-
-        .toggle-btn {
-          position: relative;
-          width: 45px;
-          height: 45px;
-          cursor: pointer;
-          margin-right: 25px;
-
-          div {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 1px;
-            background: $black;
-
-            &:nth-of-type(2) {
-              transform: translate(-50%, -50%) rotate(90deg);
-            }
-          }
-        }
-      }
-    }
 
     .grid {
       position: relative;
