@@ -126,14 +126,14 @@
 
 .section-spacer {
   height: 7vw;
-  max-height: 200px;
+  max-height: 150px;
   // border: 1px solid pink;
 
   @include breakpoint(small) {
     height: 40px;
   }
 
-  &--half {
+  &.half {
     height: 3.5vw;
     max-height: 100px;
 
@@ -147,11 +147,19 @@
       display: none;
     }
   }
+
+  &.mobile-only {
+    display: none;
+    @include breakpoint(small) {
+      display: block;
+    }
+  }
 }
 
 .black-scrollbar {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+
   &::-webkit-scrollbar {
     width: 10px;
     height: 10px;

@@ -1,15 +1,15 @@
 <template>
   <header class="primary-header">
     <div class="inner">
-      <div class="image">
+      <figure class="image">
         <img v-if="image" :src="image" alt="" />
-        <div class="big-letter" v-if="bigLetter">{{ bigLetter }}</div>
-      </div>
+        <figcaption class="big-letter" v-if="bigLetter">{{ bigLetter }}</figcaption>
+        <figcaption class="big-letter" v-else>{{ getBigLetter }}</figcaption>
+      </figure>
       <div class="content">
+        <div class="preheader" v-if="preheader">{{ preheader }}</div>
         <h1 v-if="header">{{ header }}</h1>
-        <p v-if="content">
-          {{ content }}
-        </p>
+        <p v-if="content" v-html="content"></p>
         <div class="cta" v-if="link">
           <nuxt-link class="button primary" :to="link.url" tabindex="0">{{ link.text }}</nuxt-link>
         </div>
@@ -23,6 +23,7 @@ export default {
   props: {
     image: null,
     bigLetter: null,
+    preheader: null,
     header: null,
     content: null,
     link: null,
@@ -30,7 +31,13 @@ export default {
   data() {
     return {}
   },
-  computed: {},
+  computed: {
+    getBigLetter() {
+      if (this.bigLetter == null) {
+        return this.header.substr(0, 1)
+      }
+    },
+  },
   mounted() {},
   methods: {},
 }
@@ -43,7 +50,7 @@ export default {
   overflow: hidden;
 
   @include breakpoint(medium) {
-    border-bottom: 1px solid $black;
+    // border-bottom: 1px solid $black;
   }
 
   .inner {
@@ -64,6 +71,7 @@ export default {
       flex-shrink: 0;
       border: 1px solid $black;
       box-sizing: border-box;
+      margin: 0;
 
       @include breakpoint(medium) {
         width: calc(100% - 10px);
@@ -104,7 +112,7 @@ export default {
       .big-letter {
         position: absolute;
         bottom: 30px;
-        right: -40px;
+        right: 0;
         transform: translate(50%, 50%);
         @extend .h1;
         z-index: 2;
@@ -126,6 +134,15 @@ export default {
         text-align: center;
       }
 
+      @include breakpoint(small) {
+        padding: 70px 30px 60px;
+      }
+
+      .preheader {
+        font-size: 14px;
+        margin-bottom: 2.5em;
+      }
+
       h1 {
         @extend .h3;
       }
@@ -133,6 +150,33 @@ export default {
       .cta {
         @include breakpoint(medium) {
           margin-top: 50px;
+        }
+      }
+    }
+  }
+}
+
+.portfolio-single-page,
+.contact-page {
+  .primary-header {
+    .inner {
+      .image {
+        @include breakpoint(medium) {
+          left: 0px;
+        }
+        &:after {
+          @include breakpoint(medium) {
+            left: 10px;
+          }
+        }
+        .big-letter {
+          @include breakpoint(medium) {
+            bottom: auto;
+            right: auto;
+            top: 50%;
+            left: -15px;
+            transform: none;
+          }
         }
       }
     }

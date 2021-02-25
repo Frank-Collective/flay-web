@@ -53,7 +53,7 @@
         </div>
       </article>
 
-      <div class="section-spacer section-spacer--half"></div>
+      <div class="section-spacer half"></div>
 
       <div class="about-timeline">
         <div class="inner">
@@ -207,6 +207,9 @@ export default {
 }
 
 .about-content {
+  .boxed-content {
+  }
+
   article {
     display: flex;
     flex-direction: column;

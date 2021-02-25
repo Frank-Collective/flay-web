@@ -11,7 +11,7 @@
             <h3>Amalfi</h3>
             <p>I’m so excited to bring the best of Italian coastal cuisine to Caesars Palace.</p>
             <div class="cta">
-              <nuxt-link to="#" class="button primary">Explore</nuxt-link>
+              <nuxt-link to="/portfolio/example" class="button primary">Explore</nuxt-link>
             </div>
           </div>
         </article>
