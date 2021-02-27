@@ -57,7 +57,26 @@
 </template>
 
 <script>
-export default {}
+import { gql } from 'nuxt-graphql-request'
+
+export default {
+  async asyncData({ $graphql, params }) {
+    const query = gql`
+      query MyQuery {
+        page(id: "homepage", idType: URI) {
+          id
+          title
+          slug
+          content
+        }
+      }
+    `
+
+    const page = await $graphql.default.request(query)
+    console.log(page)
+    return { page }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
