@@ -30,8 +30,9 @@
         </div>
       </div>
     </section>
-
-    <Carousel :headerText="'Daily Special'" :headerLink="{ text: 'View All', url: '/daily-special' }" />
+    <client-only>
+      <!-- <Carousel :headerText="'Daily Special'" :headerLink="{ text: 'View All', url: '/daily-special' }" /> -->
+    </client-only>
 
     <section class="shop">
       <div class="inner">

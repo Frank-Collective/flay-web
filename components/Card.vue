@@ -1,6 +1,6 @@
 <template>
   <article class="card" v-bind:class="{ featured: featured }">
-    <a href="#" class="inner">
+    <div href="#" class="inner">
       <div class="content" :style="{ background: bgColor }">
         <div class="content-wrapper">
           <div class="pre-header">Restaurants</div>
@@ -20,7 +20,7 @@
       <div class="featured-image" v-if="featured">
         <img src="/images/amalfi_ba_lounge.jpg" alt="" />
       </div>
-    </a>
+    </div>
   </article>
 </template>
 

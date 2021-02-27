@@ -1,6 +1,6 @@
 <template>
   <article class="card">
-    <nuxt-link to="/shop" class="inner">
+    <div to="/shop" class="inner">
       <div class="content" :style="{ background: bgColor }">
         <div class="content-wrapper">
           <h4>Bobby at Home: Fearless Flavors from My Kitchen</h4>
@@ -16,7 +16,7 @@
           </div>
         </div>
       </div>
-    </nuxt-link>
+    </div>
   </article>
 </template>
 
