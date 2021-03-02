@@ -1,12 +1,10 @@
 <template>
-  <div>
+  <div v-if="page">
     <PrimaryHeader
-      :image="'/images/BFtuscany.jpg'"
+      :image="page.featuredImage.node.sourceUrl"
       :bigLetter="'B'"
-      :header="'Food is the center of my universe'"
-      :content="
-        'First and foremost, my most comfortable place is in my kitchens—at my restaurants or at home. I don an apron (my shield from the tough moments of the world) on it are remnants of my creations—both good and somewhat experimental. It reminds me that I’m not afraid to fail as long as I make every effort to succeed.'
-      "
+      :header="page.title"
+      :content="page.content"
       :link="{ text: 'My Story', url: '/about' }"
     />
 
@@ -59,22 +57,21 @@
 
 <script>
 import { gql } from 'nuxt-graphql-request'
-
+import { basics, image, featured_image } from '~/gql/common'
 export default {
   async asyncData({ $graphql, params }) {
     const query = gql`
       query MyQuery {
-        page(id: "homepage", idType: URI) {
-          id
-          title
-          slug
-          content
+        page(id: "homepage", idType: URI, asPreview: true) {
+          ${basics}
+          ${featured_image}         
         }
       }
     `
 
-    const page = await $graphql.default.request(query)
-    console.log(page)
+    const { page } = await $graphql.default.request(query)
+    console.log(page, page.featuredImage.node.sourceUrl)
+    console.log('DID WE GET IT????')
     return { page }
   },
 }

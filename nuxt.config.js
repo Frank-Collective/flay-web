@@ -53,15 +53,11 @@ export default {
      */
     clients: {
       default: {
-        /**
-         * The client endpoint url
-         */
         endpoint: 'https://flay-api.d-e-v.group/graphql',
-        /**
-         * Per-client options overrides
-         * See: https://github.com/prisma-labs/graphql-request#passing-more-options-to-fetch
-         */
-        options: {},
+        // options: {
+        //   credentials: 'include',
+        //   mode: 'cors',
+        // },
       },
     },
 

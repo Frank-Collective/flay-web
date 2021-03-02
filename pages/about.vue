@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div v-if="page">
     <header class="about-header">
       <div class="inner">
-        <div class="image"><img src="/images/BobbysBurgerPalace-1208.jpg" alt="" /></div>
+        <div class="image"><img :src="page.featuredImage.node.sourceUrl" alt="" /></div>
         <div class="content">
-          <h1 data-first-letter="F">Food is the center of my universe</h1>
+          <h1 data-first-letter="F">{{ page.title }}</h1>
           <p>
             First and foremost, my most comfortable place is in my kitchens—at my restaurants or at home. I don an apron (my
             shield from the tough moments of the world) on it are remnants of my creations—both good and somewhat experimental. It
@@ -134,7 +134,24 @@
 </template>
 
 <script>
+import { gql } from 'nuxt-graphql-request'
+import { basics, image, featured_image } from '~/gql/common'
 export default {
+  async asyncData({ $graphql, params }) {
+    const query = gql`
+      query MyQuery {
+        page(id: "about", idType: URI, asPreview: true) {
+          ${basics}
+          ${featured_image}         
+        }
+      }
+    `
+
+    const { page } = await $graphql.default.request(query)
+    console.log(page, page.featuredImage.node.sourceUrl)
+    console.log('DID WE GET IT????')
+    return { page }
+  },
   data() {
     return {
       filtersOpen: false,
@@ -147,7 +164,6 @@ export default {
   },
 }
 </script>
-
 <style lang="scss" scoped>
 .about-header {
   padding: 43px 10px 0;
