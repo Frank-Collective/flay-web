@@ -5,11 +5,7 @@
         <div class="image"><img :src="page.featuredImage.node.sourceUrl" alt="" /></div>
         <div class="content">
           <h1 data-first-letter="F">{{ page.title }}</h1>
-          <p>
-            First and foremost, my most comfortable place is in my kitchens—at my restaurants or at home. I don an apron (my
-            shield from the tough moments of the world) on it are remnants of my creations—both good and somewhat experimental. It
-            reminds me that I’m not afraid to fail as long as I make every effort to succeed.
-          </p>
+          {{ page.content }}
         </div>
       </div>
     </header>
