@@ -142,11 +142,8 @@ export default {
           isPreview
           preview {
             node {
-              title
-              content
-              isPreview
-              previewRevisionDatabaseId
-              previewRevisionId
+              ${basics}
+              ${featured_image}
             }
           }
         }
