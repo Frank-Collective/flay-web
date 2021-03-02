@@ -150,11 +150,15 @@ export default {
             }
           }
         }
+        viewer {
+          name
+          firstName
+          nicename
+        }        
       }
     `
-    console.log('PREVIEW?? ', query)
-    const { page } = await $graphql.default.request(query)
-    console.log(page, page.featuredImage.node.sourceUrl)
+    const { page, viewer } = await $graphql.default.request(query)
+    console.log(page, 'VIEWER: ', viewer)
     console.log('DID WE GET IT????')
     return { page }
   },

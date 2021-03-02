@@ -59,7 +59,10 @@ export default {
      * Options
      * See: https://github.com/prisma-labs/graphql-request#passing-more-options-to-fetch
      */
-    options: {},
+    options: {
+      credentials: 'include',
+      mode: 'cors',
+    },
 
     /**
      * Optional
