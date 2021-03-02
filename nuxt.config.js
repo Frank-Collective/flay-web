@@ -1,10 +1,4 @@
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
-  /*
-   ** Nuxt rendering mode
-   ** See https://nuxtjs.org/api/configuration-mode
-   */
-  mode: 'universal',
   /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
@@ -54,10 +48,10 @@ export default {
     clients: {
       default: {
         endpoint: 'https://flay-api.d-e-v.group/graphql',
-        // options: {
-        //   credentials: 'include',
-        //   mode: 'cors',
-        // },
+        options: {
+          credentials: 'include',
+          mode: 'cors',
+        },
       },
     },
 
