@@ -138,7 +138,17 @@ export default {
       query MyQuery {
         page(id: "about", idType: URI, asPreview: true) {
           ${basics}
-          ${featured_image}         
+          ${featured_image}
+          isPreview
+          preview {
+            node {
+              title
+              content
+              isPreview
+              previewRevisionDatabaseId
+              previewRevisionId
+            }
+          }
         }
       }
     `
