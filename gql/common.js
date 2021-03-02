@@ -12,8 +12,6 @@ const image = `
   }
   sourceUrl(size: LARGE)
   srcSet
-  previewRevisionDatabaseId
-  previewRevisionId
 `
 
 const featured_image = `
