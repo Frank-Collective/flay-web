@@ -152,7 +152,7 @@ export default {
         }
       }
     `
-
+    console.log('PREVIEW?? ', query)
     const { page } = await $graphql.default.request(query)
     console.log(page, page.featuredImage.node.sourceUrl)
     console.log('DID WE GET IT????')
