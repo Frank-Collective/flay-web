@@ -46,7 +46,7 @@
     </section>
 
     <client-only>
-      <!-- <Carousel :headerText="'Daily Special'" :headerLink="{ text: 'View All', url: '/daily-special' }" /> -->
+      <Carousel :headerText="'Daily Special'" :headerLink="{ text: 'View All', url: '/daily-special' }" />
     </client-only>
 
     <section class="shop">
