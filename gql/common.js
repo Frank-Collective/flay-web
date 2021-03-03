@@ -10,6 +10,7 @@ const image = `
     height
     width
   }
+  mediaItemUrl
   sourceUrl(size: LARGE)
   srcSet
 `
@@ -28,4 +29,36 @@ const link = `
   url
 `
 
-export { basics, image, featured_image, link }
+const page_builder = `
+  PageBuilder {
+    contentBlocks {
+      ... on Page_Pagebuilder_ContentBlocks_BoxedContent {
+        fieldGroupName
+        textEditor
+      }
+      ... on Page_Pagebuilder_ContentBlocks_ContentWLargeImageHeader {
+        fieldGroupName
+        image {
+          ${image}
+        }
+        textEditor
+      }
+      ... on Page_Pagebuilder_ContentBlocks_Quote {
+        fieldGroupName
+        text
+      }
+      ... on Page_Pagebuilder_ContentBlocks_TextContent {
+        fieldGroupName
+        textEditor
+      }
+      ... on Page_Pagebuilder_ContentBlocks_Image {
+        fieldGroupName
+        image {
+          ${image}
+        }
+      }
+    }
+  }
+`
+
+export { basics, image, featured_image, link, page_builder }

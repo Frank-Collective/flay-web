@@ -4,124 +4,85 @@
       <div class="inner">
         <div class="image"><img :src="page.featuredImage.node.sourceUrl" alt="" /></div>
         <div class="content">
-          <h1 data-first-letter="F">{{ page.title }}</h1>
-          {{ page.content }}
+          <span class="big-letter" ref="bigLetter">{{ bigLetter }}</span>
+          <div class="inner" v-html="page.content"></div>
         </div>
       </div>
-    </header>
-    <div class="section-spacer"></div>
-    <section class="about-content">
-      <article class="boxed-content">
-        <h3>As a chef, I wake up thinking about food</h3>
-        <p>
-          How will I utilize it that day? Sourcing a new flour to make a fresh, stuffed pasta at my Italian restaurant, Amalfi?
-          Zesting a citrus fruit I picked up at the Farmer’s market? Working on a new Chile-flecked mayo to slather on a fried
-          chicken sandwich at my burger spot? It’s moments like these that make me realize how lucky I am. I get to start each and
-          every day doing something I love, something I cherish. It’s how I work. It’s how I live my life.
-        </p>
-      </article>
       <div class="section-spacer"></div>
-      <article>
-        <figure>
-          <div class="image">
-            <img src="/images/160125_BORGATA_BobbyFlaySteak57160.jpg" alt="" />
+    </header>
+
+    <PageBuilder :content_blocks="page.PageBuilder.contentBlocks" />
+
+    <div class="about-timeline">
+      <div class="inner">
+        <div class="filters">
+          <ul v-bind:class="{ open: filtersOpen }">
+            <li>All</li>
+            <li>Restaurants</li>
+            <li>TV</li>
+            <li>Cookbooks</li>
+            <li>Distinctions</li>
+          </ul>
+          <div class="toggler">
+            <span>All</span>
+            <div class="toggle-btn" v-on:click="toggleFiltersMenu">
+              <div></div>
+              <div v-bind:style="{ opacity: filtersOpen ? '0' : '1' }"></div>
+            </div>
           </div>
-          <figcaption>I</figcaption>
-        </figure>
-        <div class="section-spacer"></div>
-        <div class="content">
-          <h3>I took an unconventional path</h3>
-          <p>
-            I regret not finishing high school in a conventional way. That said, it clearly wasn’t a place where I’d excel. Over
-            three decades ago, with some help from a most generous restaurateur, I set out to learn a trade. In 1984 I was a
-            member of the first class at the French Culinary Institute which gave me the fundamentals I needed. My schooling, and
-            a three year stint with Chef Jonathan Waxman in the mid to late ‘80’s, were the two experiences I point to most when I
-            think about how I got my start. They outfitted me with the confidence I needed to take my own shot.
-          </p>
-          <p>
-            Over the years, I’ve been able to play out my culinary dreams like an artist—approaching concepts that were speaking
-            to me at that very moment. From the contemporary southwestern cuisine of Mesa Grill, to the the French-inspired
-            American Brasserie menu of Bar Americain, the salty allure of Mediterranean ingredients at Bolo (and later Gato), a
-            fresh approach to South Jersey Surf and Turf at Bobby Flay Steak and a kitchen of new discovery that put South
-            American chiles and peppers on my paint brush and fish as my canvas at Shark in Las Vegas. Each has been a labour of
-            true love and inspiration. I’m excited to see what happens next.
-          </p>
         </div>
-      </article>
 
-      <div class="section-spacer half"></div>
-
-      <div class="about-timeline">
-        <div class="inner">
-          <div class="filters">
-            <ul v-bind:class="{ open: filtersOpen }">
-              <li>All</li>
-              <li>Restaurants</li>
-              <li>TV</li>
-              <li>Cookbooks</li>
-              <li>Distinctions</li>
-            </ul>
-            <div class="toggler">
-              <span>All</span>
-              <div class="toggle-btn" v-on:click="toggleFiltersMenu">
-                <div></div>
-                <div v-bind:style="{ opacity: filtersOpen ? '0' : '1' }"></div>
-              </div>
-            </div>
+        <div class="timeline">
+          <div class="images">
+            <img src="/images/BeatBobbyFlay2.jpg" alt="" />
           </div>
-
-          <div class="timeline">
-            <div class="images">
-              <img src="/images/BeatBobbyFlay2.jpg" alt="" />
-            </div>
-            <div class="content black-scrollbar">
-              <ol>
-                <li>
-                  <span class="date">1991</span>
-                  Mesa Grill Opens in New York City
-                </li>
-                <li>
-                  <span class="date">1993</span>
-                  Bolo Opens in New York City
-                </li>
-                <li>
-                  <span class="date">1996</span>
-                  Mesa City Opens
-                </li>
-                <li>
-                  <span class="date">1999</span>
-                  Mesa Grill Opens in New York City
-                </li>
-                <li>
-                  <span class="date">2001</span>
-                  Mesa Grill Opens in New York City
-                </li>
-                <li>
-                  <span class="date">1991</span>
-                  Mesa Grill Opens in New York City
-                </li>
-                <li>
-                  <span class="date">1993</span>
-                  Bolo Opens in New York City
-                </li>
-                <li>
-                  <span class="date">1996</span>
-                  Mesa City Opens
-                </li>
-                <li>
-                  <span class="date">1999</span>
-                  Mesa Grill Opens in New York City
-                </li>
-                <li>
-                  <span class="date">2001</span>
-                  Mesa Grill Opens in New York City
-                </li>
-              </ol>
-            </div>
+          <div class="content black-scrollbar">
+            <ol>
+              <li>
+                <span class="date">1991</span>
+                Mesa Grill Opens in New York City
+              </li>
+              <li>
+                <span class="date">1993</span>
+                Bolo Opens in New York City
+              </li>
+              <li>
+                <span class="date">1996</span>
+                Mesa City Opens
+              </li>
+              <li>
+                <span class="date">1999</span>
+                Mesa Grill Opens in New York City
+              </li>
+              <li>
+                <span class="date">2001</span>
+                Mesa Grill Opens in New York City
+              </li>
+              <li>
+                <span class="date">1991</span>
+                Mesa Grill Opens in New York City
+              </li>
+              <li>
+                <span class="date">1993</span>
+                Bolo Opens in New York City
+              </li>
+              <li>
+                <span class="date">1996</span>
+                Mesa City Opens
+              </li>
+              <li>
+                <span class="date">1999</span>
+                Mesa Grill Opens in New York City
+              </li>
+              <li>
+                <span class="date">2001</span>
+                Mesa Grill Opens in New York City
+              </li>
+            </ol>
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
     <div class="section-spacer"></div>
 
@@ -131,7 +92,10 @@
 
 <script>
 import { gql } from 'nuxt-graphql-request'
-import { basics, image, featured_image } from '~/gql/common'
+import { basics, image, featured_image, page_builder } from '~/gql/common'
+
+import gsap from 'gsap'
+
 export default {
   async asyncData({ $graphql, params }) {
     const query = gql`
@@ -139,6 +103,7 @@ export default {
         page(id: "about", idType: URI, asPreview: true) {
           ${basics}
           ${featured_image}
+          ${page_builder}
           isPreview
           preview {
             node {
@@ -155,15 +120,25 @@ export default {
       }
     `
     const { page, viewer } = await $graphql.default.request(query)
-    console.log(page, 'VIEWER: ', viewer)
-    console.log('DID WE GET IT????')
+    console.log(page)
+    // console.log(page, 'VIEWER: ', viewer)
+    // console.log('DID WE GET IT????')
     return { page }
   },
   data() {
     return {
       filtersOpen: false,
+      bigLetter: null,
     }
   },
+  mounted() {
+    if (this.page) {
+      this.bigLetter = this.page.content.substr(4, 1)
+
+      // gsap.to(this.$refs.bigLetter, 1, { x: 100 })
+    }
+  },
+  updated() {},
   methods: {
     toggleFiltersMenu() {
       this.filtersOpen = !this.filtersOpen
@@ -199,7 +174,7 @@ export default {
       }
     }
 
-    .content {
+    /deep/ .content {
       position: relative;
       padding: 90px 6vw 0 33%;
 
@@ -208,113 +183,27 @@ export default {
         text-align: center;
       }
 
+      .big-letter {
+        position: absolute;
+        top: 0;
+        left: 5vw;
+        @extend .h1;
+        line-height: 0.5em;
+
+        @include breakpoint(small) {
+          top: 2vw;
+          font-size: 150px;
+        }
+      }
+
       h1 {
         @extend .h3;
-
-        &:before {
-          position: absolute;
-          top: 0;
-          left: 5vw;
-          content: attr(data-first-letter);
-          @extend .h1;
-          line-height: 0.5em;
-
-          @include breakpoint(small) {
-            top: 2vw;
-            font-size: 150px;
-          }
-        }
       }
     }
   }
 }
 
-.about-content {
-  .boxed-content {
-  }
-
-  article {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    @include breakpoint(small) {
-      align-items: flex-start;
-    }
-
-    figure {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      margin: 0;
-      width: 100%;
-
-      @include breakpoint(small) {
-        flex-direction: column;
-        align-items: flex-start;
-        width: calc(100% - 10px);
-        margin-bottom: 70px;
-      }
-
-      .image {
-        position: relative;
-        width: 65.4vw;
-        height: 42.3vw;
-        max-height: 610px;
-        min-height: 224px;
-        border: 1px solid $black;
-
-        @include breakpoint(small) {
-          width: 100%;
-        }
-
-        &:after {
-          content: '';
-          display: block;
-          position: absolute;
-          top: 10px;
-          left: 10px;
-          width: 100%;
-          height: 100%;
-          border: 1px solid $black;
-          z-index: 0;
-        }
-
-        img {
-          position: absolute;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          z-index: 1;
-        }
-      }
-      figcaption {
-        position: relative;
-        left: -0.15em;
-        @extend .h1;
-        font-size: 600px;
-        line-height: 0;
-        z-index: 1;
-
-        @include breakpoint(xlarge) {
-          font-size: 41.7vw;
-        }
-
-        @include breakpoint(small) {
-          font-size: 150px;
-          left: 65%;
-        }
-      }
-    }
-    .content {
-      margin: 0 25px;
-      max-width: 915px;
-
-      @include breakpoint(small) {
-        text-align: center;
-      }
-    }
-  }
+.page-builder {
 }
 
 .about-timeline {

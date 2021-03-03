@@ -77,7 +77,31 @@
 </template>
 
 <script>
-export default {}
+import { gql } from 'nuxt-graphql-request'
+import { basics, image, featured_image, link } from '~/gql/common'
+export default {
+
+  async asyncData({ $graphql, params }) {
+    console.log(params)
+    const $uri = `recipies/${params.slug}`
+    console.log($uri)
+
+    const query = gql`
+      query PostQuery ($uri: ID!) {
+        post(id: $uri, idType: SLUG) {
+          id
+          content
+          title
+        }
+      }
+    `
+
+    const { page } = await $graphql.default.request(query)
+    // console.log(page)
+    // console.log('DID WE GET IT????')
+    // return { page }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
