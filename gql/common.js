@@ -23,4 +23,11 @@ featuredImage {
   }
 }
 `
-export { basics, image, featured_image }
+
+const link = `
+  target
+  title
+  url
+`
+
+export { basics, image, featured_image, link }

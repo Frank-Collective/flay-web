@@ -103,7 +103,7 @@ export default {
   mounted() {
     if (this.$refs.flickity) {
       this.$refs.flickity.on('change', index => {
-        console.log('Selected Slide: ' + index)
+        // console.log('Selected Slide: ' + index)
         this.selectedIndex = index
       })
     }

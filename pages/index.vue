@@ -1,20 +1,36 @@
 <template>
   <div v-if="page">
     <PrimaryHeader
-      :image="page.featuredImage.node.sourceUrl"
-      :bigLetter="'B'"
-      :header="page.title"
-      :content="page.content"
-      :link="{ text: 'My Story', url: '/about' }"
+      :image="
+        page.PrimaryHeader.image != null
+          ? page.PrimaryHeader.image.sourceUrl
+          : page.featuredImage != null
+          ? page.featuredImage.node.sourceUrl
+          : null
+      "
+      :bigLetter="page.PrimaryHeader.bigLetter"
+      :preheader="page.PrimaryHeader.preHeader"
+      :header="page.PrimaryHeader.header"
+      :content="page.PrimaryHeader.content"
+      :link="page.PrimaryHeader.link"
     />
 
-    <section class="portfolio">
+    <section class="portfolio" v-if="page.HomeFields.portfolio.portfolioItems.length">
       <div class="inner">
         <div class="header">
-          <nuxt-link to="/portfolio" tabindex="0"><h3>Portfolio</h3></nuxt-link>
-          <div class="cta">
-            <nuxt-link class="button primary" to="/portfolio" tabindex="0">View All</nuxt-link>
-            <nuxt-link class="button secondary" to="/portfolio" tabindex="0">View All</nuxt-link>
+          <h3 v-if="page.HomeFields.portfolio.title">
+            <nuxt-link v-if="page.HomeFields.portfolio.link" :to="page.HomeFields.portfolio.link.url" tabindex="0">{{
+              page.HomeFields.portfolio.title
+            }}</nuxt-link>
+            <div v-else>{{ page.HomeFields.portfolio.title }}</div>
+          </h3>
+          <div class="cta" v-if="page.HomeFields.portfolio.link">
+            <nuxt-link class="button primary" :to="page.HomeFields.portfolio.link.url" tabindex="0">{{
+              page.HomeFields.portfolio.link.title
+            }}</nuxt-link>
+            <nuxt-link class="button secondary" :to="page.HomeFields.portfolio.link.url" tabindex="0">{{
+              page.HomeFields.portfolio.link.title
+            }}</nuxt-link>
           </div>
         </div>
         <div class="grid">
@@ -28,6 +44,7 @@
         </div>
       </div>
     </section>
+
     <client-only>
       <!-- <Carousel :headerText="'Daily Special'" :headerLink="{ text: 'View All', url: '/daily-special' }" /> -->
     </client-only>
@@ -57,21 +74,51 @@
 
 <script>
 import { gql } from 'nuxt-graphql-request'
-import { basics, image, featured_image } from '~/gql/common'
+import { basics, image, featured_image, link } from '~/gql/common'
 export default {
   async asyncData({ $graphql, params }) {
     const query = gql`
       query MyQuery {
         page(id: "homepage", idType: URI, asPreview: true) {
           ${basics}
-          ${featured_image}         
+          ${featured_image}  
+          PrimaryHeader {
+            image {
+              ${image}
+            }
+            bigLetter
+            preHeader
+            header
+            content
+            link {
+              ${link}
+            }
+          } 
+          HomeFields {
+            portfolio {
+              title
+              link {
+                ${link}
+              }
+              portfolioItems {
+                ... on Recipie {
+                  id
+                  title
+                  content
+                  slug
+                  ${featured_image}  
+                }
+              }
+              firstIsFeatured
+            }
+          }     
         }
       }
     `
 
     const { page } = await $graphql.default.request(query)
-    console.log(page, page.featuredImage.node.sourceUrl)
-    console.log('DID WE GET IT????')
+    console.log(page)
+    // console.log('DID WE GET IT????')
     return { page }
   },
 }

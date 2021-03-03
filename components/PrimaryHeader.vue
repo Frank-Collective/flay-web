@@ -9,9 +9,12 @@
       <div class="content">
         <div class="preheader" v-if="preheader">{{ preheader }}</div>
         <h1 v-if="header">{{ header }}</h1>
-        <p v-if="content" v-html="content"></p>
+        <div v-if="content" v-html="content"></div>
         <div class="cta" v-if="link">
-          <nuxt-link class="button primary" :to="link.url" tabindex="0">{{ link.text }}</nuxt-link>
+          <a v-if="link.target != ''" class="button primary" :href="link.url" tabindex="0" :target="link.target">{{
+            link.title
+          }}</a>
+          <nuxt-link v-else class="button primary" :to="link.url" tabindex="0">{{ link.title }}</nuxt-link>
         </div>
       </div>
     </div>
