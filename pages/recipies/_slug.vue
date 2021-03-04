@@ -8,7 +8,6 @@
     />
 
     <div class="section-spacer hide-mobile"></div>
-
     <PageBuilder :content_blocks="recipie.PageBuilder.contentBlocks" :type="'Recipie'" />
   </div>
 </template>
