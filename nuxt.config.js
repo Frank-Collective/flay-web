@@ -3,9 +3,9 @@ export default {
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  mode: 'spa',
-  //target: 'static',
-  ssr: false,
+  mode: process.env.NUXT_MODE,
+  target: process.env.NUXT_TARGET,
+  ssr: process.env.NUXT_SSR,
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
@@ -49,7 +49,7 @@ export default {
      */
     clients: {
       default: {
-        endpoint: 'https://flay-api.d-e-v.group/graphql',
+        endpoint: process.env.WP_GRAPHQL_ENDPOINT,
         options: {
           credentials: 'include',
           mode: 'cors',

@@ -1,14 +1,14 @@
 <template>
-  <div v-if="recipie" class="portfolio-single-page">
+  <div v-if="dailySpecial" class="portfolio-single-page">
     <PrimaryHeader
-      :image="recipie.featuredImage != null ? recipie.featuredImage.node.sourceUrl : null"
-      :preheader="'Recipes'"
-      :header="recipie.title"
-      :content="recipie.content"
+      :image="dailySpecial.featuredImage != null ? dailySpecial.featuredImage.node.sourceUrl : null"
+      :preheader="'Daily Special'"
+      :header="dailySpecial.title"
+      :content="dailySpecial.content"
     />
 
     <div class="section-spacer hide-mobile"></div>
-    <PageBuilder :content_blocks="recipie.PageBuilder.contentBlocks" :type="'Recipie'" />
+    <PageBuilder :content_blocks="dailySpecial.PageBuilder.contentBlocks" :type="'DailySpecial'" />
   </div>
 </template>
 
@@ -21,19 +21,19 @@ export default {
 
     const query = gql`
       query PostQuery ($uri: ID!) {
-        recipie(id: $uri, idType: URI) {
+        dailySpecial(id: $uri, idType: URI) {
           ${basics}
           ${featured_image} 
-          ${page_builder('Recipie')}
+          ${page_builder('dailySpecial')}
         }
       }
     `
     const variables = { uri: post_uri }
 
-    const { recipie } = await $graphql.default.request(query, variables)
-    console.log(recipie)
+    const { dailySpecial } = await $graphql.default.request(query, variables)
+    console.log(dailySpecial)
     // console.log('DID WE GET IT????')
-    return { recipie }
+    return { dailySpecial }
   },
 }
 </script>

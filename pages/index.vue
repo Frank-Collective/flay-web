@@ -70,6 +70,7 @@
 
     <SocialFeed />
   </div>
+  <div v-else>wtf</div>
 </template>
 
 <script>
@@ -79,7 +80,7 @@ export default {
   async asyncData({ $graphql, params }) {
     const query = gql`
       query MyQuery {
-        page(id: "homepage", idType: URI, asPreview: true) {
+        page(id: "home", idType: URI, asPreview: true) {
           ${basics}
           ${featured_image}  
           PrimaryHeader {
@@ -101,7 +102,7 @@ export default {
                 ${link}
               }
               portfolioItems {
-                ... on Recipie {
+                ... on Portfolio {
                   id
                   title
                   content
@@ -118,7 +119,6 @@ export default {
 
     const { page } = await $graphql.default.request(query)
     console.log(page)
-    // console.log('DID WE GET IT????')
     return { page }
   },
 }
