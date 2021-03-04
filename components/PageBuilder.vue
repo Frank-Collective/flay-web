@@ -3,13 +3,13 @@
     <div v-for="(block, index) in content_blocks" :key="index">
       <!-- Boxed Content -->
       <article
-        v-if="block.fieldGroupName == 'page_Pagebuilder_ContentBlocks_BoxedContent'"
+        v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_BoxedContent`"
         v-html="block.textEditor"
         class="boxed-content"
       ></article>
 
       <article
-        v-if="block.fieldGroupName == 'page_Pagebuilder_ContentBlocks_ContentWLargeImageHeader'"
+        v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_ContentWLargeImageHeader`"
         class="content-with-large-image-header"
       >
         <figure>
@@ -28,11 +28,11 @@
         <div class="content" v-html="block.textEditor"></div>
       </article>
 
-      <blockquote v-if="block.fieldGroupName == 'page_Pagebuilder_ContentBlocks_Quote'" class="quote">
+      <blockquote v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_Quote`" class="quote">
         <p>{{ block.text }}</p>
       </blockquote>
 
-      <article v-if="block.fieldGroupName == 'page_Pagebuilder_ContentBlocks_Image'" class="full-width-image">
+      <article v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_Image`" class="full-width-image">
         <FadeImage
           v-if="block.image"
           :srcset="block.image.srcSet"
@@ -43,7 +43,7 @@
       </article>
 
       <article
-        v-if="block.fieldGroupName == 'page_Pagebuilder_ContentBlocks_TextContent'"
+        v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_TextContent`"
         v-html="block.textEditor"
         class="text-content"
       ></article>
@@ -57,6 +57,7 @@
 export default {
   props: {
     content_blocks: null,
+    type: null,
   },
   mounted() {
     console.log(this.content_blocks)

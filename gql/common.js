@@ -29,29 +29,30 @@ const link = `
   url
 `
 
-const page_builder = `
+const page_builder = type => {
+  return `
   PageBuilder {
     contentBlocks {
-      ... on Page_Pagebuilder_ContentBlocks_BoxedContent {
+      ... on ${type}_Pagebuilder_ContentBlocks_BoxedContent {
         fieldGroupName
         textEditor
       }
-      ... on Page_Pagebuilder_ContentBlocks_ContentWLargeImageHeader {
+      ... on ${type}_Pagebuilder_ContentBlocks_ContentWLargeImageHeader {
         fieldGroupName
         image {
           ${image}
         }
         textEditor
       }
-      ... on Page_Pagebuilder_ContentBlocks_Quote {
+      ... on ${type}_Pagebuilder_ContentBlocks_Quote {
         fieldGroupName
         text
       }
-      ... on Page_Pagebuilder_ContentBlocks_TextContent {
+      ... on ${type}_Pagebuilder_ContentBlocks_TextContent {
         fieldGroupName
         textEditor
       }
-      ... on Page_Pagebuilder_ContentBlocks_Image {
+      ... on ${type}_Pagebuilder_ContentBlocks_Image {
         fieldGroupName
         image {
           ${image}
@@ -59,6 +60,7 @@ const page_builder = `
       }
     }
   }
-`
+  `
+}
 
 export { basics, image, featured_image, link, page_builder }
