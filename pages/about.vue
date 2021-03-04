@@ -11,7 +11,7 @@
       <div class="section-spacer"></div>
     </header>
 
-    <PageBuilder :content_blocks="page.PageBuilder.contentBlocks" />
+    <PageBuilder :content_blocks="page.PageBuilder.contentBlocks" :type="'page'" />
 
     <div class="about-timeline">
       <div class="inner">
@@ -103,7 +103,7 @@ export default {
         page(id: "about", idType: URI, asPreview: true) {
           ${basics}
           ${featured_image}
-          ${page_builder}
+          ${page_builder('Page')}
           isPreview
           preview {
             node {
