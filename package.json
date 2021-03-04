@@ -6,7 +6,9 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "spa": "nuxt generate --spa",
+    "staging": "npm run spa && echo 'User-agent: *\nDisallow: /' > dist/robots.txt"
   },
   "dependencies": {
     "@nuxtjs/style-resources": "^1.0.0",
