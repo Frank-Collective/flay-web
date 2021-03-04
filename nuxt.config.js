@@ -3,7 +3,7 @@ export default {
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
    */
-  mode: process.env.NUXT_MODE,
+  //mode: process.env.NUXT_MODE,
   target: process.env.NUXT_TARGET,
   ssr: process.env.NUXT_SSR,
   /*
@@ -44,9 +44,6 @@ export default {
   buildModules: ['@nuxtjs/style-resources', 'nuxt-graphql-request'],
 
   graphql: {
-    /**
-     * An Object of your GraphQL clients
-     */
     clients: {
       default: {
         endpoint: process.env.WP_GRAPHQL_ENDPOINT,
@@ -56,29 +53,16 @@ export default {
         },
       },
     },
-
-    /**
-     * Options
-     * See: https://github.com/prisma-labs/graphql-request#passing-more-options-to-fetch
-     */
     options: {
       credentials: 'include',
       mode: 'cors',
     },
-
-    /**
-     * Optional
-     * default: true (this includes cross-fetch/polyfill before creating the graphql client)
-     */
     useFetchPolyfill: true,
-
-    /**
-     * Optional
-     * default: false (this includes graphql-tag for node_modules folder)
-     */
     includeNodeModules: true,
   },
-
+  generate: {
+    fallback: true,
+  },
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [],
 
