@@ -5,7 +5,7 @@ export default {
    */
   //mode: process.env.NUXT_MODE,
   target: process.env.NUXT_TARGET,
-  ssr: process.env.NUXT_SSR,
+  //ssr: process.env.NUXT_SSR,
   /*
    ** Headers of the page
    ** See https://nuxtjs.org/api/configuration-head
