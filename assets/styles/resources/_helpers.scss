@@ -70,6 +70,10 @@
       margin: 0 2em;
       cursor: pointer;
 
+      &.active {
+        font-weight: bold;
+      }
+
       @include breakpoint(medium) {
         margin: 0;
         padding: 0.5em 1.25em;

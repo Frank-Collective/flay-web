@@ -61,6 +61,7 @@ export default {
 
   .inner {
     display: flex;
+    height: 100%;
     min-height: 610px;
 
     @include breakpoint(small) {
