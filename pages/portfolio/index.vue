@@ -40,13 +40,7 @@
             </div>
           </div>
         </div>
-        <div class="grid">
-          <!-- <Card :data="data" /> -->
-          <!-- <Card :data="data" /> -->
-          <!-- <Card :data="data" /> -->
-          <!-- <Card :data="data" /> -->
-          <!-- <Card :data="data" /> -->
-        </div>
+        <Grid />
       </div>
     </section>
   </div>
@@ -55,8 +49,10 @@
 <script>
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, link } from '~/gql/common'
+import Grid from '~/components/Grid.vue'
 
 export default {
+  components: { Grid },
   data() {
     return {
       filtersOpen: false,
@@ -68,6 +64,10 @@ export default {
     },
   },
   async asyncData({ $graphql, params }) {
+    console.log('QURY')
+    console.log('QURY')
+    console.log('QURY')
+    console.log('QURY')
     const query = gql`
       query MyQuery {
         page(id: 31, idType: DATABASE_ID) {
