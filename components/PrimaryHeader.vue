@@ -119,6 +119,7 @@ export default {
         transform: translate(50%, 50%);
         @extend .h1;
         z-index: 2;
+        pointer-events: none;
 
         @include breakpoint(medium) {
           bottom: 7px;
@@ -146,8 +147,15 @@ export default {
         margin-bottom: 2.5em;
       }
 
-      h1 {
+      /deep/ h1,
+      h2 {
         @extend .h3;
+      }
+
+      /deep/ p {
+        a {
+          text-decoration: underline;
+        }
       }
 
       .cta {

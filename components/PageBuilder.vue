@@ -60,7 +60,7 @@ export default {
     type: null,
   },
   mounted() {
-    console.log(this.content_blocks)
+    // console.log(this.content_blocks)
   },
 }
 </script>

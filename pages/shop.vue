@@ -12,12 +12,12 @@
 
     <section class="grid">
       <div class="inner">
-        <ProductCard :bgColor="'#80B0DE'" />
+        <!-- <ProductCard :bgColor="'#80B0DE'" />
         <ProductCard :bgColor="'#84C698'" />
         <ProductCard :bgColor="'#C3FF4E'" />
         <ProductCard :bgColor="'#01FF58'" />
         <ProductCard :bgColor="'#BEBCA6'" />
-        <ProductCard :bgColor="'#8597CB'" />
+        <ProductCard :bgColor="'#8597CB'" /> -->
       </div>
     </section>
   </div>

@@ -23,6 +23,17 @@ featuredImage {
 }
 `
 
+const categories = `
+categories {
+  edges {
+    node {
+      name
+      slug
+    }
+  }
+}
+`
+
 const link = `
   target
   title
@@ -63,4 +74,4 @@ const page_builder = type => {
   `
 }
 
-export { basics, image, featured_image, link, page_builder }
+export { basics, image, featured_image, categories, link, page_builder }

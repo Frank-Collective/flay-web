@@ -5,6 +5,7 @@
       :preheader="'Portfolio'"
       :header="portfolio.title"
       :content="portfolio.content"
+      :link="portfolio.HeaderCTALink.link != null ? portfolio.HeaderCTALink.link : null"
     />
 
     <div class="section-spacer hide-mobile"></div>
@@ -27,6 +28,21 @@ export default {
           ${basics}
           ${featured_image} 
           ${page_builder('Portfolio')}
+          HeaderCTALink {
+            link {
+              target
+              title
+              url
+            }
+          }
+          categories {
+            edges {
+              node {
+                name
+                slug
+              }
+            }
+          }  
         }
       }
     `

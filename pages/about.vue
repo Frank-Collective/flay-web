@@ -18,10 +18,9 @@
         <div class="filters">
           <ul v-bind:class="{ open: filtersOpen }">
             <li>All</li>
-            <li>Restaurants</li>
-            <li>TV</li>
-            <li>Cookbooks</li>
-            <li>Distinctions</li>
+            <li v-for="(data, index) in page.TimelineFields.eventsFilters" :key="index" :data-filter="data.slug">
+              {{ data.name }}
+            </li>
           </ul>
           <div class="toggler">
             <span>All</span>
@@ -34,50 +33,31 @@
 
         <div class="timeline">
           <div class="images">
-            <img src="/images/BeatBobbyFlay2.jpg" alt="" />
+            <template v-for="data in page.TimelineFields.yearOfEvents">
+              <template v-for="event in data.events">
+                <img
+                  v-if="event.featuredImage != null"
+                  :key="event.id"
+                  :src="event.featuredImage.node.mediaItemUrl"
+                  alt=""
+                  v-bind:class="{ visible: event.id == rolloverImageID }"
+                />
+              </template>
+            </template>
           </div>
           <div class="content black-scrollbar">
             <ol>
-              <li>
-                <span class="date">1991</span>
-                Mesa Grill Opens in New York City
-              </li>
-              <li>
-                <span class="date">1993</span>
-                Bolo Opens in New York City
-              </li>
-              <li>
-                <span class="date">1996</span>
-                Mesa City Opens
-              </li>
-              <li>
-                <span class="date">1999</span>
-                Mesa Grill Opens in New York City
-              </li>
-              <li>
-                <span class="date">2001</span>
-                Mesa Grill Opens in New York City
-              </li>
-              <li>
-                <span class="date">1991</span>
-                Mesa Grill Opens in New York City
-              </li>
-              <li>
-                <span class="date">1993</span>
-                Bolo Opens in New York City
-              </li>
-              <li>
-                <span class="date">1996</span>
-                Mesa City Opens
-              </li>
-              <li>
-                <span class="date">1999</span>
-                Mesa Grill Opens in New York City
-              </li>
-              <li>
-                <span class="date">2001</span>
-                Mesa Grill Opens in New York City
-              </li>
+              <template v-for="data in page.TimelineFields.yearOfEvents">
+                <li
+                  v-for="event in data.events"
+                  :key="event.id"
+                  :data-filters="makeCatString(event.categories.edges)"
+                  v-on:mouseover="showImage(event)"
+                >
+                  <span class="date">{{ data.year }}</span>
+                  {{ event.title }}
+                </li>
+              </template>
             </ol>
           </div>
         </div>
@@ -92,7 +72,7 @@
 
 <script>
 import { gql } from 'nuxt-graphql-request'
-import { basics, image, featured_image, page_builder } from '~/gql/common'
+import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
 
 import gsap from 'gsap'
 
@@ -104,6 +84,23 @@ export default {
           ${basics}
           ${featured_image}
           ${page_builder('Page')}
+          TimelineFields {
+            eventsFilters {
+              name
+              slug
+            }
+            yearOfEvents {
+              events {
+                ... on Timeline {
+                  id
+                  title
+                  ${featured_image}
+                  ${categories}
+                }
+              }
+              year
+            }
+          }
           isPreview
           preview {
             node {
@@ -122,26 +119,38 @@ export default {
     const { page, viewer } = await $graphql.default.request(query)
     console.log(page)
     // console.log(page, 'VIEWER: ', viewer)
-    // console.log('DID WE GET IT????')
     return { page }
   },
   data() {
     return {
       filtersOpen: false,
-      bigLetter: null,
+      bigLetter: String,
+      eventsImages: Array,
+      rolloverImageID: null,
     }
   },
   mounted() {
     if (this.page) {
       this.bigLetter = this.page.content.substr(4, 1)
-
-      // gsap.to(this.$refs.bigLetter, 1, { x: 100 })
     }
   },
   updated() {},
+  computed: {},
   methods: {
     toggleFiltersMenu() {
       this.filtersOpen = !this.filtersOpen
+    },
+    makeCatString(cats) {
+      let str = ''
+      for (let cat in cats) {
+        str += `${cats[cat].node.slug} `
+      }
+      return str
+    },
+    showImage(event) {
+      if (event.featuredImage != null) {
+        this.rolloverImageID = event.id
+      }
     },
   },
 }
@@ -243,6 +252,12 @@ export default {
           width: 100%;
           height: 100%;
           object-fit: cover;
+          opacity: 0;
+          transition: 0.25s opacity;
+
+          &.visible {
+            opacity: 1;
+          }
         }
       }
 
@@ -271,6 +286,7 @@ export default {
               font-size: 14px;
               font-weight: bold;
               margin-bottom: 0.5em;
+              pointer-events: none;
             }
           }
         }

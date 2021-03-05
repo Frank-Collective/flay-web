@@ -33,20 +33,24 @@
             }}</nuxt-link>
           </div>
         </div>
-        <div class="grid">
-          <Card :featured="true" :bgColor="'#D8CAA5'" />
-          <Card />
-          <Card :bgColor="'#F9A252'" />
-          <Card :bgColor="'#9E99AD'" />
-          <Card :bgColor="'#D75E3E'" />
-          <Card :bgColor="'#C85C5C'" />
-          <Card :bgColor="'#CCB6E7'" />
+        <div class="grid" v-if="page.HomeFields.portfolio.firstIsFeatured">
+          <div class="featured-wrapper">
+            <Card :featured="true" :data="page.HomeFields.portfolio.portfolioItems[0]" />
+          </div>
+          <Card v-for="(card, index) in page.HomeFields.portfolio.portfolioItems.slice(1)" :key="index" :data="card" />
+        </div>
+        <div class="grid" v-else>
+          <Card v-for="(card, index) in page.HomeFields.portfolio.portfolioItems" :key="index" :data="card" />
         </div>
       </div>
     </section>
 
     <client-only>
-      <Carousel :headerText="'Daily Special'" :headerLink="{ text: 'View All', url: '/daily-special' }" />
+      <Carousel
+        :data="page.HomeFields.dailySpecial"
+        :headerText="'Daily Special'"
+        :headerLink="{ text: 'View All', url: '/daily-special' }"
+      />
     </client-only>
 
     <section class="shop">
@@ -61,9 +65,7 @@
           </div>
         </div>
         <div class="grid">
-          <ProductCard :bgColor="'#80B0DE'" />
-          <ProductCard :bgColor="'#84C698'" />
-          <ProductCard :bgColor="'#C3FF4E'" />
+          <ProductCard v-for="(card, index) in page.HomeFields.shop.products" :key="index" :data="card" />
         </div>
       </div>
     </section>
@@ -75,7 +77,7 @@
 
 <script>
 import { gql } from 'nuxt-graphql-request'
-import { basics, image, featured_image, link } from '~/gql/common'
+import { basics, image, featured_image, categories, link } from '~/gql/common'
 export default {
   async asyncData({ $graphql, params }) {
     const query = gql`
@@ -103,14 +105,45 @@ export default {
               }
               portfolioItems {
                 ... on Portfolio {
-                  id
-                  title
-                  content
-                  slug
-                  ${featured_image}  
+                  ${basics}
+                  ${featured_image}
+                  ${categories}
+                  CardLink {
+                    cardLinkText
+                  }
                 }
               }
               firstIsFeatured
+            }
+            dailySpecial {
+              title
+              link {
+                ${link}
+              }
+              dailySpecialItems {
+                ... on DailySpecial {
+                  ${basics}
+                  ${featured_image}
+                  ${categories}
+                  CardLink {
+                    cardLinkText
+                  }
+                }
+              }
+            }
+            shop {
+              products {
+                ... on Product {
+                  ${basics}
+                  ${featured_image}
+                  CardLink {
+                    cardLinkText
+                  }
+                  ProductPrice {
+                    productPrice
+                  }
+                }
+              }
             }
           }     
         }
@@ -119,6 +152,7 @@ export default {
 
     const { page } = await $graphql.default.request(query)
     console.log(page)
+    // console.log(page.HomeFields.shop.products)
     return { page }
   },
 }
@@ -180,6 +214,10 @@ export default {
       @include breakpoint(small) {
         width: auto;
         left: auto;
+      }
+
+      .featured-wrapper {
+        width: 100%;
       }
     }
   }

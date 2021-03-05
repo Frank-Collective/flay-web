@@ -1,35 +1,45 @@
 <template>
-  <section class="carousel">
+  <section class="carousel" v-if="data">
     <div class="inner">
-      <div class="header" v-if="headerText">
-        <nuxt-link :to="headerLink.url" tabindex="0"
-          ><h3>{{ headerText }}</h3></nuxt-link
+      <div class="header" v-if="data.title">
+        <nuxt-link :to="data.link.url" tabindex="0"
+          ><h3>{{ data.title }}</h3></nuxt-link
         >
-        <div class="cta" v-if="headerLink">
-          <nuxt-link class="button primary" :to="headerLink.url" tabindex="0">{{ headerLink.text }}</nuxt-link>
-          <nuxt-link class="button secondary" :to="headerLink.url" tabindex="0">{{ headerLink.text }}</nuxt-link>
+        <div class="cta" v-if="data.link">
+          <nuxt-link class="button primary" :to="data.link.url" tabindex="0">{{ data.link.title }}</nuxt-link>
+          <nuxt-link class="button secondary" :to="data.link.url" tabindex="0">{{ data.link.title }}</nuxt-link>
         </div>
       </div>
 
       <div class="slides-container">
         <flickity ref="flickity" :options="flickityOptions" class="slides">
-          <div class="slide" v-for="(slide, index) in slides" :key="index">
+          <div class="slide" v-for="(slide, index) in data.dailySpecialItems" :key="index">
             <div class="image">
-              <img :src="slide.image" alt="" />
+              <FadeImage
+                v-if="slide.featuredImage.node"
+                :srcset="slide.featuredImage.node.srcSet"
+                :sizes="slide.featuredImage.node.sizes"
+                :src="slide.featuredImage.node.mediaItemUrl"
+                :alt="slide.featuredImage.node.altText"
+              />
             </div>
             <div class="content">
-              <div class="pre-header">{{ slide.preheader }}</div>
-              <h4>{{ slide.header }}</h4>
-              <p>{{ slide.text }}</p>
+              <div class="pre-header">
+                <span v-for="(cat, index) in slide.categories.edges" :key="index">{{ cat.node.name }}</span>
+              </div>
+              <h4>{{ slide.title }}</h4>
+              <div v-html="slide.content"></div>
               <div class="cta">
-                <nuxt-link class="button primary" :to="slide.link.url" tabindex="0">{{ slide.link.text }}</nuxt-link>
+                <nuxt-link :to="`/daily-specials/${slide.slug}`" class="button primary" v-if="slide.CardLink.cardLinkText">{{
+                  slide.CardLink.cardLinkText
+                }}</nuxt-link>
               </div>
             </div>
           </div>
         </flickity>
         <ol class="pagination">
           <li
-            v-for="(slide, index) in slides"
+            v-for="(slide, index) in data.dailySpecialItems"
             :key="index"
             v-on:click="select(index)"
             v-bind:class="{ selected: selectedIndex == index }"
@@ -50,48 +60,18 @@ export default {
     Flickity,
   },
   props: {
+    data: null,
     headerText: null,
     headerLink: null,
   },
   data() {
     return {
-      slides: [
-        {
-          preheader: 'Recipes',
-          header: 'The Spiced Greyhound',
-          text: 'Join Bobby in the kitchen to make his new favorite cocktail inspired by seasonal produce from Misfits Market.',
-          link: {
-            text: "Let's Drink",
-            url: '/daily-special',
-          },
-          image: '/images/SpicedGreyhound1.jpg',
-        },
-        {
-          preheader: 'Slide 2',
-          header: 'Slide 2 Title',
-          text: "The traditions of classic steakhouse fare, with New Jersey's fresh produce flare.",
-          link: {
-            text: 'Go!',
-            url: '/daily-special',
-          },
-          image: '/images/SpicedGreyhound1.jpg',
-        },
-        {
-          preheader: 'Slide 3',
-          header: 'Slide 3 Title',
-          text: "The traditions of classic steakhouse fare, with New Jersey's fresh produce flare.",
-          link: {
-            text: 'Go NOW!',
-            url: '/daily-special',
-          },
-          image: '/images/SpicedGreyhound1.jpg',
-        },
-      ],
       flickityOptions: {
         prevNextButtons: false,
         pageDots: false,
         wrapAround: false,
         autoPlay: 5000,
+        adaptiveHeight: true,
         pauseAutoPlayOnHover: false,
         selectedAttraction: 0.05,
         friction: 0.8,
@@ -101,6 +81,7 @@ export default {
   },
   computed: {},
   mounted() {
+    console.log(this.data)
     if (this.$refs.flickity) {
       this.$refs.flickity.on('change', index => {
         // console.log('Selected Slide: ' + index)
@@ -180,6 +161,7 @@ export default {
 
           @include breakpoint(medium) {
             min-height: 300px;
+            height: unset;
           }
 
           @include breakpoint(small) {

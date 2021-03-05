@@ -1,43 +1,25 @@
 <template>
-  <div>
+  <div v-if="page">
     <header class="featured">
       <div class="inner">
-        <article class="portfolio-piece">
+        <article class="portfolio-piece" v-for="(data, index) in page.PortfolioFields.featuredPortfolioItems" :key="index">
           <div class="image">
-            <img src="/images/amalfi_ba_lounge.jpg" alt="" />
-            <span class="number">1</span>
+            <FadeImage
+              v-if="data.featuredImage.node"
+              :srcset="data.featuredImage.node.srcSet"
+              :sizes="data.featuredImage.node.sizes"
+              :src="data.featuredImage.node.mediaItemUrl"
+              :alt="data.featuredImage.node.altText"
+            />
+            <span class="number">{{ index + 1 }}</span>
           </div>
           <div class="content">
-            <h3>Amalfi</h3>
-            <p>I’m so excited to bring the best of Italian coastal cuisine to Caesars Palace.</p>
+            <h3>{{ data.title }}</h3>
+            <div v-html="`${data.content.substr(0, 100)}...`"></div>
             <div class="cta">
-              <nuxt-link to="/portfolio/example" class="button primary">Explore</nuxt-link>
-            </div>
-          </div>
-        </article>
-        <article class="portfolio-piece reversed">
-          <div class="image">
-            <img src="/images/Spread.jpg" alt="" />
-            <span class="number">2</span>
-          </div>
-          <div class="content">
-            <h3>Misfits Market</h3>
-            <p>There's no limit to what you can create with the organic produce and pantry staples from Misfits Market.</p>
-            <div class="cta">
-              <nuxt-link to="#" class="button primary">Get Inspired</nuxt-link>
-            </div>
-          </div>
-        </article>
-        <article class="portfolio-piece">
-          <div class="image">
-            <img src="/images/Nacho_Treats_Food_Pouch_F&B_Turkey.png" alt="" />
-            <span class="number">3</span>
-          </div>
-          <div class="content">
-            <h3>Made by Nacho</h3>
-            <p>I love my cats, so of course I created a cat food in their honor.</p>
-            <div class="cta">
-              <nuxt-link to="#" class="button primary">Coming Soon</nuxt-link>
+              <nuxt-link :to="`/portfolio/${data.slug}`" class="button primary" v-if="data.CardLink.cardLinkText">{{
+                data.CardLink.cardLinkText
+              }}</nuxt-link>
             </div>
           </div>
         </article>
@@ -48,9 +30,7 @@
         <div class="filters">
           <ul v-bind:class="{ open: filtersOpen }">
             <li>All</li>
-            <li>Restaurants</li>
-            <li>TV</li>
-            <li>Ventures</li>
+            <li v-for="(data, index) in page.PortfolioFields.portfolioFilters" :key="index">{{ data.name }}</li>
           </ul>
           <div class="toggler">
             <span>All</span>
@@ -61,15 +41,11 @@
           </div>
         </div>
         <div class="grid">
-          <Card :bgColor="'#F9A252'" />
-          <Card :bgColor="'#9E99AD'" />
-          <Card :bgColor="'#D75E3E'" />
-          <Card :bgColor="'#C85C5C'" />
-          <Card :bgColor="'#CCB6E7'" />
-          <Card :bgColor="'#F9A252'" />
-          <Card :bgColor="'#9E99AD'" />
-          <Card :bgColor="'#D75E3E'" />
-          <Card :bgColor="'#C85C5C'" />
+          <!-- <Card :data="data" /> -->
+          <!-- <Card :data="data" /> -->
+          <!-- <Card :data="data" /> -->
+          <!-- <Card :data="data" /> -->
+          <!-- <Card :data="data" /> -->
         </div>
       </div>
     </section>
@@ -77,6 +53,9 @@
 </template>
 
 <script>
+import { gql } from 'nuxt-graphql-request'
+import { basics, image, featured_image, categories, link } from '~/gql/common'
+
 export default {
   data() {
     return {
@@ -87,6 +66,37 @@ export default {
     toggleFiltersMenu() {
       this.filtersOpen = !this.filtersOpen
     },
+  },
+  async asyncData({ $graphql, params }) {
+    const query = gql`
+      query MyQuery {
+        page(id: 31, idType: DATABASE_ID) {
+          ${basics}
+          ${featured_image}
+          PortfolioFields {
+            featuredPortfolioItems {
+              ... on Portfolio {
+                ${basics}
+                ${featured_image}
+                ${categories}
+                CardLink {
+                  cardLinkText
+                }
+              }
+            }
+            portfolioFilters {
+              name
+              slug
+            }
+          }
+        }
+      }
+    `
+
+    const { page } = await $graphql.default.request(query)
+    console.log(page)
+    // console.log(page.HomeFields.shop.products)
+    return { page }
   },
 }
 </script>
@@ -165,7 +175,7 @@ export default {
         }
       }
 
-      &.reversed {
+      &:nth-of-type(even) {
         .image {
           order: 1;
 

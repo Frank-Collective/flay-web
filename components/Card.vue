@@ -1,24 +1,37 @@
 <template>
-  <article class="card" v-bind:class="{ featured: featured }">
+  <article class="card" v-bind:class="{ featured: featured }" v-on:click="$router.push({ path: `/portfolio/${data.slug}` })">
     <div href="#" class="inner">
-      <div class="content" :style="{ background: bgColor }">
+      <div class="content">
         <div class="content-wrapper">
-          <div class="pre-header">Restaurants</div>
-          <h4>Amalfi</h4>
-          <div class="image">
-            <img src="/images/amalfi_ba_lounge.jpg" alt="" />
+          <div class="pre-header">
+            <span v-for="(cat, index) in data.categories.edges" :key="index">{{ cat.node.name }}</span>
           </div>
-          <p>
-            I’m really excited to bring the flavors and feel of coastal Italy to Caesars Palace. It’s a complete experience—you’re
-            gonna love it.
-          </p>
+          <h4>{{ data.title }}</h4>
+          <div class="image">
+            <FadeImage
+              v-if="data.featuredImage.node"
+              :srcset="data.featuredImage.node.srcSet"
+              :sizes="data.featuredImage.node.sizes"
+              :src="data.featuredImage.node.mediaItemUrl"
+              :alt="data.featuredImage.node.altText"
+            />
+          </div>
+          <div v-html="data.content.substr(0, 100) + '...'"></div>
           <div class="cta">
-            <a href="#" class="button primary">Coming Soon</a>
+            <nuxt-link :to="`/portfolio/${data.slug}`" class="button primary" v-if="data.CardLink.cardLinkText">{{
+              data.CardLink.cardLinkText
+            }}</nuxt-link>
           </div>
         </div>
       </div>
       <div class="featured-image" v-if="featured">
-        <img src="/images/amalfi_ba_lounge.jpg" alt="" />
+        <FadeImage
+          v-if="data.featuredImage.node"
+          :srcset="data.featuredImage.node.srcSet"
+          :sizes="data.featuredImage.node.sizes"
+          :src="data.featuredImage.node.mediaItemUrl"
+          :alt="data.featuredImage.node.altText"
+        />
       </div>
     </div>
   </article>
@@ -28,7 +41,7 @@
 export default {
   props: {
     featured: Boolean,
-    bgColor: { type: String, default: '#f4c2db' }, // defaults to $soft-pink
+    data: Object,
   },
   data() {
     return {}
@@ -45,6 +58,7 @@ export default {
   width: 33.333333%;
   flex-shrink: 0;
   padding: 5px;
+  cursor: pointer;
 
   @include breakpoint(medium) {
     width: 50%;
@@ -53,14 +67,11 @@ export default {
   @include breakpoint(small) {
     width: 100%;
     padding: 0 0 10px;
-
-    // &:nth-of-type(n + 4) {
-    //   display: none;
-    // }
   }
 
   .inner {
     display: flex;
+    height: 100%;
     min-height: 610px;
 
     @include breakpoint(small) {
@@ -149,7 +160,7 @@ export default {
             }
           }
         }
-        p {
+        /deep/ p {
           font-size: 14px;
         }
         .cta {
@@ -178,6 +189,7 @@ export default {
 
     .content {
       width: calc(33.333333% + 3px);
+      background-color: $grayish-orange !important;
 
       @include breakpoint(medium) {
         width: calc(50% + 3px);
@@ -208,7 +220,7 @@ export default {
           }
         }
 
-        p {
+        /deep/ p {
           font-size: 20px;
         }
       }
@@ -220,6 +232,60 @@ export default {
       @include breakpoint(small) {
         display: none;
       }
+    }
+  }
+
+  &:nth-of-type(9n + 1) {
+    .content {
+      background-color: $soft-pink;
+    }
+  }
+
+  &:nth-of-type(9n + 2) {
+    .content {
+      background-color: $soft-orange;
+    }
+  }
+
+  &:nth-of-type(9n + 3) {
+    .content {
+      background-color: $dark-grayish-violet;
+    }
+  }
+
+  &:nth-of-type(9n + 4) {
+    .content {
+      background-color: $strong-red;
+    }
+  }
+
+  &:nth-of-type(9n + 5) {
+    .content {
+      background-color: $dark-moderate-red;
+    }
+  }
+
+  &:nth-of-type(9n + 6) {
+    .content {
+      background-color: $soft-violet;
+    }
+  }
+
+  &:nth-of-type(9n + 7) {
+    .content {
+      background-color: $grayish-orange;
+    }
+  }
+
+  &:nth-of-type(9n + 8) {
+    .content {
+      background-color: $soft-yellow;
+    }
+  }
+
+  &:nth-of-type(9n + 9) {
+    .content {
+      background-color: $strong-orange;
     }
   }
 }

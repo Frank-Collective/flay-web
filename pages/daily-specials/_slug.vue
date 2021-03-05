@@ -5,6 +5,7 @@
       :preheader="'Daily Special'"
       :header="dailySpecial.title"
       :content="dailySpecial.content"
+      :link="portfolio.HeaderCTALink.link != null ? portfolio.HeaderCTALink.link : null"
     />
 
     <div class="section-spacer hide-mobile"></div>
@@ -25,6 +26,13 @@ export default {
           ${basics}
           ${featured_image} 
           ${page_builder('dailySpecial')}
+          HeaderCTALink {
+            link {
+              target
+              title
+              url
+            }
+          }
         }
       }
     `

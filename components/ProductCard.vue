@@ -1,18 +1,24 @@
 <template>
-  <article class="card">
+  <article class="card" v-on:click="$router.push({ path: `/shop/${data.slug}` })">
     <div to="/shop" class="inner">
-      <div class="content" :style="{ background: bgColor }">
+      <div class="content">
         <div class="content-wrapper">
-          <h4>Bobby at Home: Fearless Flavors from My Kitchen</h4>
+          <h4>{{ data.title }}</h4>
           <div class="image">
-            <img src="/images/Bobby_at_Home-Cover.jpg" alt="" />
+            <FadeImage
+              v-if="data.featuredImage.node"
+              :srcset="data.featuredImage.node.srcSet"
+              :sizes="data.featuredImage.node.sizes"
+              :src="data.featuredImage.node.mediaItemUrl"
+              :alt="data.featuredImage.node.altText"
+            />
           </div>
-          <p>
-            This book is really personal to me. These are the recipes I cook for my friends and family.
-          </p>
-          <div class="price">$00.</div>
+          <div v-html="data.content.substr(0, 100) + '...'"></div>
+          <div class="price">${{ data.ProductPrice.productPrice }}</div>
           <div class="cta">
-            <nuxt-link to="/shop" class="button primary">Shop</nuxt-link>
+            <nuxt-link :to="`/shop/${data.slug}`" class="button primary" v-if="data.CardLink.cardLinkText">{{
+              data.CardLink.cardLinkText
+            }}</nuxt-link>
           </div>
         </div>
       </div>
@@ -23,14 +29,15 @@
 <script>
 export default {
   props: {
-    featured: Boolean,
-    bgColor: { type: String, default: '#f4c2db' }, // defaults to $soft-pink
+    data: Object,
   },
   data() {
     return {}
   },
   computed: {},
-  mounted() {},
+  mounted() {
+    console.log(this.data)
+  },
   methods: {},
 }
 </script>
@@ -41,6 +48,7 @@ export default {
   width: 33.333333%;
   flex-shrink: 0;
   padding: 5px;
+  cursor: pointer;
 
   @include breakpoint(medium) {
     width: 50%;
@@ -49,10 +57,6 @@ export default {
   @include breakpoint(small) {
     width: 100%;
     padding: 0 0 10px;
-
-    // &:nth-of-type(n + 4) {
-    //   display: none;
-    // }
   }
 
   .inner {
@@ -142,7 +146,7 @@ export default {
             }
           }
         }
-        p {
+        /deep/ p {
           font-size: 14px;
         }
         .price {
@@ -155,20 +159,59 @@ export default {
         }
       }
     }
+  }
 
-    .featured-image {
-      display: none;
-      position: relative;
-      flex-grow: 1;
-      border: 1px solid $black;
-      border-left: none;
+  &:nth-of-type(9n + 1) {
+    .content {
+      background-color: $soft-blue;
+    }
+  }
 
-      img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
+  &:nth-of-type(9n + 2) {
+    .content {
+      background-color: $soft-lime-green;
+    }
+  }
+
+  &:nth-of-type(9n + 3) {
+    .content {
+      background-color: $light-green;
+    }
+  }
+
+  &:nth-of-type(9n + 4) {
+    .content {
+      background-color: $strong-lime-green;
+    }
+  }
+
+  &:nth-of-type(9n + 5) {
+    .content {
+      background-color: $grayish-yellow;
+    }
+  }
+
+  &:nth-of-type(9n + 6) {
+    .content {
+      background-color: $soft-blue2;
+    }
+  }
+
+  &:nth-of-type(9n + 7) {
+    .content {
+      background-color: $dark-lime-green;
+    }
+  }
+
+  &:nth-of-type(9n + 8) {
+    .content {
+      background-color: $dark-green;
+    }
+  }
+
+  &:nth-of-type(9n + 9) {
+    .content {
+      background-color: $bright-blue;
     }
   }
 }
