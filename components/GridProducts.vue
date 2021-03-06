@@ -18,7 +18,7 @@
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, link } from '~/gql/common'
 
-const ppp = 3
+const ppp = 9
 const query = gql`
   query PortfolioQuery(
       $first: Int
@@ -65,7 +65,9 @@ export default {
   },
   watch: {
     category: function(newVal, oldVal) {
-      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+      this.$fetch()
+    },
+    searchTerm: function(newVal, oldVal) {
       this.$fetch()
     },
   },

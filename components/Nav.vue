@@ -23,7 +23,7 @@
                 />
               </svg>
             </div>
-            <input placeholder="Search" type="text" />
+            <input v-model="searchTerm" @change="searchHandler" placeholder="Search" type="text" />
             <div class="close-x-btn" v-on:click="toggleSearch">
               <svg width="10" height="9" viewBox="0 0 10 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <line x1="8.42974" y1="1.35846" x2="1.35868" y2="8.42952" stroke="black" stroke-width="1.5" />
@@ -58,6 +58,7 @@ export default {
       mobileMenuOpen: false,
       prevScrollPos: 0,
       currScrollPos: 0,
+      searchTerm: null,
     }
   },
   computed: {
@@ -74,6 +75,12 @@ export default {
     this.onPageScroll()
   },
   methods: {
+    searchHandler() {
+      console.log('Search Updated', this.searchTerm)
+      if (this.searchTerm) {
+        this.$router.push({ path: `/search/${this.searchTerm}` })
+      }
+    },
     toggleMobileMenu: function() {
       this.mobileMenuOpen = !this.mobileMenuOpen
     },
