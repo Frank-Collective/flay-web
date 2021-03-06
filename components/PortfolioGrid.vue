@@ -1,11 +1,16 @@
 <template>
-  <div v-if="$fetchState.pending">Fetching posts...</div>
-  <div v-else-if="$fetchState.error">Error while fetching posts</div>
+  <div class="fetch-message fetching" v-if="$fetchState.pending">Loading...</div>
+  <div class="fetch-message error" v-else-if="$fetchState.error">Error while fetching posts</div>
   <div v-else>
-    <div class="grid" v-if="portfolioItems">
+    <div class="grid" v-if="portfolioItems && portfolioItems.length">
       <Card v-for="(card, index) in portfolioItems" :key="index" :data="card.node" />
     </div>
-    <div v-if="pageInfo.hasNextPage" class="loadmore" @click="fetchMore()"><h3>Load More</h3></div>
+    <div class="fetch-message" v-else>No results</div>
+    <div v-if="pageInfo.hasNextPage" class="loadmore">
+      <div class="button primary" @click="fetchMore()">
+        <span>Load More</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -19,8 +24,9 @@ const query = gql`
       $first: Int
       $after: String
       $cat: String
+      $term: String
     ){
-    portfolioItems(first: $first, after: $after, where: {categoryName: $cat})  {
+    portfolioItems(first: $first, after: $after, where: {categoryName: $cat, search: $term})  {
       edges {
         node {
           ${basics}
@@ -38,10 +44,19 @@ const query = gql`
     }
   }
 `
-
+// No results message
+// Style loading message
+// style load more
 export default {
   props: {
-    category: String,
+    category: {
+      type: String,
+      default: null,
+    },
+    searchTerm: {
+      type: String,
+      default: null,
+    },
   },
   data() {
     return {
@@ -57,8 +72,7 @@ export default {
   },
   methods: {
     async fetchMore() {
-      console.log('GIMMIE MORE', this.category)
-      const variables = { first: ppp, after: this.pageInfo.endCursor, cat: this.category }
+      const variables = { first: ppp, after: this.pageInfo.endCursor, cat: this.category, term: this.searchTerm }
       const data = await this.$graphql.default.request(query, variables)
       console.log(data)
       this.portfolioItems = [...this.portfolioItems, ...data.portfolioItems.edges]
@@ -66,10 +80,8 @@ export default {
     },
   },
   async fetch() {
-    console.log('FETCH', this.category)
-    const variables = { first: ppp, after: null, cat: this.category }
+    const variables = { first: ppp, after: null, cat: this.category, term: this.searchTerm }
     const data = await this.$graphql.default.request(query, variables)
-    console.log(data)
     this.portfolioItems = data.portfolioItems.edges
     this.pageInfo = data.portfolioItems.pageInfo
   },
@@ -83,10 +95,24 @@ export default {
   width: calc(100% + 10px);
   left: -5px;
   padding-bottom: 5px;
-
+  min-height: 500px;
   @include breakpoint(small) {
     width: auto;
     left: auto;
+  }
+}
+.fetch-message {
+  min-height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loadmore {
+  padding: 5em;
+  display: flex;
+  justify-content: center;
+  .button {
+    cursor: pointer;
   }
 }
 </style>
