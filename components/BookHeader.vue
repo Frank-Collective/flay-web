@@ -5,15 +5,19 @@
     <header class="book-header">
       <div class="inner">
         <figure class="image">
-          <img v-if="image" :src="image" alt="" />
+          <FadeImage
+            v-if="image"
+            :srcset="image.node.srcSet"
+            :sizes="image.node.sizes"
+            :src="image.node.mediaItemUrl"
+            :alt="image.node.altText"
+          />
           <div class="message">All Books Are Signed!</div>
         </figure>
         <div class="content">
-          <div class="price" v-if="price">{{ price }}</div>
+          <div class="price" v-if="price">${{ price }}</div>
           <h1 v-if="header">{{ header }}</h1>
-          <p v-if="content">
-            {{ content }}
-          </p>
+          <div v-if="content" v-html="content"></div>
           <p>All books are autographed by Bobby prior to shipping.</p>
           <form class="form">
             <div class="form_inner">
@@ -23,9 +27,9 @@
             <span>Please limit to 1-sentence</span>
           </form>
           <div class="cta" v-if="link">
-            <nuxt-link class="button primary" :to="link.url" tabindex="0"
+            <a class="button primary" :href="link.url" target="_blank" tabindex="0"
               >Buy now with <img src="/images/logo-paypal.svg" alt=""
-            /></nuxt-link>
+            /></a>
           </div>
         </div>
       </div>

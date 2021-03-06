@@ -43,7 +43,7 @@
             </template>
           </template>
         </div>
-        <div class="content black-scrollbar">
+        <div class="content black-scrollbar" ref="eventsListWrapper">
           <ol v-if="eventsList" ref="eventsList">
             <li
               v-for="(data, index) in computedEventsList"
@@ -122,6 +122,8 @@ export default {
         y: 5,
         onComplete: () => {
           this.selectedCat = cat
+
+          this.$refs.eventsListWrapper.scrollTo(0, top)
 
           gsap.to(this.$refs.eventsList, 0.25, { opacity: 1, y: 0 })
         },

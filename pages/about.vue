@@ -25,8 +25,6 @@
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
 
-import gsap from 'gsap'
-
 export default {
   async asyncData({ $graphql, params }) {
     const query = gql`
@@ -90,6 +88,7 @@ export default {
   methods: {},
 }
 </script>
+
 <style lang="scss" scoped>
 .about-header {
   padding: 43px 10px 0;

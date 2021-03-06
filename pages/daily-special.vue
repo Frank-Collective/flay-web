@@ -1,19 +1,16 @@
 <template>
-  <div>
+  <div v-if="page">
     <header class="header">
       <div class="inner">
         <h1><span>Daily</span><span>Special</span></h1>
       </div>
     </header>
 
-    <section class="grid">
+    <section class="grid-wrap">
       <div class="filters">
         <ul v-bind:class="{ open: filtersOpen }">
           <li>All</li>
-          <li>Recipes</li>
-          <li>Restaurants</li>
-          <li>TV</li>
-          <li>Ventures</li>
+          <li v-for="(data, index) in page.DailySpecialFields.dailySpecialFilters" :key="index">{{ data.name }}</li>
         </ul>
         <div class="toggler">
           <span>All</span>
@@ -23,19 +20,15 @@
           </div>
         </div>
       </div>
-      <div class="inner">
-        <Card :bgColor="'#80B0DE'" />
-        <Card :bgColor="'#84C698'" />
-        <Card :bgColor="'#C3FF4E'" />
-        <Card :bgColor="'#01FF58'" />
-        <Card :bgColor="'#BEBCA6'" />
-        <Card :bgColor="'#8597CB'" />
-      </div>
+      <Grid />
     </section>
   </div>
 </template>
 
 <script>
+import { gql } from 'nuxt-graphql-request'
+import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
+
 export default {
   data() {
     return {
@@ -46,6 +39,26 @@ export default {
     toggleFiltersMenu() {
       this.filtersOpen = !this.filtersOpen
     },
+  },
+  async asyncData({ $graphql, params }) {
+    const query = gql`
+      query MyQuery {
+        page(id: 30, idType: DATABASE_ID) {
+          ${basics}
+          ${featured_image}
+          DailySpecialFields {
+            dailySpecialFilters {
+              name
+              slug
+            }
+          }
+        }
+      }
+    `
+
+    const { page } = await $graphql.default.request(query)
+    console.log(page)
+    return { page }
   },
 }
 </script>
@@ -105,7 +118,7 @@ export default {
   }
 }
 
-.grid {
+.grid-wrap {
   position: relative;
   padding: 0 10px 5px;
   width: 100%;
@@ -114,7 +127,7 @@ export default {
     padding: 0 10px;
   }
 
-  .inner {
+  .grid {
     position: relative;
     display: flex;
     flex-wrap: wrap;

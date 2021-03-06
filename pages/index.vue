@@ -15,7 +15,7 @@
       :link="page.PrimaryHeader.link"
     />
 
-    <section class="portfolio" v-if="page.HomeFields.portfolio.portfolioItems.length">
+    <section class="portfolio" v-if="page.HomeFields.portfolio.portfolioItems.length" data-st="fade_up">
       <div class="inner">
         <div class="header">
           <h3 v-if="page.HomeFields.portfolio.title">
@@ -53,7 +53,7 @@
       />
     </client-only>
 
-    <section class="shop">
+    <section class="shop" data-st="fade_up">
       <div class="inner">
         <div class="header">
           <nuxt-link to="/shop" tabindex="0"
@@ -78,13 +78,15 @@
 <script>
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, link } from '~/gql/common'
+import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
+
 export default {
   async asyncData({ $graphql, params }) {
     const query = gql`
       query MyQuery {
         page(id: "home", idType: URI, asPreview: true) {
           ${basics}
-          ${featured_image}  
+          ${featured_image}
           PrimaryHeader {
             image {
               ${image}
@@ -96,7 +98,7 @@ export default {
             link {
               ${link}
             }
-          } 
+          }
           HomeFields {
             portfolio {
               title
@@ -145,16 +147,25 @@ export default {
                 }
               }
             }
-          }     
+          }
         }
       }
     `
 
     const { page } = await $graphql.default.request(query)
-    console.log(page)
-    // console.log(page.HomeFields.shop.products)
+    // console.log(page)
     return { page }
   },
+  mixins: [scrollTriggerHub],
+  data() {
+    return {}
+  },
+  mounted() {
+    if (this.page) {
+      this.scrollTriggerInit()
+    }
+  },
+  methods: {},
 }
 </script>
 

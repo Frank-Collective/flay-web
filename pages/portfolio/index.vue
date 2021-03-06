@@ -5,7 +5,7 @@
         <article class="portfolio-piece" v-for="(data, index) in page.PortfolioFields.featuredPortfolioItems" :key="index">
           <div class="image">
             <FadeImage
-              v-if="data.featuredImage.node"
+              v-if="data.featuredImage"
               :srcset="data.featuredImage.node.srcSet"
               :sizes="data.featuredImage.node.sizes"
               :src="data.featuredImage.node.mediaItemUrl"
