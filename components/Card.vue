@@ -9,7 +9,7 @@
           <h4>{{ data.title }}</h4>
           <div class="image">
             <FadeImage
-              v-if="data.featuredImage.node"
+              v-if="data.featuredImage"
               :srcset="data.featuredImage.node.srcSet"
               :sizes="data.featuredImage.node.sizes"
               :src="data.featuredImage.node.mediaItemUrl"
@@ -26,7 +26,7 @@
       </div>
       <div class="featured-image" v-if="featured">
         <FadeImage
-          v-if="data.featuredImage.node"
+          v-if="data.featuredImage"
           :srcset="data.featuredImage.node.srcSet"
           :sizes="data.featuredImage.node.sizes"
           :src="data.featuredImage.node.mediaItemUrl"

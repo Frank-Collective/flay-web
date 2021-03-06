@@ -29,8 +29,26 @@
       <div class="inner">
         <div class="filters">
           <ul v-bind:class="{ open: filtersOpen }">
-            <li>All</li>
-            <li v-for="(data, index) in page.PortfolioFields.portfolioFilters" :key="index">{{ data.name }}</li>
+            <li
+              @click="
+                () => {
+                  selectedFilter = null
+                }
+              "
+            >
+              All
+            </li>
+            <li
+              v-for="(data, index) in page.PortfolioFields.portfolioFilters"
+              :key="index"
+              @click="
+                () => {
+                  selectedFilter = data.slug
+                }
+              "
+            >
+              {{ data.name }}
+            </li>
           </ul>
           <div class="toggler">
             <span>All</span>
@@ -40,7 +58,7 @@
             </div>
           </div>
         </div>
-        <Grid />
+        <PortfolioGrid :category="selectedFilter" />
       </div>
     </section>
   </div>
@@ -49,13 +67,14 @@
 <script>
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, link } from '~/gql/common'
-import Grid from '~/components/Grid.vue'
+import PortfolioGrid from '~/components/PortfolioGrid.vue'
 
 export default {
-  components: { Grid },
+  components: { PortfolioGrid },
   data() {
     return {
       filtersOpen: false,
+      selectedFilter: null,
     }
   },
   methods: {
@@ -64,10 +83,6 @@ export default {
     },
   },
   async asyncData({ $graphql, params }) {
-    console.log('QURY')
-    console.log('QURY')
-    console.log('QURY')
-    console.log('QURY')
     const query = gql`
       query MyQuery {
         page(id: 31, idType: DATABASE_ID) {
@@ -94,8 +109,6 @@ export default {
     `
 
     const { page } = await $graphql.default.request(query)
-    console.log(page)
-    // console.log(page.HomeFields.shop.products)
     return { page }
   },
 }
@@ -228,20 +241,6 @@ export default {
   .inner {
     display: flex;
     flex-direction: column;
-
-    .grid {
-      position: relative;
-      display: flex;
-      flex-wrap: wrap;
-      width: calc(100% + 10px);
-      left: -5px;
-      padding-bottom: 5px;
-
-      @include breakpoint(small) {
-        width: auto;
-        left: auto;
-      }
-    }
   }
 }
 </style>

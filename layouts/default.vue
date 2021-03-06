@@ -2,7 +2,7 @@
   <div class="page-wrapper">
     <Nav />
     <div class="page-content">
-      <Nuxt />
+      <Nuxt keep-alive />
     </div>
     <Footer />
   </div>
