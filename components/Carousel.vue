@@ -16,7 +16,7 @@
           <div class="slide" v-for="(slide, index) in data.dailySpecialItems" :key="index">
             <div class="image">
               <FadeImage
-                v-if="slide.featuredImage.node"
+                v-if="slide.featuredImage"
                 :srcset="slide.featuredImage.node.srcSet"
                 :sizes="slide.featuredImage.node.sizes"
                 :src="slide.featuredImage.node.mediaItemUrl"

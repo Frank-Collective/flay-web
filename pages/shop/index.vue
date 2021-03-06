@@ -1,30 +1,67 @@
 <template>
-  <div>
+  <div v-if="page">
     <header class="header">
       <div class="inner">
         <h1>Shop</h1>
         <img src="/images/Shop.svg" alt="" />
         <div class="cta">
-          <nuxt-link class="button primary" to="/shop" tabindex="0">All Books Are Signed!</nuxt-link>
+          <span class="button primary">All Books Are Signed!</span>
         </div>
       </div>
     </header>
-
-    <section class="grid">
-      <div class="inner">
-        <!-- <ProductCard :bgColor="'#80B0DE'" />
-        <ProductCard :bgColor="'#84C698'" />
-        <ProductCard :bgColor="'#C3FF4E'" />
-        <ProductCard :bgColor="'#01FF58'" />
-        <ProductCard :bgColor="'#BEBCA6'" />
-        <ProductCard :bgColor="'#8597CB'" /> -->
-      </div>
+    <section class="grid-wrapper">
+      <GridProducts />
     </section>
   </div>
 </template>
 
 <script>
-export default {}
+import { gql } from 'nuxt-graphql-request'
+import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
+import GridProducts from '../../components/GridProducts.vue'
+
+export default {
+  components: { GridProducts },
+  async asyncData({ $graphql, params }) {
+    const query = gql`
+      query MyQuery {
+        page(id: 127, idType: DATABASE_ID) {
+          ${basics}
+          ShopFields {
+            products {
+              ... on Product {
+                ${basics}
+                ${featured_image}
+                CardLink {
+                  cardLinkText
+                }
+                ProductPrice {
+                  productPrice
+                }
+              }
+            }
+          }
+          isPreview
+          preview {
+            node {
+              ${basics}
+              ${featured_image}
+            }
+          }
+        }
+        viewer {
+          name
+          firstName
+          nicename
+        }        
+      }
+    `
+    const { page, viewer } = await $graphql.default.request(query)
+    console.log(page)
+    // console.log(page, 'VIEWER: ', viewer)
+    return { page }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
@@ -75,6 +112,7 @@ export default {}
       position: absolute;
       right: 3vw;
       bottom: 0;
+      user-select: none;
 
       @include breakpoint(small) {
         position: relative;
@@ -92,26 +130,13 @@ export default {}
   }
 }
 
-.grid {
+.grid-wrapper {
   position: relative;
   padding: 0 10px 5px;
   width: 100%;
 
   @include breakpoint(small) {
     padding: 0 10px;
-  }
-
-  .inner {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    width: calc(100% + 10px);
-    left: -5px;
-
-    @include breakpoint(small) {
-      left: auto;
-      width: 100%;
-    }
   }
 }
 </style>

@@ -6,7 +6,7 @@
           <h4>{{ data.title }}</h4>
           <div class="image">
             <FadeImage
-              v-if="data.featuredImage.node"
+              v-if="data.featuredImage"
               :srcset="data.featuredImage.node.srcSet"
               :sizes="data.featuredImage.node.sizes"
               :src="data.featuredImage.node.mediaItemUrl"
@@ -36,7 +36,7 @@ export default {
   },
   computed: {},
   mounted() {
-    console.log(this.data)
+    // console.log(this.data)
   },
   methods: {},
 }
@@ -61,6 +61,7 @@ export default {
 
   .inner {
     display: flex;
+    height: 100%;
     min-height: 610px;
 
     @include breakpoint(small) {

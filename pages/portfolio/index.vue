@@ -5,7 +5,7 @@
         <article class="portfolio-piece" v-for="(data, index) in page.PortfolioFields.featuredPortfolioItems" :key="index">
           <div class="image">
             <FadeImage
-              v-if="data.featuredImage.node"
+              v-if="data.featuredImage"
               :srcset="data.featuredImage.node.srcSet"
               :sizes="data.featuredImage.node.sizes"
               :src="data.featuredImage.node.mediaItemUrl"
@@ -58,7 +58,7 @@
             </div>
           </div>
         </div>
-        <PortfolioGrid :category="selectedFilter" />
+        <GridPortfolio :category="selectedFilter" />
       </div>
     </section>
   </div>
@@ -67,10 +67,10 @@
 <script>
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, link } from '~/gql/common'
-import PortfolioGrid from '~/components/PortfolioGrid.vue'
+import GridPortfolio from '~/components/GridPortfolio.vue'
 
 export default {
-  components: { PortfolioGrid },
+  components: { GridPortfolio },
   data() {
     return {
       filtersOpen: false,

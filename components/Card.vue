@@ -103,6 +103,7 @@ export default {
       justify-content: center;
       text-align: center;
       border: 1px solid $black;
+      width: 100%;
 
       .content-wrapper {
         padding: 5vw;
