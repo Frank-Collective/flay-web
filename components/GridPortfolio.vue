@@ -3,7 +3,7 @@
   <div class="fetch-message error" v-else-if="$fetchState.error">Error while fetching posts</div>
   <div v-else>
     <div class="grid" v-if="portfolioItems && portfolioItems.length">
-      <Card v-for="(card, index) in portfolioItems" :key="index" :data="card.node" />
+      <Card v-for="(card, index) in portfolioItems" :key="index" :data="card.node" :directory="'/portfolio/'" />
     </div>
     <div class="fetch-message" v-else>No results</div>
     <div v-if="pageInfo.hasNextPage" class="loadmore">

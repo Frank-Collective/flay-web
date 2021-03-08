@@ -133,10 +133,13 @@ export default {
 .grid-wrapper {
   position: relative;
   padding: 0 10px 5px;
-  width: 100%;
+  width: calc(100% + 10px);
+  left: -5px;
 
   @include breakpoint(small) {
-    padding: 0 10px;
+    padding: 0 15px;
+    width: 100%;
+    left: auto;
   }
 }
 </style>

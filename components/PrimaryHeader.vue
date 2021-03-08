@@ -2,7 +2,8 @@
   <header class="primary-header">
     <div class="inner">
       <figure class="image">
-        <img v-if="image" :src="image" alt="" />
+        <!-- <img v-if="image" :src="image" alt="" /> -->
+        <FadeImage v-if="image" :srcset="image.srcSet" :sizes="image.sizes" :src="image.mediaItemUrl" :alt="image.altText" />
         <figcaption class="big-letter" v-if="bigLetter">{{ bigLetter }}</figcaption>
         <figcaption class="big-letter" v-else>{{ getBigLetter }}</figcaption>
       </figure>

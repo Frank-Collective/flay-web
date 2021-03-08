@@ -1,5 +1,5 @@
 <template>
-  <article class="card" v-bind:class="{ featured: featured }" v-on:click="$router.push({ path: `/portfolio/${data.slug}` })">
+  <article class="card" v-bind:class="{ featured: featured }" v-on:click="$router.push({ path: `${directory}${data.slug}` })">
     <div href="#" class="inner">
       <div class="content">
         <div class="content-wrapper">
@@ -18,7 +18,7 @@
           </div>
           <div v-html="data.content.substr(0, 100) + '...'"></div>
           <div class="cta">
-            <nuxt-link :to="`/portfolio/${data.slug}`" class="button primary" v-if="data.CardLink.cardLinkText">{{
+            <nuxt-link :to="`${directory}${data.slug}`" class="button primary" v-if="data.CardLink.cardLinkText">{{
               data.CardLink.cardLinkText
             }}</nuxt-link>
           </div>
@@ -42,6 +42,7 @@ export default {
   props: {
     featured: Boolean,
     data: Object,
+    directory: String,
   },
   data() {
     return {}
