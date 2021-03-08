@@ -18,7 +18,10 @@
 <script>
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, link, page_builder } from '~/gql/common'
+import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
+
 export default {
+  mixins: [scrollTriggerHub],
   async asyncData({ $graphql, params }) {
     const post_uri = params.slug
 

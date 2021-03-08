@@ -14,8 +14,10 @@
 <script>
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
+import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
 
 export default {
+  mixins: [scrollTriggerHub],
   async asyncData({ $graphql, params }) {
     const query = gql`
       query MyQuery {

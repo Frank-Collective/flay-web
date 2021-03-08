@@ -1,8 +1,7 @@
 <template>
-  <header class="primary-header">
+  <header class="primary-header" data-st-primary_header>
     <div class="inner">
       <figure class="image">
-        <!-- <img v-if="image" :src="image" alt="" /> -->
         <FadeImage v-if="image" :srcset="image.srcSet" :sizes="image.sizes" :src="image.mediaItemUrl" :alt="image.altText" />
         <figcaption class="big-letter" v-if="bigLetter">{{ bigLetter }}</figcaption>
         <figcaption class="big-letter" v-else>{{ getBigLetter }}</figcaption>
@@ -52,10 +51,8 @@ export default {
   padding: 0 10px;
   min-height: 100vh;
   overflow: hidden;
-
-  @include breakpoint(medium) {
-    // border-bottom: 1px solid $black;
-  }
+  opacity: 0;
+  transition: 1s opacity;
 
   .inner {
     display: flex;
@@ -76,6 +73,8 @@ export default {
       border: 1px solid $black;
       box-sizing: border-box;
       margin: 0;
+      transform: translateX(100px);
+      transition: 1s transform;
 
       @include breakpoint(medium) {
         width: calc(100% - 10px);
@@ -117,10 +116,13 @@ export default {
         position: absolute;
         bottom: 30px;
         right: 0;
-        transform: translate(50%, 50%);
+        transform: translate(0%, 50%);
         @extend .h1;
         z-index: 2;
         pointer-events: none;
+        opacity: 0;
+        transition: 1s all;
+        transition-delay: 0.25s;
 
         @include breakpoint(medium) {
           bottom: 7px;
@@ -132,6 +134,10 @@ export default {
     .content {
       width: 50%;
       padding: 9vw;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: 1s all;
+      transition-delay: 0.5s;
 
       @include breakpoint(medium) {
         width: auto;
@@ -164,6 +170,24 @@ export default {
           margin-top: 50px;
         }
       }
+    }
+  }
+
+  &.animate-in {
+    opacity: 1;
+
+    .image {
+      transform: translateX(0px);
+
+      .big-letter {
+        transform: translate(50%, 50%);
+        opacity: 1;
+      }
+    }
+
+    .content {
+      transform: translateY(0px);
+      opacity: 1;
     }
   }
 }

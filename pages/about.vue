@@ -1,6 +1,6 @@
 <template>
   <div v-if="page">
-    <header class="about-header">
+    <header class="about-header" data-st-about_header>
       <div class="inner">
         <div class="image"><img :src="page.featuredImage.node.sourceUrl" alt="" /></div>
         <div class="content">
@@ -24,8 +24,10 @@
 <script>
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
+import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
 
 export default {
+  mixins: [scrollTriggerHub],
   async asyncData({ $graphql, params }) {
     const query = gql`
       query MyQuery {
@@ -79,6 +81,7 @@ export default {
     }
   },
   mounted() {
+    console.log('about: mounted')
     if (this.page) {
       this.bigLetter = this.page.content.substr(4, 1)
     }
@@ -92,6 +95,12 @@ export default {
 <style lang="scss" scoped>
 .about-header {
   padding: 43px 10px 0;
+  opacity: 0;
+  transition: 1s opacity;
+
+  &.animate-in {
+    opacity: 1;
+  }
 
   @include breakpoint(small) {
     padding: 43px 10px 0;

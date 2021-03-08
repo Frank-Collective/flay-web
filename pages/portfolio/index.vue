@@ -2,7 +2,12 @@
   <div v-if="page">
     <header class="featured">
       <div class="inner">
-        <article class="portfolio-piece" v-for="(data, index) in page.PortfolioFields.featuredPortfolioItems" :key="index">
+        <article
+          class="portfolio-piece"
+          v-for="(data, index) in page.PortfolioFields.featuredPortfolioItems"
+          :key="index"
+          data-st-portfolio-featured
+        >
           <div class="image">
             <FadeImage
               v-if="data.featuredImage"
@@ -25,16 +30,18 @@
         </article>
       </div>
     </header>
-    <section class="portfolio-grid">
+    <section class="portfolio-grid" data-st-slide_up_enter data-st-stagger_cards_slide_up_enter>
       <div class="inner">
         <div class="filters">
           <ul v-bind:class="{ open: filtersOpen }">
             <li
               @click="
                 () => {
-                  selectedFilter = null
+                  selectedFilter = { slug: null, name: null }
+                  closeFiltersMenu()
                 }
               "
+              v-bind:class="{ active: selectedFilter.slug == null }"
             >
               All
             </li>
@@ -43,22 +50,24 @@
               :key="index"
               @click="
                 () => {
-                  selectedFilter = data.slug
+                  selectedFilter = data
+                  closeFiltersMenu()
                 }
               "
+              v-bind:class="{ active: selectedFilter.slug == data.slug }"
             >
               {{ data.name }}
             </li>
           </ul>
           <div class="toggler">
-            <span>All</span>
+            <span v-html="selectedFilter.name == null ? 'All' : selectedFilter.name"></span>
             <div class="toggle-btn" v-on:click="toggleFiltersMenu">
               <div></div>
               <div v-bind:style="{ opacity: filtersOpen ? '0' : '1' }"></div>
             </div>
           </div>
         </div>
-        <GridPortfolio :category="selectedFilter" />
+        <GridPortfolio :category="selectedFilter.slug" />
       </div>
     </section>
   </div>
@@ -67,19 +76,37 @@
 <script>
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, link } from '~/gql/common'
+import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
 import GridPortfolio from '~/components/GridPortfolio.vue'
 
 export default {
   components: { GridPortfolio },
+  mixins: [scrollTriggerHub],
   data() {
     return {
       filtersOpen: false,
-      selectedFilter: null,
+      selectedFilter: { slug: null, name: null },
     }
+  },
+  mounted() {
+    console.log('portfolio: mounted')
+  },
+  updated() {
+    console.log('portfolio: updated')
   },
   methods: {
     toggleFiltersMenu() {
       this.filtersOpen = !this.filtersOpen
+    },
+    closeFiltersMenu() {
+      this.filtersOpen = false
+    },
+    isEvenNumber(num) {
+      if (num % 2 == 0) {
+        return true
+      } else {
+        return false
+      }
     },
   },
   async asyncData({ $graphql, params }) {
@@ -128,6 +155,25 @@ export default {
       display: flex;
       align-items: flex-start;
       margin-bottom: 10px;
+      opacity: 0;
+      transition: 1s opacity;
+
+      &.animate-in {
+        opacity: 1;
+
+        .image {
+          transform: translateX(0px);
+
+          .number {
+            transform: translate(40%, -0.15em);
+          }
+        }
+
+        .content {
+          transform: translateY(0px);
+          opacity: 1;
+        }
+      }
 
       @include breakpoint(small) {
         flex-direction: column;
@@ -139,6 +185,8 @@ export default {
         flex-shrink: 0;
         border: 1px solid $black;
         box-sizing: border-box;
+        transform: translateX(100px);
+        transition: 1s transform;
 
         @include breakpoint(small) {
           width: 100%;
@@ -154,7 +202,9 @@ export default {
           position: absolute;
           top: 50%;
           right: 0;
-          transform: translate(40%, -0.15em);
+          transform: translate(0%, -0.15em);
+          transition: 1s transform;
+          transition-delay: 0.25s;
           @extend .h1;
           line-height: 0;
 
@@ -172,6 +222,10 @@ export default {
         flex-direction: column;
         justify-content: center;
         padding: 30px 3vw 30px 7vw;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: 1s all;
+        transition-delay: 0.5s;
 
         @include breakpoint(medium) {
           padding: 30px 25px 30px 7vw;
@@ -189,8 +243,18 @@ export default {
       }
 
       &:nth-of-type(even) {
+        &.animate-in {
+          .image {
+            transform: translateX(0px);
+
+            .number {
+              transform: translate(-40%, -0.55em);
+            }
+          }
+        }
         .image {
           order: 1;
+          transform: translateX(-100px);
 
           @include breakpoint(small) {
             order: unset;
@@ -200,7 +264,9 @@ export default {
             top: 50%;
             right: auto;
             left: 0;
-            transform: translate(-40%, -0.55em);
+            transform: translate(0%, -0.55em);
+            transition: 1s transform;
+            transition-delay: 0.25s;
 
             @include breakpoint(small) {
               left: auto;

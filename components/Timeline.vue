@@ -1,5 +1,5 @@
 <template>
-  <div class="timeline-wrapper" v-if="timelineData">
+  <div class="timeline-wrapper" v-if="timelineData" data-st-slide_up_enter data-st-slide_up_leave>
     <div class="inner">
       <div class="filters">
         <ul v-bind:class="{ open: filtersOpen }">

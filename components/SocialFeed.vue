@@ -1,5 +1,5 @@
 <template>
-  <section class="social-feed">
+  <section class="social-feed" data-st-slide_up_enter data-st-slide_up_leave>
     <div class="inner">
       <div class="header">
         <h3>O</h3>
@@ -44,29 +44,29 @@
           </li>
         </ul>
       </div>
-      <div class="grid">
-        <a href="#" target="_blank" class="social-card">
+      <div class="grid" data-st-stagger_cards_slide_up_enter>
+        <a href="#" target="_blank" class="card">
           <div class="image"><img src="/images/BobbysBurgerPalace-1035.jpg" alt="" /></div>
         </a>
-        <a href="#" target="_blank" class="social-card">
+        <a href="#" target="_blank" class="card">
           <div class="image"><img src="/images/160125_BORGATA_BobbyFlaySteak57160.jpg" alt="" /></div>
         </a>
-        <a href="#" target="_blank" class="social-card">
+        <a href="#" target="_blank" class="card">
           <div class="image"><img src="/images/BobbysBurgerPalace-1035.jpg" alt="" /></div>
         </a>
-        <a href="#" target="_blank" class="social-card">
+        <a href="#" target="_blank" class="card">
           <div class="image"><img src="/images/160125_BORGATA_BobbyFlaySteak57160.jpg" alt="" /></div>
         </a>
-        <a href="#" target="_blank" class="social-card">
+        <a href="#" target="_blank" class="card">
           <div class="image"><img src="/images/BobbysBurgerPalace-1035.jpg" alt="" /></div>
         </a>
-        <a href="#" target="_blank" class="social-card">
+        <a href="#" target="_blank" class="card">
           <div class="image"><img src="/images/160125_BORGATA_BobbyFlaySteak57160.jpg" alt="" /></div>
         </a>
-        <a href="#" target="_blank" class="social-card">
+        <a href="#" target="_blank" class="card">
           <div class="image"><img src="/images/BobbysBurgerPalace-1035.jpg" alt="" /></div>
         </a>
-        <a href="#" target="_blank" class="social-card">
+        <a href="#" target="_blank" class="card">
           <div class="image"><img src="/images/160125_BORGATA_BobbyFlaySteak57160.jpg" alt="" /></div>
         </a>
       </div>
@@ -141,7 +141,7 @@ export default {}
       width: calc(100% + 10px);
       left: -5px;
 
-      .social-card {
+      .card {
         width: 25%;
         height: 381px;
         padding: 5px;
