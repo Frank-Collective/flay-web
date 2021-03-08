@@ -1,11 +1,11 @@
 <template>
-  <div v-if="dailySpecial" class="portfolio-single-page">
+  <div v-if="dailySpecial" class="daily-special-single-page">
     <PrimaryHeader
-      :image="dailySpecial.featuredImage != null ? dailySpecial.featuredImage.node.sourceUrl : null"
+      :image="dailySpecial.featuredImage != null ? dailySpecial.featuredImage.node : null"
       :preheader="'Daily Special'"
       :header="dailySpecial.title"
       :content="dailySpecial.content"
-      :link="portfolio.HeaderCTALink.link != null ? portfolio.HeaderCTALink.link : null"
+      :link="dailySpecial.HeaderCTALink.link != null ? dailySpecial.HeaderCTALink.link : null"
     />
 
     <div class="section-spacer hide-mobile"></div>
@@ -25,7 +25,7 @@ export default {
         dailySpecial(id: $uri, idType: URI) {
           ${basics}
           ${featured_image} 
-          ${page_builder('dailySpecial')}
+          ${page_builder('DailySpecial')}
           HeaderCTALink {
             link {
               target
@@ -47,8 +47,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.portfolio-single-page {
-  .portfolio-content {
+.daily-special-single-page {
+  .daily-special-content {
     .inner {
       display: flex;
       flex-direction: column;

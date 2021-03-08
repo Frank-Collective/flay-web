@@ -2,11 +2,7 @@
   <div v-if="page">
     <PrimaryHeader
       :image="
-        page.PrimaryHeader.image != null
-          ? page.PrimaryHeader.image.sourceUrl
-          : page.featuredImage != null
-          ? page.featuredImage.node.sourceUrl
-          : null
+        page.PrimaryHeader.image != null ? page.PrimaryHeader.image : page.featuredImage != null ? page.featuredImage.node : null
       "
       :bigLetter="page.PrimaryHeader.bigLetter"
       :preheader="page.PrimaryHeader.preHeader"
@@ -35,12 +31,22 @@
         </div>
         <div class="grid" v-if="page.HomeFields.portfolio.firstIsFeatured">
           <div class="featured-wrapper">
-            <Card :featured="true" :data="page.HomeFields.portfolio.portfolioItems[0]" />
+            <Card :featured="true" :data="page.HomeFields.portfolio.portfolioItems[0]" :directory="'/portfolio/'" />
           </div>
-          <Card v-for="(card, index) in page.HomeFields.portfolio.portfolioItems.slice(1)" :key="index" :data="card" />
+          <Card
+            v-for="(card, index) in page.HomeFields.portfolio.portfolioItems.slice(1)"
+            :key="index"
+            :data="card"
+            :directory="'/portfolio/'"
+          />
         </div>
         <div class="grid" v-else>
-          <Card v-for="(card, index) in page.HomeFields.portfolio.portfolioItems" :key="index" :data="card" />
+          <Card
+            v-for="(card, index) in page.HomeFields.portfolio.portfolioItems"
+            :key="index"
+            :data="card"
+            :directory="'/portfolio/'"
+          />
         </div>
       </div>
     </section>

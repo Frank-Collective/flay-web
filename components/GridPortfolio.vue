@@ -6,7 +6,11 @@
       <span v-if="!portfolioItems || portfolioItems.length <= 0">No</span> Portfolio Results for "{{ searchTerm }}"
     </h4>
     <div class="grid" v-if="portfolioItems && portfolioItems.length">
+<<<<<<< HEAD
       <Card v-for="card in portfolioItems" :key="card.node.slug" :data="card.node" />
+=======
+      <Card v-for="(card, index) in portfolioItems" :key="index" :data="card.node" :directory="'/portfolio/'" />
+>>>>>>> 7c4323fd26effa7b5e17ce7c3d9d0aba019c47e9
     </div>
     <div class="fetch-message" v-else-if="!searchTerm">No results</div>
     <div v-if="pageInfo && pageInfo.hasNextPage" class="loadmore">

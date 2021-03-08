@@ -6,7 +6,7 @@
       <span v-if="!dailySpecials || dailySpecials.length <= 0">No</span> Daily Special Results for "{{ searchTerm }}"
     </h4>
     <div class="grid" v-if="dailySpecials && dailySpecials.length">
-      <Card v-for="card in dailySpecials" :key="card.node.slug" :data="card.node" />
+      <Card v-for="(card, index) in dailySpecials" :key="index" :data="card.node" :directory="'/daily-specials/'" />
     </div>
     <div class="fetch-message" v-else-if="!searchTerm">No results</div>
     <div v-if="pageInfo && pageInfo.hasNextPage" class="loadmore">

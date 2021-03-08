@@ -1,7 +1,7 @@
 <template>
   <div v-if="portfolio" class="portfolio-single-page">
     <PrimaryHeader
-      :image="portfolio.featuredImage != null ? portfolio.featuredImage.node.sourceUrl : null"
+      :image="portfolio.featuredImage != null ? portfolio.featuredImage.node : null"
       :preheader="'Portfolio'"
       :header="portfolio.title"
       :content="portfolio.content"

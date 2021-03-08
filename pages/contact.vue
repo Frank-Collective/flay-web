@@ -1,7 +1,7 @@
 <template>
   <div class="contact-page" v-if="page">
     <PrimaryHeader
-      :image="page.featuredImage != null ? page.featuredImage.node.sourceUrl : null"
+      :image="page.featuredImage != null ? page.featuredImage.node : null"
       :header="page.title"
       :content="page.content"
     />
