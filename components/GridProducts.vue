@@ -1,12 +1,13 @@
 <template>
-  <div class="fetch-message fetching" v-if="$fetchState.pending">Loading...</div>
-  <div class="fetch-message error" v-else-if="$fetchState.error">Error while fetching posts</div>
-  <div v-else>
+  <div>
+    <div class="fetch-message fetching" v-if="$fetchState.pending">Loading...</div>
+    <div class="fetch-message error" v-if="$fetchState.error">Error while fetching posts</div>
+    <h4 v-if="searchTerm"><span v-if="!products || products.length <= 0">No</span> Shop Results for "{{ searchTerm }}"</h4>
     <div class="grid" v-if="products && products.length">
-      <ProductCard v-for="(card, index) in products" :key="index" :data="card.node" />
+      <ProductCard v-for="card in products" :key="card.node.slug" :data="card.node" />
     </div>
-    <div class="fetch-message" v-else>No results</div>
-    <div v-if="pageInfo.hasNextPage" class="loadmore">
+    <div class="fetch-message" v-else-if="!searchTerm">No results</div>
+    <div v-if="pageInfo && pageInfo.hasNextPage" class="loadmore">
       <div class="button primary" @click="fetchMore()">
         <span>Load More</span>
       </div>
@@ -75,7 +76,6 @@ export default {
     async fetchMore() {
       const variables = { first: ppp, after: this.pageInfo.endCursor, cat: this.category, term: this.searchTerm }
       const data = await this.$graphql.default.request(query, variables)
-      console.log(data)
       this.products = [...this.products, ...data.products.edges]
       this.pageInfo = data.products.pageInfo
     },
@@ -89,6 +89,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+h4 {
+  margin-top: 1em;
+  border-top: 1px solid $black;
+  padding-top: 1em;
+}
 .grid {
   position: relative;
   display: flex;
