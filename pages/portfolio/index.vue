@@ -15,6 +15,8 @@
               :sizes="data.featuredImage.node.sizes"
               :src="data.featuredImage.node.mediaItemUrl"
               :alt="data.featuredImage.node.altText"
+              :width="data.featuredImage.node.mediaDetails.width"
+              :height="data.featuredImage.node.mediaDetails.height"
             />
             <span class="number">{{ index + 1 }}</span>
           </div>
@@ -89,10 +91,10 @@ export default {
     }
   },
   mounted() {
-    console.log('portfolio: mounted')
+    // console.log('portfolio: mounted')
   },
   updated() {
-    console.log('portfolio: updated')
+    // console.log('portfolio: updated')
   },
   methods: {
     toggleFiltersMenu() {
@@ -224,7 +226,7 @@ export default {
         padding: 30px 3vw 30px 7vw;
         opacity: 0;
         transform: translateY(50px);
-        transition: 1s all;
+        transition: 1s transform, 1s opacity;
         transition-delay: 0.5s;
 
         @include breakpoint(medium) {

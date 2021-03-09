@@ -21,6 +21,8 @@
                 :sizes="slide.featuredImage.node.sizes"
                 :src="slide.featuredImage.node.mediaItemUrl"
                 :alt="slide.featuredImage.node.altText"
+                :width="slide.featuredImage.node.mediaDetails.width"
+                :height="slide.featuredImage.node.mediaDetails.height"
               />
             </div>
             <div class="content">

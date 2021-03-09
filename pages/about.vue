@@ -71,7 +71,7 @@ export default {
       }
     `
     const { page, viewer } = await $graphql.default.request(query)
-    console.log(page)
+    // console.log(page)
     // console.log(page, 'VIEWER: ', viewer)
     return { page }
   },
@@ -81,7 +81,7 @@ export default {
     }
   },
   mounted() {
-    console.log('about: mounted')
+    // console.log('about: mounted')
     if (this.page) {
       this.bigLetter = this.page.content.substr(4, 1)
     }
@@ -98,10 +98,6 @@ export default {
   opacity: 0;
   transition: 1s opacity;
 
-  &.animate-in {
-    opacity: 1;
-  }
-
   @include breakpoint(small) {
     padding: 43px 10px 0;
   }
@@ -117,6 +113,8 @@ export default {
       max-height: 650px;
       min-height: 162px;
       border: 1px solid $black;
+      transform: translateY(-30px);
+      transition: 1s transform;
 
       img {
         position: absolute;
@@ -129,6 +127,8 @@ export default {
     /deep/ .content {
       position: relative;
       padding: 90px 6vw 0 33%;
+      opacity: 0;
+      transition: 1s opacity;
 
       @include breakpoint(small) {
         padding: 130px 6vw 0;
@@ -141,6 +141,10 @@ export default {
         left: 5vw;
         @extend .h1;
         line-height: 0.5em;
+        opacity: 0;
+        transform: translateX(50px);
+        transition: 1s transform, 1s opacity;
+        transition-delay: 0.25s;
 
         @include breakpoint(small) {
           top: 2vw;
@@ -150,6 +154,23 @@ export default {
 
       h1 {
         @extend .h3;
+      }
+    }
+  }
+
+  &.animate-in {
+    opacity: 1;
+
+    .image {
+      transform: translateY(0px);
+    }
+
+    .content {
+      opacity: 1;
+
+      .big-letter {
+        opacity: 1;
+        transform: translateX(0px);
       }
     }
   }

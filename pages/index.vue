@@ -172,12 +172,20 @@ export default {
     return {}
   },
   mounted() {
-    console.log('homepage: mounted')
+    // console.log('homepage: mounted')
   },
   updated() {
-    console.log('homepage: updated')
+    // console.log('homepage: updated')
   },
   methods: {},
+  watch: {
+    $route(to, from) {
+      console.log(to, from)
+      if (to.name == 'index') {
+        console.log('returning to homepage')
+      }
+    },
+  },
 }
 </script>
 

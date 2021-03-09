@@ -2,7 +2,15 @@
   <header class="primary-header" data-st-primary_header>
     <div class="inner">
       <figure class="image">
-        <FadeImage v-if="image" :srcset="image.srcSet" :sizes="image.sizes" :src="image.mediaItemUrl" :alt="image.altText" />
+        <FadeImage
+          v-if="image"
+          :srcset="image.srcSet"
+          :sizes="image.sizes"
+          :src="image.mediaItemUrl"
+          :alt="image.altText"
+          :width="image.mediaDetails.width"
+          :height="image.mediaDetails.height"
+        />
         <figcaption class="big-letter" v-if="bigLetter">{{ bigLetter }}</figcaption>
         <figcaption class="big-letter" v-else>{{ getBigLetter }}</figcaption>
       </figure>
@@ -116,12 +124,12 @@ export default {
         position: absolute;
         bottom: 30px;
         right: 0;
-        transform: translate(0%, 50%);
         @extend .h1;
         z-index: 2;
         pointer-events: none;
+        transform: translate(0%, 50%);
         opacity: 0;
-        transition: 1s all;
+        transition: 1s transform, 1s opacity;
         transition-delay: 0.25s;
 
         @include breakpoint(medium) {
@@ -136,7 +144,7 @@ export default {
       padding: 9vw;
       transform: translateY(100px);
       opacity: 0;
-      transition: 1s all;
+      transition: 1s transform, 1s opacity;
       transition-delay: 0.5s;
 
       @include breakpoint(medium) {

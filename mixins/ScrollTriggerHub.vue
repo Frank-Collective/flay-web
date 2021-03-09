@@ -6,6 +6,7 @@ gsap.registerPlugin(ScrollTrigger)
 export default {
   data() {
     return {
+      scrolltrigger_initiated: false,
       fade_up_els: [],
       slide_up_enter_els: [],
       slide_up_leave_els: [],
@@ -16,40 +17,49 @@ export default {
     }
   },
   mounted() {
-    window.onload = event => {
-      this.scrollTriggerInit()
-    }
+    console.log('ScrollTriggerHub mounted')
+    // document.addEventListener('DOMContentLoaded', () => {
+    this.scrollTriggerInit()
+    // })
+  },
+  updated() {
+    console.log('ScrollTriggerHub updated')
+    this.scrollTriggerInit()
   },
   methods: {
     scrollTriggerInit() {
-      console.log('scrollTriggerInit')
-      // Fade In & Slide Up
-      this.fade_up_els = document.querySelectorAll('[data-st-fade_up]')
-      this.fade_up_els.forEach(this.add_fade_up_animation)
+      if (!this.scrolltrigger_initiated && process.client) {
+        console.log('scrollTriggerInit')
+        this.scrolltrigger_initiated = true
 
-      // Slide Up Enter
-      this.slide_up_enter_els = document.querySelectorAll('[data-st-slide_up_enter]')
-      this.slide_up_enter_els.forEach(this.add_slide_up_enter_animation)
+        // Fade In & Slide Up
+        this.fade_up_els = document.querySelectorAll('[data-st-fade_up]')
+        this.fade_up_els.forEach(this.add_fade_up_animation)
 
-      // Slide Up Leave
-      this.slide_up_leave_els = document.querySelectorAll('[data-st-slide_up_leave]')
-      this.slide_up_leave_els.forEach(this.add_slide_up_leave_animation)
+        // Slide Up Enter
+        this.slide_up_enter_els = document.querySelectorAll('[data-st-slide_up_enter]')
+        this.slide_up_enter_els.forEach(this.add_slide_up_enter_animation)
 
-      // Stagger Cards Slide Up Enter
-      this.stagger_cards_slide_up_enter_els = document.querySelectorAll('[data-st-stagger_cards_slide_up_enter]')
-      this.stagger_cards_slide_up_enter_els.forEach(this.add_stagger_cards_slide_up_enter_animation)
+        // Slide Up Leave
+        this.slide_up_leave_els = document.querySelectorAll('[data-st-slide_up_leave]')
+        this.slide_up_leave_els.forEach(this.add_slide_up_leave_animation)
 
-      // Portfolio Featured
-      this.portfolio_featured_els = document.querySelectorAll('[data-st-portfolio-featured]')
-      this.portfolio_featured_els.forEach(this.add_portfolio_featured_animation)
+        // Stagger Cards Slide Up Enter
+        this.stagger_cards_slide_up_enter_els = document.querySelectorAll('[data-st-stagger_cards_slide_up_enter]')
+        this.stagger_cards_slide_up_enter_els.forEach(this.add_stagger_cards_slide_up_enter_animation)
 
-      // Primary Header
-      this.primary_header_els = document.querySelectorAll('[data-st-primary_header]')
-      this.primary_header_els.forEach(this.add_primary_header_animation)
+        // Portfolio Featured
+        this.portfolio_featured_els = document.querySelectorAll('[data-st-portfolio-featured]')
+        this.portfolio_featured_els.forEach(this.add_portfolio_featured_animation)
 
-      // About Header
-      this.about_header_els = document.querySelectorAll('[data-st-about_header]')
-      this.about_header_els.forEach(this.add_about_header_animation)
+        // Primary Header
+        this.primary_header_els = document.querySelectorAll('[data-st-primary_header]')
+        this.primary_header_els.forEach(this.add_primary_header_animation)
+
+        // About Header
+        this.about_header_els = document.querySelectorAll('[data-st-about_header]')
+        this.about_header_els.forEach(this.add_about_header_animation)
+      }
     },
     add_fade_up_animation(el, index) {
       const timeline = gsap

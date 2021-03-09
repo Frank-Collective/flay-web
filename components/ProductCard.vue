@@ -11,6 +11,8 @@
               :sizes="data.featuredImage.node.sizes"
               :src="data.featuredImage.node.mediaItemUrl"
               :alt="data.featuredImage.node.altText"
+              :width="data.featuredImage.node.mediaDetails.width"
+              :height="data.featuredImage.node.mediaDetails.height"
             />
           </div>
           <div v-html="data.content.substr(0, 100) + '...'"></div>

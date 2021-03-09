@@ -88,7 +88,7 @@ export default {
           this.eventsList.push({ event: theEvents[event], eventYear: theYear })
         }
       }
-      console.log(this.eventsList)
+      // console.log(this.eventsList)
     }
   },
   updated() {},

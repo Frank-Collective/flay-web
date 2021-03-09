@@ -12,9 +12,11 @@
           <li
             @click="
               () => {
-                selectedFilter = null
+                selectedFilter = { slug: null, name: null }
+                closeFiltersMenu()
               }
             "
+            v-bind:class="{ active: selectedFilter.slug == null }"
           >
             All
           </li>
@@ -23,22 +25,24 @@
             :key="index"
             @click="
               () => {
-                selectedFilter = data.slug
+                selectedFilter = data
+                closeFiltersMenu()
               }
             "
+            v-bind:class="{ active: selectedFilter.slug == data.slug }"
           >
             {{ data.name }}
           </li>
         </ul>
         <div class="toggler">
-          <span>All</span>
+          <span v-html="selectedFilter.name == null ? 'All' : selectedFilter.name">All</span>
           <div class="toggle-btn" v-on:click="toggleFiltersMenu">
             <div></div>
             <div v-bind:style="{ opacity: filtersOpen ? '0' : '1' }"></div>
           </div>
         </div>
       </div>
-      <GridDailySpecials :category="selectedFilter" />
+      <GridDailySpecials :category="selectedFilter.slug" />
     </section>
   </div>
 </template>
@@ -53,12 +57,15 @@ export default {
   data() {
     return {
       filtersOpen: false,
-      selectedFilter: null,
+      selectedFilter: { slug: null, name: null },
     }
   },
   methods: {
     toggleFiltersMenu() {
       this.filtersOpen = !this.filtersOpen
+    },
+    closeFiltersMenu() {
+      this.filtersOpen = false
     },
   },
   async asyncData({ $graphql, params }) {
