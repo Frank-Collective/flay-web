@@ -213,8 +213,7 @@ export default {
               cursor: pointer;
 
               &:hover {
-                background-color: $black;
-                color: $white;
+                opacity: 0.5;
               }
             }
 

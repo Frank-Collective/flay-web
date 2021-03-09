@@ -79,12 +79,6 @@ export default {
               filter: grayscale(0%);
             }
           }
-
-          .cta {
-            .button {
-              background: $white;
-            }
-          }
         }
       }
     }

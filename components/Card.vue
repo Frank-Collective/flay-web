@@ -90,12 +90,6 @@ export default {
               filter: grayscale(0%);
             }
           }
-
-          .cta {
-            .button {
-              background: $white;
-            }
-          }
         }
       }
     }
@@ -226,6 +220,10 @@ export default {
 
         /deep/ p {
           font-size: 20px;
+
+          @include breakpoint(small) {
+            font-size: 14px;
+          }
         }
       }
     }

@@ -3742,7 +3742,7 @@ find-up@^4.0.0, find-up@^4.1.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
-fizzy-ui-utils@^2.0.7:
+fizzy-ui-utils@^2.0.0, fizzy-ui-utils@^2.0.7:
   version "2.0.7"
   resolved "https://registry.yarnpkg.com/fizzy-ui-utils/-/fizzy-ui-utils-2.0.7.tgz#7df45dcc4eb374a08b65d39bb9a4beedf7330505"
   integrity sha512-CZXDVXQ1If3/r8s0T+v+qVeMshhfcuq0rqIFgJnrtd+Bu8GmDmqMjntjUePypVtjHXKJ6V4sw9zeyox34n9aCg==
@@ -3758,6 +3758,14 @@ flatten@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/flatten/-/flatten-1.0.3.tgz#c1283ac9f27b368abc1e36d1ff7b04501a30356b"
   integrity sha512-dVsPA/UwQ8+2uoFe5GHtiBMu48dWLTdsuEd7CKGlZlD78r1TTWBvDuFaFGKCo/ZfEr95Uk56vZoX86OsHkUeIg==
+
+flickity-fade@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/flickity-fade/-/flickity-fade-1.0.0.tgz#3f613cd07c7afddef193936832932ff296ade135"
+  integrity sha512-5iXHN+nqjQcph6fqOw+/wAr0FHxIrcVQyKfwyVoI325CYrl9sVsx7cr6cyAih9sDYiUCGzrM6OykG7mSb5LPMg==
+  dependencies:
+    fizzy-ui-utils "^2.0.0"
+    flickity "^2.2.0"
 
 flickity@^2.2.0:
   version "2.2.2"

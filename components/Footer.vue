@@ -53,7 +53,7 @@ export default {}
       }
 
       @include breakpoint(tiny) {
-        justify-content: space-between;
+        // justify-content: space-between;
       }
 
       ul {
@@ -62,10 +62,6 @@ export default {}
 
           @include breakpoint(small) {
             margin-right: 100px;
-          }
-
-          @include breakpoint(tiny) {
-            margin-right: 0;
           }
         }
 
