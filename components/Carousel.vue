@@ -56,6 +56,7 @@
 
 <script>
 import Flickity from 'vue-flickity'
+import FlickityFade from 'flickity-fade'
 
 export default {
   components: {
@@ -75,8 +76,8 @@ export default {
         autoPlay: 5000,
         adaptiveHeight: true,
         pauseAutoPlayOnHover: false,
-        selectedAttraction: 0.05,
-        friction: 0.8,
+        draggable: true,
+        fade: true,
       },
       selectedIndex: 0,
     }
@@ -106,6 +107,10 @@ export default {
   },
 }
 </script>
+
+<style>
+@import 'node_modules/flickity-fade/flickity-fade.css';
+</style>
 
 <style lang="scss" scoped>
 .carousel {

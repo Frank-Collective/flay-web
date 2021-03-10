@@ -208,11 +208,12 @@ export default {
 
           input {
             font-size: 14px;
-            color: #c1c1c1;
+            color: $black;
             border: none;
             outline: none;
             background: transparent;
             appearance: none;
+            border-radius: 0;
 
             @include breakpoint(small) {
               font-size: 15px;
@@ -250,7 +251,7 @@ export default {
 
           @include breakpoint(small) {
             position: relative;
-            transform: translateY(-200%);
+            transform: translateY(calc(-200% - 3px));
           }
         }
       }
@@ -264,6 +265,10 @@ export default {
           font-weight: normal;
           padding-left: 10px;
           padding-right: 10px;
+
+          @include breakpoint(small) {
+            font-weight: bold;
+          }
 
           img {
             margin-left: 15px;

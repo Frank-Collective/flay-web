@@ -2,7 +2,7 @@
   <section class="social-feed" data-st-slide_up_enter data-st-slide_up_leave>
     <div class="inner">
       <div class="header">
-        <h3>O</h3>
+        <h3>@</h3>
         <ul class="social-icons">
           <li>
             <a href="https://www.twitter.com" target="_blank"
@@ -84,23 +84,32 @@ export default {}
 
   .inner {
     .header {
+      position: relative;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
       padding-top: 9vw;
 
+      @include breakpoint(small) {
+        padding-top: 50px;
+      }
+
       h3 {
         position: relative;
         z-index: 1;
-        left: 10vw;
+        left: 8vw;
         @include font-maelstrom;
-        font-size: 24vw;
-        line-height: 0.4;
+        font-size: 490px;
+        line-height: 0.33;
         margin: 0;
 
+        @include breakpoint(xlarge) {
+          font-size: 34vw;
+        }
+
         @include breakpoint(small) {
-          font-size: 180px;
-          left: -30px;
+          font-size: 290px;
+          left: -60px;
         }
       }
 
@@ -110,7 +119,9 @@ export default {}
         margin: 0 6vw 40px;
 
         @include breakpoint(small) {
-          margin: 0 -10px 40px;
+          margin: 0 0 40px;
+          position: absolute;
+          right: -10px;
         }
 
         li {

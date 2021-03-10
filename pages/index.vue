@@ -194,7 +194,9 @@ export default {
   padding: 20px 10px 100px;
 
   @include breakpoint(small) {
+    padding-top: 0;
     padding-bottom: 0;
+    border-top: 1px solid $black;
   }
 
   .inner {

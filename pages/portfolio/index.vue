@@ -167,7 +167,8 @@ export default {
           transform: translateX(0px);
 
           .number {
-            transform: translate(40%, -0.15em);
+            transform: translate(40%, 0);
+            opacity: 1;
           }
         }
 
@@ -202,13 +203,14 @@ export default {
 
         .number {
           position: absolute;
-          top: 50%;
+          top: 0.13em;
           right: 0;
-          transform: translate(0%, -0.15em);
-          transition: 1s transform;
+          opacity: 0;
+          transform: translate(0%, 0%);
+          transition: 1s transform, 1s opacity;
           transition-delay: 0.25s;
           @extend .h1;
-          line-height: 0;
+          line-height: 1;
 
           @include breakpoint(small) {
             right: auto;
@@ -250,7 +252,8 @@ export default {
             transform: translateX(0px);
 
             .number {
-              transform: translate(-40%, -0.55em);
+              opacity: 1;
+              transform: translate(-40%, 0);
             }
           }
         }
@@ -263,11 +266,12 @@ export default {
           }
 
           .number {
-            top: 50%;
+            top: 0.13em;
             right: auto;
             left: 0;
-            transform: translate(0%, -0.55em);
-            transition: 1s transform;
+            opacity: 0;
+            transform: translate(0%, 0);
+            transition: 1s transform, 1s opacity;
             transition-delay: 0.25s;
 
             @include breakpoint(small) {
