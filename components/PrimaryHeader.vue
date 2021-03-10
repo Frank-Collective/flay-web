@@ -188,7 +188,7 @@ export default {
       transform: translateX(0px);
 
       .big-letter {
-        transform: translate(50%, 50%);
+        transform: translate(40%, 50%);
         opacity: 1;
       }
     }

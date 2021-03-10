@@ -22,7 +22,11 @@
           </div>
           <div class="content">
             <h3>{{ data.title }}</h3>
-            <div v-html="`${data.content.substr(0, 100)}...`"></div>
+            <!-- Description -->
+            <div v-if="data.Descriptions.featuredDescription">
+              <p>{{ data.Descriptions.featuredDescription }}</p>
+            </div>
+            <div v-else v-html="data.content.substr(0, 100) + '...'"></div>
             <div class="cta">
               <nuxt-link :to="`/portfolio/${data.slug}`" class="button primary" v-if="data.CardLink.cardLinkText">{{
                 data.CardLink.cardLinkText
@@ -125,6 +129,10 @@ export default {
                 ${categories}
                 CardLink {
                   cardLinkText
+                }
+                Descriptions {
+                  featuredDescription
+                  thumbnailDescription
                 }
               }
             }

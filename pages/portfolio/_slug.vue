@@ -2,7 +2,7 @@
   <div v-if="portfolio" class="portfolio-single-page">
     <PrimaryHeader
       :image="portfolio.featuredImage != null ? portfolio.featuredImage.node : null"
-      :preheader="'Portfolio'"
+      :preheader="cats"
       :header="portfolio.title"
       :content="portfolio.content"
       :link="portfolio.HeaderCTALink.link != null ? portfolio.HeaderCTALink.link : null"
@@ -22,6 +22,11 @@ import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
 
 export default {
   mixins: [scrollTriggerHub],
+  data() {
+    return {
+      cats: String,
+    }
+  },
   async asyncData({ $graphql, params }) {
     const post_uri = params.slug
 
@@ -52,8 +57,18 @@ export default {
     const variables = { uri: post_uri }
 
     const { portfolio } = await $graphql.default.request(query, variables)
-    console.log(portfolio)
+    // console.log(portfolio)
+
     return { portfolio }
+  },
+  mounted() {
+    if (this.portfolio) {
+      this.cats = ''
+      for (let cat in this.portfolio.categories.edges) {
+        this.cats += `${this.portfolio.categories.edges[cat].node.name}, `
+      }
+      this.cats = this.cats.substring(0, this.cats.length - 2)
+    }
   },
 }
 </script>

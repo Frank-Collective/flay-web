@@ -30,7 +30,12 @@
                 <span v-for="(cat, index) in slide.categories.edges" :key="index">{{ cat.node.name }}</span>
               </div>
               <h4>{{ slide.title }}</h4>
-              <div v-html="slide.content"></div>
+              <!-- Text Content -->
+              <div v-if="slide.Descriptions.featuredDescription">
+                <p>{{ slide.Descriptions.featuredDescription }}</p>
+              </div>
+              <div v-else v-html="slide.content.substr(0, 100) + '...'"></div>
+
               <div class="cta">
                 <nuxt-link :to="`/daily-specials/${slide.slug}`" class="button primary" v-if="slide.CardLink.cardLinkText">{{
                   slide.CardLink.cardLinkText

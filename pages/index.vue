@@ -124,6 +124,10 @@ export default {
                   CardLink {
                     cardLinkText
                   }
+                  Descriptions {
+                    featuredDescription
+                    thumbnailDescription
+                  }
                 }
               }
               firstIsFeatured
@@ -141,6 +145,10 @@ export default {
                   CardLink {
                     cardLinkText
                   }
+                  Descriptions {
+                    featuredDescription
+                    thumbnailDescription
+                  }
                 }
               }
             }
@@ -151,6 +159,10 @@ export default {
                   ${featured_image}
                   CardLink {
                     cardLinkText
+                  }
+                  Descriptions {
+                    featuredDescription
+                    thumbnailDescription
                   }
                   ProductPrice {
                     productPrice

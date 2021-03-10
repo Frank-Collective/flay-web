@@ -3,7 +3,9 @@
     <div to="/shop" class="inner">
       <div class="content">
         <div class="content-wrapper">
+          <!-- Title -->
           <h4>{{ data.title }}</h4>
+          <!-- Image -->
           <div class="image">
             <FadeImage
               v-if="data.featuredImage"
@@ -15,7 +17,15 @@
               :height="data.featuredImage.node.mediaDetails.height"
             />
           </div>
-          <div v-html="data.content.substr(0, 100) + '...'"></div>
+          <!-- Description -->
+          <div v-if="data.Descriptions.thumbnailDescription">
+            <p>{{ data.Descriptions.thumbnailDescription }}</p>
+          </div>
+          <div v-else-if="data.Descriptions.featuredDescription">
+            <p>{{ data.Descriptions.featuredDescription }}</p>
+          </div>
+          <div v-else v-html="data.content.substr(0, 100) + '...'"></div>
+          <!-- Price -->
           <div class="price">${{ data.ProductPrice.productPrice }}</div>
           <div class="cta">
             <nuxt-link :to="`/shop/${data.slug}`" class="button primary" v-if="data.CardLink.cardLinkText">{{

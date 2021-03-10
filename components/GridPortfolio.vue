@@ -38,6 +38,10 @@ const query = gql`
           CardLink {
             cardLinkText
           }
+          Descriptions {
+            featuredDescription
+            thumbnailDescription
+          }
         }
       }
       pageInfo {

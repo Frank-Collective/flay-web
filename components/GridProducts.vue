@@ -35,6 +35,10 @@ const query = gql`
           CardLink {
             cardLinkText
           }
+          Descriptions {
+            featuredDescription
+            thumbnailDescription
+          }
           ProductPrice {
             productPrice
           }

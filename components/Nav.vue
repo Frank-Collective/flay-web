@@ -79,6 +79,7 @@ export default {
       console.log('Search Updated', this.searchTerm)
       if (this.searchTerm) {
         this.$router.push({ path: `/search/${this.searchTerm}` })
+        this.toggleSearch()
       }
     },
     toggleMobileMenu: function() {

@@ -2,7 +2,7 @@
   <div v-if="dailySpecial" class="daily-special-single-page">
     <PrimaryHeader
       :image="dailySpecial.featuredImage != null ? dailySpecial.featuredImage.node : null"
-      :preheader="'Daily Special'"
+      :preheader="cats"
       :header="dailySpecial.title"
       :content="dailySpecial.content"
       :link="dailySpecial.HeaderCTALink.link != null ? dailySpecial.HeaderCTALink.link : null"
@@ -20,6 +20,11 @@ import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
 
 export default {
   mixins: [scrollTriggerHub],
+  data() {
+    return {
+      cats: String,
+    }
+  },
   async asyncData({ $graphql, params }) {
     const post_uri = params.slug
 
@@ -36,6 +41,14 @@ export default {
               url
             }
           }
+          categories {
+            edges {
+              node {
+                name
+                slug
+              }
+            }
+          } 
         }
       }
     `
@@ -45,6 +58,15 @@ export default {
     console.log(dailySpecial)
     // console.log('DID WE GET IT????')
     return { dailySpecial }
+  },
+  mounted() {
+    if (this.dailySpecial) {
+      this.cats = ''
+      for (let cat in this.dailySpecial.categories.edges) {
+        this.cats += `${this.dailySpecial.categories.edges[cat].node.name}, `
+      }
+      this.cats = this.cats.substring(0, this.cats.length - 2)
+    }
   },
 }
 </script>

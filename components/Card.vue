@@ -3,10 +3,13 @@
     <div href="#" class="inner">
       <div class="content">
         <div class="content-wrapper">
+          <!-- Pre Header -->
           <div class="pre-header">
             <span v-for="(cat, index) in data.categories.edges" :key="index">{{ cat.node.name }}</span>
           </div>
+          <!-- Title -->
           <h4>{{ data.title }}</h4>
+          <!-- Image -->
           <div class="image">
             <FadeImage
               v-if="data.featuredImage"
@@ -18,7 +21,15 @@
               :height="data.featuredImage.node.mediaDetails.height"
             />
           </div>
-          <div v-html="data.content.substr(0, 100) + '...'"></div>
+          <!-- Description -->
+          <div v-if="data.Descriptions.thumbnailDescription">
+            <p>{{ data.Descriptions.thumbnailDescription }}</p>
+          </div>
+          <div v-else-if="data.Descriptions.featuredDescription">
+            <p>{{ data.Descriptions.featuredDescription }}</p>
+          </div>
+          <div v-else v-html="data.content.substr(0, 100) + '...'"></div>
+          <!-- CTA -->
           <div class="cta">
             <nuxt-link :to="`${directory}${data.slug}`" class="button primary" v-if="data.CardLink.cardLinkText">{{
               data.CardLink.cardLinkText

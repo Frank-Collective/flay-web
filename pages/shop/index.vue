@@ -35,6 +35,10 @@ export default {
                 CardLink {
                   cardLinkText
                 }
+                Descriptions {
+                  featuredDescription
+                  thumbnailDescription
+                }
                 ProductPrice {
                   productPrice
                 }
@@ -132,14 +136,13 @@ export default {
 
 .grid-wrapper {
   position: relative;
-  padding: 0 10px 5px;
-  width: calc(100% + 10px);
-  left: -5px;
+  padding: 0 0 5px;
+  width: calc(100% - 10px);
+  left: 5px;
 
   @include breakpoint(small) {
-    padding: 0 15px;
-    width: 100%;
-    left: auto;
+    width: calc(100% - 20px);
+    left: 10px;
   }
 }
 </style>
