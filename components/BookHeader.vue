@@ -19,17 +19,36 @@
           <h1 v-if="header">{{ header }}</h1>
           <div v-if="content" v-html="content"></div>
           <p>All books are autographed by Bobby prior to shipping.</p>
-          <form class="form">
+
+          <form ref="mainForm" class="form" target="_blank" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <input type="hidden" name="business" value="cookbooks@boldfood.net" />
+            <input type="hidden" name="cmd" value="_cart" />
+            <input type="hidden" name="add" value="1" />
+            <input v-if="header" type="hidden" name="item_name" :value="header" />
+            <input v-if="price" type="hidden" name="amount" :value="price" />
+            <input type="hidden" name="currency_code" value="USD" />
             <div class="form_inner">
-              <input type="text" placeholder="Request a personalized inscription here" />
+              <input type="hidden" name="on0" value="Personalization" />
+              <input id="optmsg" name="os0" type="text" placeholder="Request a personalized inscription here" />
               <button type="submit">Submit</button>
             </div>
             <span>Please limit to 1-sentence</span>
           </form>
+
+          <form ref="hackForm" target="_self" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <input type="hidden" name="business" value="cookbooks@boldfood.net" />
+            <input type="hidden" name="cmd" value="_cart" />
+            <input type="hidden" name="display" value="1" />
+          </form>
+
           <div class="cta" v-if="link">
-            <a class="button primary" :href="link.url" target="_blank" tabindex="0"
+            <a class="button primary" @click="submitMain" target="_blank" tabindex="0"
               >Buy now with <img src="/images/logo-paypal.svg" alt=""
             /></a>
+            <ul>
+              <li @click="submitHack">View Cart</li>
+              <li @click="submitHack">Checkout</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -58,7 +77,14 @@ export default {
     },
   },
   mounted() {},
-  methods: {},
+  methods: {
+    submitMain: function() {
+      this.$refs.mainForm.submit()
+    },
+    submitHack: function() {
+      this.$refs.hackForm.submit()
+    },
+  },
 }
 </script>
 
