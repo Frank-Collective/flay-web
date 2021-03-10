@@ -45,11 +45,11 @@
             <a class="button primary" @click="submitMain" target="_blank" tabindex="0"
               >Buy now with <img src="/images/logo-paypal.svg" alt=""
             /></a>
-            <ul>
-              <li @click="submitHack">View Cart</li>
-              <li @click="submitHack">Checkout</li>
-            </ul>
           </div>
+          <ul class="cart-controls">
+            <li @click="submitHack">View Cart</li>
+            <li @click="submitHack">Checkout</li>
+          </ul>
         </div>
       </div>
     </header>
@@ -214,7 +214,8 @@ export default {
             background: transparent;
             appearance: none;
             border-radius: 0;
-
+            flex: 1;
+            font-size: 16px;
             @include breakpoint(small) {
               font-size: 15px;
               width: 100%;
@@ -235,7 +236,7 @@ export default {
             background: transparent;
             appearance: none;
             padding: 0;
-
+            cursor: pointer;
             @include breakpoint(small) {
               font-size: 15px;
               margin-top: 10px;
@@ -257,7 +258,9 @@ export default {
       }
 
       .cta {
+        margin-bottom: 30px;
         .button {
+          cursor: pointer;
           width: 100%;
           display: flex;
           align-items: center;
@@ -273,6 +276,12 @@ export default {
           img {
             margin-left: 15px;
           }
+        }
+      }
+      .cart-controls {
+        li {
+          margin-bottom: 14px;
+          cursor: pointer;
         }
       }
     }
