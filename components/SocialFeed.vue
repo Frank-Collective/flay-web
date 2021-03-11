@@ -44,59 +44,39 @@
           </li>
         </ul>
       </div>
-      <div class="grid" data-st-stagger_cards_slide_up_enter>
-        <a href="#" target="_blank" class="card">
-          <div class="image"><img src="/images/BobbysBurgerPalace-1035.jpg" alt="" /></div>
-        </a>
-        <a href="#" target="_blank" class="card">
-          <div class="image"><img src="/images/160125_BORGATA_BobbyFlaySteak57160.jpg" alt="" /></div>
-        </a>
-        <a href="#" target="_blank" class="card">
-          <div class="image"><img src="/images/BobbysBurgerPalace-1035.jpg" alt="" /></div>
-        </a>
-        <a href="#" target="_blank" class="card">
-          <div class="image"><img src="/images/160125_BORGATA_BobbyFlaySteak57160.jpg" alt="" /></div>
-        </a>
-        <a href="#" target="_blank" class="card">
-          <div class="image"><img src="/images/BobbysBurgerPalace-1035.jpg" alt="" /></div>
-        </a>
-        <a href="#" target="_blank" class="card">
-          <div class="image"><img src="/images/160125_BORGATA_BobbyFlaySteak57160.jpg" alt="" /></div>
-        </a>
-        <a href="#" target="_blank" class="card">
-          <div class="image"><img src="/images/BobbysBurgerPalace-1035.jpg" alt="" /></div>
-        </a>
-        <a href="#" target="_blank" class="card">
-          <div class="image"><img src="/images/160125_BORGATA_BobbyFlaySteak57160.jpg" alt="" /></div>
+      <div class="grid" data-st-stagger_cards_slide_up_enter v-if="instafeed">
+        <a href="" target="_blank" class="card" v-for="(data, index) in instafeed" :key="index">
+          <div class="image"><img :src="data.media_url" :alt="data.caption" /></div>
         </a>
       </div>
     </div>
-    <div id="instagram-feed2"></div>
   </section>
 </template>
 
 <script>
-import InstagramFeed from 'instafeed'
+import axios from 'axios'
+
 export default {
   data() {
     return {
+      token:
+        'IGQVJVSmNhUkU5dzBfc1N4czlTVENBaTBlZAUZArM3hidmFGc1VTRW1jZAHlueGVhcVY0cUtxRXJuWC1xSmVUcElPT1NHQzhGY0VhU25qS3lEUGhaSldVUEtxUHFDMk5HZAFU0NmNIY0hUeEppZAE9LRGhBRQZDZD',
       instafeed: null,
     }
   },
-  mounted() {
-    this.instafeed = new InstagramFeed({
-      username: 'slimjim818',
-      container: document.getElementById('instagram-feed2'),
-      display_profile: false,
-      display_biography: false,
-      display_gallery: true,
-      display_captions: false,
-      callback: null,
-      styling: true,
-      items: 8,
-      items_per_row: 4,
-      margin: 1,
-    })
+  mounted() {},
+  created() {
+    this.getInsta()
+  },
+  methods: {
+    getInsta() {
+      axios
+        .get(`https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url&access_token=${this.token}`)
+        .then(response => {
+          this.instafeed = response.data.data
+          console.log(response)
+        })
+    },
   },
 }
 </script>
