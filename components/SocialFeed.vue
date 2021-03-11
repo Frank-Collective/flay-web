@@ -45,9 +45,9 @@
         </ul>
       </div>
       <div class="grid" data-st-stagger_cards_slide_up_enter v-if="instafeed">
-        <a href="" target="_blank" class="card" v-for="(data, index) in instafeed" :key="index">
+        <div class="card" v-for="(data, index) in instafeed" :key="index">
           <div class="image"><img :src="data.media_url" :alt="data.caption" /></div>
-        </a>
+        </div>
       </div>
     </div>
   </section>
