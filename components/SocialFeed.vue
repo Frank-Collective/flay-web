@@ -71,11 +71,34 @@
         </a>
       </div>
     </div>
+    <div id="instagram-feed2"></div>
   </section>
 </template>
 
 <script>
-export default {}
+import InstagramFeed from 'instafeed'
+export default {
+  data() {
+    return {
+      instafeed: null,
+    }
+  },
+  mounted() {
+    this.instafeed = new InstagramFeed({
+      username: 'slimjim818',
+      container: document.getElementById('instagram-feed2'),
+      display_profile: false,
+      display_biography: false,
+      display_gallery: true,
+      display_captions: false,
+      callback: null,
+      styling: true,
+      items: 8,
+      items_per_row: 4,
+      margin: 1,
+    })
+  },
+}
 </script>
 
 <style lang="scss" scoped>

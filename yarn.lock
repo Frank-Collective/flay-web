@@ -4476,6 +4476,11 @@ inquirer@^7.3.3:
     strip-ansi "^6.0.0"
     through "^2.3.6"
 
+instafeed@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/instafeed/-/instafeed-1.4.0.tgz#1f7b248283d8ffbee59b82f2f45c29220b90cae1"
+  integrity sha512-+2Xubm+mPdvIpQMn+hxdryBT6lUtwUXodFPeWeHkqiY9qmNyctjMKgD95s075nGowtiKULmM99LcA4xIm0SV+Q==
+
 ip@^1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/ip/-/ip-1.1.5.tgz#bdded70114290828c0a039e72ef25f5aaec4354a"
