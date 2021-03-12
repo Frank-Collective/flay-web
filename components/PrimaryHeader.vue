@@ -1,5 +1,5 @@
 <template>
-  <header class="primary-header" data-st-primary_header>
+  <header class="primary-header" data-st-animate_in_class>
     <div class="inner">
       <figure class="image">
         <FadeImage
@@ -60,6 +60,7 @@ export default {
   min-height: 100vh;
   overflow: hidden;
   opacity: 0;
+  transition: 1s opacity;
 
   .inner {
     display: flex;
@@ -81,7 +82,7 @@ export default {
       box-sizing: border-box;
       margin: 0;
       transform: translateX(100px);
-      // transition: 3s transform;
+      transition: 3s transform;
 
       @include breakpoint(medium) {
         width: calc(100% - 10px);
@@ -123,9 +124,9 @@ export default {
         z-index: 2;
         pointer-events: none;
         transform: translate(0%, 50%);
-        // opacity: 0;
-        // transition: 2s transform, 1s opacity;
-        // transition-delay: 0.25s;
+        opacity: 0;
+        transition: 2s transform, 1s opacity;
+        transition-delay: 0.25s;
 
         @include breakpoint(medium) {
           bottom: 7px;
@@ -137,10 +138,10 @@ export default {
     .content {
       width: 50%;
       padding: 9vw;
-      // transform: translateY(100px);
-      // opacity: 0;
-      // transition: 3s transform, 1s opacity;
-      // transition-delay: 0.5s;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: 3s transform, 1s opacity;
+      transition-delay: 0.5s;
 
       @include breakpoint(medium) {
         width: auto;

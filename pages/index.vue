@@ -191,20 +191,6 @@ export default {
     }
   },
   mixins: [scrollTriggerHub],
-  data() {
-    return {}
-  },
-  mounted() {
-    // console.log('homepage: mounted')
-  },
-  updated() {
-    // console.log('homepage: updated')
-  },
-  methods: {},
-  activated() {
-    // console.log('hompage ACTIVATED')
-  },
-  deactivated() {},
 }
 </script>
 

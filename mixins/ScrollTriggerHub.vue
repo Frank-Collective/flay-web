@@ -14,24 +14,27 @@ export default {
       primary_header_el: [],
     }
   },
-  mounted() {
-    // console.log('ScrollTriggerHub mounted')
-  },
-  updated() {
-    // console.log('ScrollTriggerHub updated')
-    // this.scrollTriggerInit()
-  },
   activated() {
-    console.log('ScrollTriggerHub.vue ACTIVATED')
+    // Restart header animations upon return to page
+    if (this.scrolltrigger_initiated) {
+      this.animate_in_class_els.forEach(el => {
+        el.classList.remove('animate-in')
+        setTimeout(() => {
+          el.classList.add('animate-in')
+        }, 250)
+      })
+    }
+
+    // console.log('ScrollTriggerHub.vue ACTIVATED')
     this.scrollTriggerInit()
   },
   deactivated() {
-    console.log('ScrollTriggerHub.vue DE-ACTIVATED')
+    // console.log('ScrollTriggerHub.vue DE-ACTIVATED')
   },
   methods: {
     scrollTriggerInit() {
       if (!this.scrolltrigger_initiated && process.client) {
-        console.log('scrollTriggerInit ============================================================== scrollTriggerInit')
+        // console.log('scrollTriggerInit ============================================================== scrollTriggerInit')
         this.scrolltrigger_initiated = true
 
         // Fade In & Slide Up
@@ -49,13 +52,6 @@ export default {
         // Animate In Class elements
         this.animate_in_class_els = document.querySelectorAll('[data-st-animate_in_class]')
         this.animate_in_class_els.forEach(this.toggle_animate_in_class)
-
-        // Primary Header
-        this.primary_header_el = document.querySelectorAll('[data-st-primary_header]')
-        // this.primary_header_el.forEach(this.add_primary_header_animation)
-        if (this.primary_header_el.length) {
-          this.add_primary_header_animation(this.primary_header_el)
-        }
       }
     },
     add_fade_up_animation(el, index) {
@@ -105,7 +101,7 @@ export default {
         })
     },
     toggle_animate_in_class(el, index) {
-      const timeline1 = gsap.timeline({
+      const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: el,
           start: 'top bottom',
@@ -115,31 +111,6 @@ export default {
           // },
         },
       })
-    },
-    add_primary_header_animation(element) {
-      let el = element[0]
-      let image = el.querySelector('.image')
-      const timeline = gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: el,
-            start: 'top bottom',
-            ease: 'power2',
-            toggleActions: 'play restart none reverse',
-          },
-        })
-        .to(el, {
-          opacity: 1,
-          duration: 1,
-        })
-        .to(
-          image,
-          {
-            x: 0,
-            duration: 3,
-          },
-          '-1'
-        )
     },
   },
 }
