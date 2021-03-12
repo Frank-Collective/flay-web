@@ -4,17 +4,18 @@
       <!-- Boxed Content -->
       <article
         v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_BoxedContent`"
-        v-html="block.textEditor"
         class="boxed-content"
         data-st-fade_up
-        data-st-slide_up_leave
-      ></article>
+      >
+        <div class="inner" v-html="block.textEditor" data-st-slide_up_leave></div>
+      </article>
 
       <article
         v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_ContentWLargeImageHeader`"
         class="content-with-large-image-header"
+        data-st-fade_up
       >
-        <figure data-st-fade_up data-st-slide_up_leave>
+        <figure data-st-slide_up_leave>
           <div class="image">
             <FadeImage
               v-if="block.image"
@@ -27,40 +28,32 @@
           <figcaption>{{ block.textEditor.substr(4, 1) }}</figcaption>
         </figure>
         <div class="section-spacer"></div>
-        <div class="content" v-html="block.textEditor" data-st-fade_up data-st-slide_up_leave></div>
+        <div class="content" data-st-fade_up><div class="inner" v-html="block.textEditor" data-st-slide_up_leave></div></div>
       </article>
 
-      <blockquote
-        v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_Quote`"
-        class="quote"
-        data-st-fade_up
-        data-st-slide_up_leave
-      >
-        <p>{{ block.text }}</p>
+      <blockquote v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_Quote`" class="quote" data-st-fade_up>
+        <p data-st-slide_up_leave>{{ block.text }}</p>
       </blockquote>
 
-      <article
-        v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_Image`"
-        class="full-width-image"
-        data-st-fade_up
-        data-st-slide_up_leave
-      >
-        <FadeImage
-          v-if="block.image"
-          :srcset="block.image.srcSet"
-          :sizes="block.image.sizes"
-          :src="block.image.mediaItemUrl"
-          :alt="block.image.altText"
-        />
+      <article v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_Image`" class="full-width-image" data-st-fade_up>
+        <div data-st-slide_up_leave>
+          <FadeImage
+            v-if="block.image"
+            :srcset="block.image.srcSet"
+            :sizes="block.image.sizes"
+            :src="block.image.mediaItemUrl"
+            :alt="block.image.altText"
+          />
+        </div>
       </article>
 
       <article
         v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_TextContent`"
-        v-html="block.textEditor"
         class="text-content"
         data-st-fade_up
-        data-st-slide_up_leave
-      ></article>
+      >
+        <div v-html="block.textEditor" data-st-slide_up_leave></div>
+      </article>
 
       <div class="section-spacer"></div>
     </div>
@@ -82,28 +75,30 @@ export default {
 <style lang="scss" scoped>
 .page-builder {
   .boxed-content {
-    position: relative;
-    border: 1px solid $black;
-    margin: 0 10vw;
-    padding: 6vw 10vw;
-
-    @include breakpoint(small) {
-      text-align: center;
-      margin: 0 20px 0 10px;
-      padding: 50px 40px 20px;
-    }
-
-    &:after {
-      position: absolute;
-      content: '';
-      width: 100%;
-      height: 100%;
+    .inner {
+      position: relative;
       border: 1px solid $black;
-      top: -10px;
-      left: 10px;
+      margin: 0 10vw;
+      padding: 6vw 10vw;
 
       @include breakpoint(small) {
-        top: 10px;
+        text-align: center;
+        margin: 0 20px 0 10px;
+        padding: 50px 40px 20px;
+      }
+
+      &:after {
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 100%;
+        border: 1px solid $black;
+        top: -10px;
+        left: 10px;
+
+        @include breakpoint(small) {
+          top: 10px;
+        }
       }
     }
   }

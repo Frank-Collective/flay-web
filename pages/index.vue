@@ -11,8 +11,8 @@
       :link="page.PrimaryHeader.link"
     />
 
-    <section class="portfolio" v-if="page.HomeFields.portfolio.portfolioItems.length" data-st-fade_up data-st-slide_up_leave>
-      <div class="inner">
+    <section class="portfolio" v-if="page.HomeFields.portfolio.portfolioItems.length" data-st-fade_up>
+      <div class="inner" data-st-slide_up_leave>
         <div class="header">
           <h3 v-if="page.HomeFields.portfolio.title">
             <nuxt-link v-if="page.HomeFields.portfolio.link" :to="page.HomeFields.portfolio.link.url" tabindex="0">{{
@@ -29,8 +29,8 @@
             }}</nuxt-link>
           </div>
         </div>
-        <div class="grid" v-if="page.HomeFields.portfolio.firstIsFeatured" data-st-fade_up data-st-slide_up_leave>
-          <div class="featured-wrapper">
+        <div class="grid" v-if="page.HomeFields.portfolio.firstIsFeatured" data-st-fade_up>
+          <div class="featured-wrapper" data-st-slide_up_leave>
             <Card :featured="true" :data="page.HomeFields.portfolio.portfolioItems[0]" :directory="'/portfolio/'" />
           </div>
           <Card
@@ -59,8 +59,8 @@
       />
     </client-only>
 
-    <section class="shop" data-st-fade_up data-st-slide_up_leave>
-      <div class="inner">
+    <section class="shop" data-st-fade_up>
+      <div class="inner" data-st-slide_up_leave>
         <div class="header">
           <nuxt-link to="/shop" tabindex="0"
             ><h3><img src="/images/Shop.svg" alt="" /></h3
@@ -70,7 +70,7 @@
             <nuxt-link class="button secondary" to="/shop" tabindex="0">Shop All</nuxt-link>
           </div>
         </div>
-        <div class="grid" data-st-stagger_cards_slide_up_enter>
+        <div class="grid">
           <ProductCard v-for="(card, index) in page.HomeFields.shop.products" :key="index" :data="card" />
         </div>
       </div>
@@ -201,14 +201,10 @@ export default {
     // console.log('homepage: updated')
   },
   methods: {},
-  watch: {
-    $route(to, from) {
-      console.log(to, from)
-      if (to.name == 'index') {
-        console.log('returning to homepage')
-      }
-    },
+  activated() {
+    // console.log('hompage ACTIVATED')
   },
+  deactivated() {},
 }
 </script>
 

@@ -10,24 +10,28 @@ export default {
       fade_up_els: [],
       slide_up_enter_els: [],
       slide_up_leave_els: [],
-      stagger_cards_slide_up_enter_els: [],
       animate_in_class_els: [],
+      primary_header_el: [],
     }
   },
   mounted() {
     // console.log('ScrollTriggerHub mounted')
-    // document.addEventListener('DOMContentLoaded', () => {
-    this.scrollTriggerInit()
-    // })
   },
   updated() {
     // console.log('ScrollTriggerHub updated')
+    // this.scrollTriggerInit()
+  },
+  activated() {
+    console.log('ScrollTriggerHub.vue ACTIVATED')
     this.scrollTriggerInit()
+  },
+  deactivated() {
+    console.log('ScrollTriggerHub.vue DE-ACTIVATED')
   },
   methods: {
     scrollTriggerInit() {
       if (!this.scrolltrigger_initiated && process.client) {
-        // console.log('scrollTriggerInit')
+        console.log('scrollTriggerInit ============================================================== scrollTriggerInit')
         this.scrolltrigger_initiated = true
 
         // Fade In & Slide Up
@@ -42,13 +46,16 @@ export default {
         this.slide_up_leave_els = document.querySelectorAll('[data-st-slide_up_leave]')
         this.slide_up_leave_els.forEach(this.add_slide_up_leave_animation)
 
-        // Stagger Cards Slide Up Enter
-        this.stagger_cards_slide_up_enter_els = document.querySelectorAll('[data-st-stagger_cards_slide_up_enter]')
-        this.stagger_cards_slide_up_enter_els.forEach(this.add_stagger_cards_slide_up_enter_animation)
-
         // Animate In Class elements
         this.animate_in_class_els = document.querySelectorAll('[data-st-animate_in_class]')
         this.animate_in_class_els.forEach(this.toggle_animate_in_class)
+
+        // Primary Header
+        this.primary_header_el = document.querySelectorAll('[data-st-primary_header]')
+        // this.primary_header_el.forEach(this.add_primary_header_animation)
+        if (this.primary_header_el.length) {
+          this.add_primary_header_animation(this.primary_header_el)
+        }
       }
     },
     add_fade_up_animation(el, index) {
@@ -97,24 +104,6 @@ export default {
           opacity: 0,
         })
     },
-    add_stagger_cards_slide_up_enter_animation(el, index) {
-      let cards = el.querySelectorAll('.card')
-      cards.forEach((card, index) => {
-        const timeline = gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 105%',
-              end: 'top 95%',
-              scrub: 1,
-            },
-          })
-          .from(card, {
-            y: 100,
-            scale: 0.97,
-          })
-      })
-    },
     toggle_animate_in_class(el, index) {
       const timeline1 = gsap.timeline({
         scrollTrigger: {
@@ -126,6 +115,31 @@ export default {
           // },
         },
       })
+    },
+    add_primary_header_animation(element) {
+      let el = element[0]
+      let image = el.querySelector('.image')
+      const timeline = gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: el,
+            start: 'top bottom',
+            ease: 'power2',
+            toggleActions: 'play restart none reverse',
+          },
+        })
+        .to(el, {
+          opacity: 1,
+          duration: 1,
+        })
+        .to(
+          image,
+          {
+            x: 0,
+            duration: 3,
+          },
+          '-1'
+        )
     },
   },
 }

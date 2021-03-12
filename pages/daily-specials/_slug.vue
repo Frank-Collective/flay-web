@@ -63,8 +63,7 @@ export default {
     const variables = { uri: post_uri }
 
     const { dailySpecial } = await $graphql.default.request(query, variables)
-    console.log(dailySpecial)
-    // console.log('DID WE GET IT????')
+    // console.log(dailySpecial)
     return { dailySpecial }
   },
   head() {

@@ -1,6 +1,6 @@
 <template>
-  <section class="carousel" v-if="data" data-st-fade_up data-st-slide_up_leave>
-    <div class="inner">
+  <section class="carousel" v-if="data" data-st-fade_up>
+    <div class="inner" data-st-slide_up_leave>
       <div class="header" v-if="data.title">
         <nuxt-link :to="data.link.url" tabindex="0"
           ><h3>{{ data.title }}</h3></nuxt-link

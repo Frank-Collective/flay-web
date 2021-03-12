@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       insta_token:
-        'IGQVJVSmNhUkU5dzBfc1N4czlTVENBaTBlZAUZArM3hidmFGc1VTRW1jZAHlueGVhcVY0cUtxRXJuWC1xSmVUcElPT1NHQzhGY0VhU25qS3lEUGhaSldVUEtxUHFDMk5HZAFU0NmNIY0hUeEppZAE9LRGhBRQZDZD',
+        'IGQVJVRTd6WlljcmV6ZA1I4QWRRQVFFLTRZANG1sTW5qVDctWEFuazY0QV9saS1GMjBHWURWVnVORUl4U3FHZATRHdjBVcGdENWU3SURxMl9JdThEZAGkxLWROaGhQV3JPdXgtUmZAhSUx2U0VWYWtSYWpPcAZDZD',
       instafeed: null,
       socialmedias: null,
     }

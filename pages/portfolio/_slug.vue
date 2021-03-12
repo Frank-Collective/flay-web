@@ -66,7 +66,6 @@ export default {
 
     const { portfolio } = await $graphql.default.request(query, variables)
     // console.log(portfolio)
-
     return { portfolio }
   },
   head() {

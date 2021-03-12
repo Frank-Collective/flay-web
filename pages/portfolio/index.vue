@@ -37,8 +37,8 @@
       </div>
     </header>
 
-    <section class="portfolio-grid" data-st-fade_up data-st-slide_up_leave>
-      <div class="inner">
+    <section class="portfolio-grid" data-st-fade_up>
+      <div class="inner" data-st-slide_up_leave>
         <div class="filters">
           <ul v-bind:class="{ open: filtersOpen }">
             <li
