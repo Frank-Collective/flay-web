@@ -80,6 +80,8 @@ export default {
       if (this.searchTerm) {
         this.$router.push({ path: `/search/${this.searchTerm}` })
         this.toggleSearch()
+        this.searchTerm = ''
+        this.closeMobileMenu()
       }
     },
     toggleMobileMenu: function() {
