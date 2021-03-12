@@ -1,5 +1,9 @@
 <template>
-  <article class="card" v-bind:class="{ featured: featured }" v-on:click="$router.push({ path: `${directory}${data.slug}` })">
+  <article
+    class="card"
+    v-bind:class="{ featured: featured, visible: visible }"
+    v-on:click="$router.push({ path: `${directory}${data.slug}` })"
+  >
     <div href="#" class="inner">
       <div class="content">
         <div class="content-wrapper">
@@ -58,10 +62,16 @@ export default {
     directory: String,
   },
   data() {
-    return {}
+    return {
+      visible: false,
+    }
   },
   computed: {},
-  mounted() {},
+  mounted() {
+    setTimeout(() => {
+      this.visible = true
+    }, 250)
+  },
   methods: {},
 }
 </script>
@@ -73,6 +83,14 @@ export default {
   flex-shrink: 0;
   padding: 5px;
   cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 3s transform, 1s opacity;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 
   @include breakpoint(medium) {
     width: 50%;

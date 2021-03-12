@@ -1,5 +1,5 @@
 <template>
-  <article class="card" v-on:click="$router.push({ path: `/shop/${data.slug}` })">
+  <article class="card" v-bind:class="{ visible: visible }" v-on:click="$router.push({ path: `/shop/${data.slug}` })">
     <div to="/shop" class="inner">
       <div class="content">
         <div class="content-wrapper">
@@ -44,11 +44,15 @@ export default {
     data: Object,
   },
   data() {
-    return {}
+    return {
+      visible: false,
+    }
   },
   computed: {},
   mounted() {
-    // console.log(this.data)
+    setTimeout(() => {
+      this.visible = true
+    }, 250)
   },
   methods: {},
 }
@@ -61,6 +65,14 @@ export default {
   flex-shrink: 0;
   padding: 5px;
   cursor: pointer;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 3s transform, 1s opacity;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 
   @include breakpoint(medium) {
     width: 50%;

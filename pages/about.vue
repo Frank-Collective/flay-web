@@ -1,6 +1,6 @@
 <template>
   <div v-if="page">
-    <header class="about-header" data-st-about_header>
+    <header class="about-header" data-st-animate_in_class>
       <div class="inner">
         <div class="image"><img :src="page.featuredImage.node.sourceUrl" alt="" /></div>
         <div class="content">
@@ -114,7 +114,7 @@ export default {
       min-height: 162px;
       border: 1px solid $black;
       transform: translateY(-30px);
-      transition: 1s transform;
+      transition: 3s transform;
 
       img {
         position: absolute;
@@ -128,7 +128,7 @@ export default {
       position: relative;
       padding: 90px 6vw 0 33%;
       opacity: 0;
-      transition: 1s opacity;
+      transition: 3s opacity;
 
       @include breakpoint(small) {
         padding: 130px 6vw 0;
@@ -143,7 +143,7 @@ export default {
         line-height: 0.5em;
         opacity: 0;
         transform: translateX(50px);
-        transition: 1s transform, 1s opacity;
+        transition: 2s transform, 1s opacity;
         transition-delay: 0.25s;
 
         @include breakpoint(small) {

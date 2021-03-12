@@ -1,5 +1,5 @@
 <template>
-  <section class="social-feed" data-st-slide_up_enter data-st-slide_up_leave>
+  <section class="social-feed" data-st-fade_up>
     <div class="inner">
       <div class="header">
         <h3>@</h3>

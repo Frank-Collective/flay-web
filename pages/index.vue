@@ -11,12 +11,7 @@
       :link="page.PrimaryHeader.link"
     />
 
-    <section
-      class="portfolio"
-      v-if="page.HomeFields.portfolio.portfolioItems.length"
-      data-st-slide_up_enter
-      data-st-slide_up_leave
-    >
+    <section class="portfolio" v-if="page.HomeFields.portfolio.portfolioItems.length" data-st-fade_up data-st-slide_up_leave>
       <div class="inner">
         <div class="header">
           <h3 v-if="page.HomeFields.portfolio.title">
@@ -34,7 +29,7 @@
             }}</nuxt-link>
           </div>
         </div>
-        <div class="grid" v-if="page.HomeFields.portfolio.firstIsFeatured" data-st-stagger_cards_slide_up_enter>
+        <div class="grid" v-if="page.HomeFields.portfolio.firstIsFeatured" data-st-fade_up data-st-slide_up_leave>
           <div class="featured-wrapper">
             <Card :featured="true" :data="page.HomeFields.portfolio.portfolioItems[0]" :directory="'/portfolio/'" />
           </div>
@@ -64,7 +59,7 @@
       />
     </client-only>
 
-    <section class="shop" data-st-slide_up_enter data-st-slide_up_leave>
+    <section class="shop" data-st-fade_up data-st-slide_up_leave>
       <div class="inner">
         <div class="header">
           <nuxt-link to="/shop" tabindex="0"

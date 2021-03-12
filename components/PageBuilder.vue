@@ -6,17 +6,15 @@
         v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_BoxedContent`"
         v-html="block.textEditor"
         class="boxed-content"
-        data-st-slide_up_enter
+        data-st-fade_up
         data-st-slide_up_leave
       ></article>
 
       <article
         v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_ContentWLargeImageHeader`"
         class="content-with-large-image-header"
-        data-st-slide_up_enter
-        data-st-slide_up_leave
       >
-        <figure>
+        <figure data-st-fade_up data-st-slide_up_leave>
           <div class="image">
             <FadeImage
               v-if="block.image"
@@ -29,13 +27,13 @@
           <figcaption>{{ block.textEditor.substr(4, 1) }}</figcaption>
         </figure>
         <div class="section-spacer"></div>
-        <div class="content" v-html="block.textEditor" data-st-slide_up_enter data-st-slide_up_leave></div>
+        <div class="content" v-html="block.textEditor" data-st-fade_up data-st-slide_up_leave></div>
       </article>
 
       <blockquote
         v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_Quote`"
         class="quote"
-        data-st-slide_up_enter
+        data-st-fade_up
         data-st-slide_up_leave
       >
         <p>{{ block.text }}</p>
@@ -44,7 +42,7 @@
       <article
         v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_Image`"
         class="full-width-image"
-        data-st-slide_up_enter
+        data-st-fade_up
         data-st-slide_up_leave
       >
         <FadeImage
@@ -60,7 +58,7 @@
         v-if="block.fieldGroupName == `${type}_Pagebuilder_ContentBlocks_TextContent`"
         v-html="block.textEditor"
         class="text-content"
-        data-st-slide_up_enter
+        data-st-fade_up
         data-st-slide_up_leave
       ></article>
 

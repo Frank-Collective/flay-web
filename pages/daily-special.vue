@@ -1,13 +1,13 @@
 <template>
   <div v-if="page">
-    <header class="header">
+    <header class="header" data-st-animate_in_class>
       <div class="inner">
         <h1><span>Daily</span><span>Special</span></h1>
       </div>
     </header>
 
     <section class="grid-wrap">
-      <div class="filters">
+      <div class="filters" data-st-fade_up>
         <ul v-bind:class="{ open: filtersOpen }">
           <li
             @click="
@@ -42,7 +42,7 @@
           </div>
         </div>
       </div>
-      <GridDailySpecials :category="selectedFilter.slug" />
+      <GridDailySpecials :category="selectedFilter.slug" data-st-fade_up />
     </section>
   </div>
 </template>
@@ -51,7 +51,10 @@
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
 import GridDailySpecials from '~/components/GridDailySpecials'
+import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
+
 export default {
+  mixins: [scrollTriggerHub],
   components: { GridDailySpecials },
 
   data() {
@@ -115,31 +118,46 @@ export default {
     @include breakpoint(small) {
       padding: 0 10px;
     }
-  }
 
-  h1 {
-    @extend .h2;
-    margin-bottom: 0;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-
-    @include breakpoint(small) {
-      align-items: center;
-    }
-
-    span {
-      margin-bottom: 0.2em;
+    h1 {
+      @extend .h2;
+      margin-bottom: 0;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
 
       @include breakpoint(small) {
-        margin-bottom: 0em;
+        align-items: center;
       }
 
-      &:nth-of-type(2) {
-        align-self: flex-end;
+      span {
+        margin-bottom: 0.2em;
+        opacity: 0;
+        transform: translateY(-30px);
+        transition: 3s transform, 1s opacity;
 
         @include breakpoint(small) {
-          align-self: unset;
+          margin-bottom: 0em;
+        }
+
+        &:nth-of-type(2) {
+          align-self: flex-end;
+          transform: translateY(30px);
+
+          @include breakpoint(small) {
+            align-self: unset;
+          }
+        }
+      }
+    }
+  }
+
+  &.animate-in {
+    .inner {
+      h1 {
+        span {
+          opacity: 1;
+          transform: translateY(0);
         }
       }
     }

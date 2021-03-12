@@ -1,5 +1,5 @@
 <template>
-  <section class="carousel" v-if="data" data-st-slide_up_enter data-st-slide_up_leave>
+  <section class="carousel" v-if="data" data-st-fade_up data-st-slide_up_leave>
     <div class="inner">
       <div class="header" v-if="data.title">
         <nuxt-link :to="data.link.url" tabindex="0"

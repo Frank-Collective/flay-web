@@ -2,7 +2,7 @@
   <div>
     <div class="section-spacer"></div>
     <div class="section-spacer half"></div>
-    <header class="book-header">
+    <header class="book-header" data-st-animate_in_class>
       <div class="inner">
         <figure class="image">
           <FadeImage
@@ -57,7 +57,10 @@
 </template>
 
 <script>
+import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
+
 export default {
+  mixins: [scrollTriggerHub],
   props: {
     image: null,
     bigLetter: null,
@@ -91,7 +94,6 @@ export default {
 <style lang="scss" scoped>
 .book-header {
   padding: 0 10px;
-  // min-height: 100vh;
   overflow: hidden;
 
   @include breakpoint(medium) {
@@ -115,6 +117,9 @@ export default {
       position: relative;
       width: 41%;
       flex-shrink: 0;
+      opacity: 0;
+      transform: translateY(-30px);
+      transition: 3s transform, 1s opacity;
 
       @include breakpoint(large) {
         width: 45%;
@@ -137,13 +142,15 @@ export default {
         position: absolute;
         top: 60px;
         right: 0;
-        transform: translateX(50%);
         border: 1px solid $black;
         background: $white;
         font-size: 14px;
         padding: 0.7em 0.7em 0.5em;
         user-select: none;
         text-align: center;
+        opacity: 0;
+        transform: translate(50%, 100%);
+        transition: 3s transform, 1s opacity;
 
         @include breakpoint(large) {
           top: 100%;
@@ -156,6 +163,9 @@ export default {
     .content {
       width: 41%;
       flex-shrink: 0;
+      opacity: 0;
+      transform: translateX(30px);
+      transition: 3s transform, 1s opacity;
 
       @include breakpoint(large) {
         width: 45%;
@@ -283,6 +293,29 @@ export default {
           margin-bottom: 14px;
           cursor: pointer;
         }
+      }
+    }
+  }
+
+  &.animate-in {
+    .inner {
+      .image {
+        opacity: 1;
+        transform: translateY(0px);
+
+        .message {
+          opacity: 1;
+          transform: translate(50%, 0px);
+
+          @include breakpoint(large) {
+            transform: translate(50%, -50%);
+          }
+        }
+      }
+
+      .content {
+        opacity: 1;
+        transform: translateX(0px);
       }
     }
   }

@@ -11,25 +11,23 @@ export default {
       slide_up_enter_els: [],
       slide_up_leave_els: [],
       stagger_cards_slide_up_enter_els: [],
-      portfolio_featured_els: [],
-      primary_header_els: [],
-      about_header_els: [],
+      animate_in_class_els: [],
     }
   },
   mounted() {
-    console.log('ScrollTriggerHub mounted')
+    // console.log('ScrollTriggerHub mounted')
     // document.addEventListener('DOMContentLoaded', () => {
     this.scrollTriggerInit()
     // })
   },
   updated() {
-    console.log('ScrollTriggerHub updated')
+    // console.log('ScrollTriggerHub updated')
     this.scrollTriggerInit()
   },
   methods: {
     scrollTriggerInit() {
       if (!this.scrolltrigger_initiated && process.client) {
-        console.log('scrollTriggerInit')
+        // console.log('scrollTriggerInit')
         this.scrolltrigger_initiated = true
 
         // Fade In & Slide Up
@@ -48,17 +46,9 @@ export default {
         this.stagger_cards_slide_up_enter_els = document.querySelectorAll('[data-st-stagger_cards_slide_up_enter]')
         this.stagger_cards_slide_up_enter_els.forEach(this.add_stagger_cards_slide_up_enter_animation)
 
-        // Portfolio Featured
-        this.portfolio_featured_els = document.querySelectorAll('[data-st-portfolio-featured]')
-        this.portfolio_featured_els.forEach(this.add_portfolio_featured_animation)
-
-        // Primary Header
-        this.primary_header_els = document.querySelectorAll('[data-st-primary_header]')
-        this.primary_header_els.forEach(this.add_primary_header_animation)
-
-        // About Header
-        this.about_header_els = document.querySelectorAll('[data-st-about_header]')
-        this.about_header_els.forEach(this.add_about_header_animation)
+        // Animate In Class elements
+        this.animate_in_class_els = document.querySelectorAll('[data-st-animate_in_class]')
+        this.animate_in_class_els.forEach(this.toggle_animate_in_class)
       }
     },
     add_fade_up_animation(el, index) {
@@ -72,7 +62,7 @@ export default {
           },
         })
         .from(el, {
-          y: 100,
+          y: 50,
           opacity: 0,
           duration: 2,
         })
@@ -102,7 +92,9 @@ export default {
           },
         })
         .to(el, {
-          y: -100,
+          y: -50,
+          scale: 0.95,
+          opacity: 0,
         })
     },
     add_stagger_cards_slide_up_enter_animation(el, index) {
@@ -123,7 +115,7 @@ export default {
           })
       })
     },
-    add_portfolio_featured_animation(el, index) {
+    toggle_animate_in_class(el, index) {
       const timeline1 = gsap.timeline({
         scrollTrigger: {
           trigger: el,
@@ -134,37 +126,6 @@ export default {
           // },
         },
       })
-    },
-    add_primary_header_animation(el, index) {
-      const timeline1 = gsap.timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: 'top bottom',
-          toggleClass: { targets: el, className: 'animate-in' },
-          // onEnter: () => {
-          //   el.classList.add('animate-in')
-          // },
-        },
-      })
-    },
-    add_about_header_animation(el, index) {
-      const timeline1 = gsap.timeline({
-        scrollTrigger: {
-          trigger: el,
-          start: 'top bottom',
-          toggleClass: { targets: el, className: 'animate-in' },
-          // onEnter: () => {
-          //   el.classList.add('animate-in')
-          // },
-        },
-      })
-    },
-    checkForDisableMobile(el) {
-      // var windowWidth = window.innerWidth
-      // var disableMobile = el.classList.contains('sr-disable-mobile')
-      // if (disableMobile && windowWidth < 768) {
-      //   return true
-      // }
     },
   },
 }

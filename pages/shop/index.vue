@@ -1,6 +1,6 @@
 <template>
   <div v-if="page">
-    <header class="header">
+    <header class="header" data-st-animate_in_class>
       <div class="inner">
         <h1>Shop</h1>
         <img src="/images/Shop.svg" alt="" />
@@ -19,8 +19,10 @@
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
 import GridProducts from '../../components/GridProducts.vue'
+import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
 
 export default {
+  mixins: [scrollTriggerHub],
   components: { GridProducts },
   async asyncData({ $graphql, params }) {
     const query = gql`
@@ -105,6 +107,9 @@ export default {
     img {
       width: 100%;
       height: auto;
+      opacity: 0;
+      transform: translateY(-30px);
+      transition: 3s transform, 1s opacity;
 
       @include breakpoint(small) {
         width: calc(100% + 50px);
@@ -117,6 +122,9 @@ export default {
       right: 3vw;
       bottom: 0;
       user-select: none;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: 3s transform, 1s opacity;
 
       @include breakpoint(small) {
         position: relative;
@@ -129,6 +137,20 @@ export default {
         font-weight: bold;
         background: $white;
         padding: 0.322em 0.7em;
+      }
+    }
+  }
+
+  &.animate-in {
+    .inner {
+      img {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .cta {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
   }

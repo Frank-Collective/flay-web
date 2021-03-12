@@ -1,5 +1,5 @@
 <template>
-  <header class="primary-header" data-st-primary_header>
+  <header class="primary-header" data-st-animate_in_class>
     <div class="inner">
       <figure class="image">
         <FadeImage
@@ -82,7 +82,7 @@ export default {
       box-sizing: border-box;
       margin: 0;
       transform: translateX(100px);
-      transition: 1s transform;
+      transition: 3s transform;
 
       @include breakpoint(medium) {
         width: calc(100% - 10px);
@@ -114,10 +114,6 @@ export default {
         object-fit: cover;
         object-position: top center;
         z-index: 1;
-
-        @include breakpoint(medium) {
-          // object-position: center;
-        }
       }
 
       .big-letter {
@@ -129,7 +125,7 @@ export default {
         pointer-events: none;
         transform: translate(0%, 50%);
         opacity: 0;
-        transition: 1s transform, 1s opacity;
+        transition: 2s transform, 1s opacity;
         transition-delay: 0.25s;
 
         @include breakpoint(medium) {
@@ -144,7 +140,7 @@ export default {
       padding: 9vw;
       transform: translateY(100px);
       opacity: 0;
-      transition: 1s transform, 1s opacity;
+      transition: 3s transform, 1s opacity;
       transition-delay: 0.5s;
 
       @include breakpoint(medium) {

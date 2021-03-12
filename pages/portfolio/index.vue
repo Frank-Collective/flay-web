@@ -6,7 +6,7 @@
           class="portfolio-piece"
           v-for="(data, index) in page.PortfolioFields.featuredPortfolioItems"
           :key="index"
-          data-st-portfolio-featured
+          data-st-animate_in_class
         >
           <div class="image">
             <FadeImage
@@ -36,7 +36,8 @@
         </article>
       </div>
     </header>
-    <section class="portfolio-grid" data-st-slide_up_enter data-st-stagger_cards_slide_up_enter>
+
+    <section class="portfolio-grid" data-st-fade_up data-st-slide_up_leave>
       <div class="inner">
         <div class="filters">
           <ul v-bind:class="{ open: filtersOpen }">
@@ -177,6 +178,10 @@ export default {
           .number {
             transform: translate(40%, 0);
             opacity: 1;
+
+            @include breakpoint(small) {
+              transform: translate(-0.15em, -55%);
+            }
           }
         }
 
@@ -197,7 +202,7 @@ export default {
         border: 1px solid $black;
         box-sizing: border-box;
         transform: translateX(100px);
-        transition: 1s transform;
+        transition: 3s transform;
 
         @include breakpoint(small) {
           width: 100%;
@@ -215,7 +220,7 @@ export default {
           right: 0;
           opacity: 0;
           transform: translate(0%, 0%);
-          transition: 1s transform, 1s opacity;
+          transition: 2s transform, 1s opacity;
           transition-delay: 0.25s;
           @extend .h1;
           line-height: 1;
@@ -223,7 +228,7 @@ export default {
           @include breakpoint(small) {
             right: auto;
             top: 100%;
-            transform: translate(-0.15em, -0.05em);
+            transform: translate(0, 0);
           }
         }
       }
@@ -236,7 +241,7 @@ export default {
         padding: 30px 3vw 30px 7vw;
         opacity: 0;
         transform: translateY(50px);
-        transition: 1s transform, 1s opacity;
+        transition: 3s transform, 1s opacity;
         transition-delay: 0.5s;
 
         @include breakpoint(medium) {
@@ -262,6 +267,10 @@ export default {
             .number {
               opacity: 1;
               transform: translate(-40%, 0);
+
+              @include breakpoint(small) {
+                transform: translate(30%, -60%);
+              }
             }
           }
         }
@@ -279,8 +288,6 @@ export default {
             left: 0;
             opacity: 0;
             transform: translate(0%, 0);
-            transition: 1s transform, 1s opacity;
-            transition-delay: 0.25s;
 
             @include breakpoint(small) {
               left: auto;
