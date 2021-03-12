@@ -2,7 +2,7 @@
   <div>
     <div class="fetch-message fetching" v-if="$fetchState.pending">Loading...</div>
     <div class="fetch-message error" v-if="$fetchState.error">Error while fetching posts</div>
-    <h4 v-if="searchTerm"><span v-if="!products || products.length <= 0">No</span> Shop Results for "{{ searchTerm }}"</h4>
+    <h4 v-if="searchTerm && products && products.length">Shop Results for "{{ searchTerm }}"</h4>
     <div class="grid" v-if="products && products.length">
       <ProductCard v-for="card in products" :key="card.node.slug" :data="card.node" />
     </div>

@@ -46,10 +46,10 @@
               >Buy now with <img src="/images/logo-paypal.svg" alt=""
             /></a>
           </div>
-          <ul class="cart-controls">
+          <!-- <ul class="cart-controls">
             <li @click="submitHack">View Cart</li>
             <li @click="submitHack">Checkout</li>
-          </ul>
+          </ul> -->
         </div>
       </div>
     </header>
@@ -247,6 +247,7 @@ export default {
             appearance: none;
             padding: 0;
             cursor: pointer;
+            font-weight: bold;
             @include breakpoint(small) {
               font-size: 15px;
               margin-top: 10px;
@@ -275,7 +276,7 @@ export default {
           display: flex;
           align-items: center;
           justify-content: center;
-          font-weight: normal;
+          font-weight: bold;
           padding-left: 10px;
           padding-right: 10px;
 

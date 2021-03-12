@@ -2,9 +2,7 @@
   <div>
     <div class="fetch-message fetching" v-if="$fetchState.pending">Loading...</div>
     <div class="fetch-message error" v-if="$fetchState.error">Error while fetching posts</div>
-    <h4 v-if="searchTerm">
-      <span v-if="!portfolioItems || portfolioItems.length <= 0">No</span> Portfolio Results for "{{ searchTerm }}"
-    </h4>
+    <h4 v-if="searchTerm && portfolioItems && portfolioItems.length">Portfolio Results for "{{ searchTerm }}"</h4>
     <div class="grid" v-if="portfolioItems && portfolioItems.length">
       <Card v-for="(card, index) in portfolioItems" :key="index" :data="card.node" :directory="'/portfolio/'" />
     </div>

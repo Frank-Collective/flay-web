@@ -2,9 +2,7 @@
   <div>
     <div class="fetch-message fetching" v-if="$fetchState.pending">Loading...</div>
     <div class="fetch-message error" v-if="$fetchState.error">Error while fetching posts</div>
-    <h4 v-if="searchTerm">
-      <span v-if="!dailySpecials || dailySpecials.length <= 0">No</span> Daily Special Results for "{{ searchTerm }}"
-    </h4>
+    <h4 v-if="searchTerm && dailySpecials && dailySpecials.length">Daily Special Results for "{{ searchTerm }}"</h4>
     <div class="grid" v-if="dailySpecials && dailySpecials.length">
       <Card v-for="(card, index) in dailySpecials" :key="index" :data="card.node" :directory="'/daily-specials/'" />
     </div>
