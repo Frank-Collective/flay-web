@@ -18,10 +18,12 @@ export default {
     // Restart header animations upon return to page
     if (this.scrolltrigger_initiated) {
       this.animate_in_class_els.forEach(el => {
-        el.classList.remove('animate-in')
-        setTimeout(() => {
-          el.classList.add('animate-in')
-        }, 250)
+        if (el.classList.contains('animate-in')) {
+          el.classList.remove('animate-in')
+          setTimeout(() => {
+            el.classList.add('animate-in')
+          }, 250)
+        }
       })
     }
 
