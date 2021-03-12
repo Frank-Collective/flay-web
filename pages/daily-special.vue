@@ -48,6 +48,7 @@
 </template>
 
 <script>
+import meta from '~/plugins/meta.js'
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
 import GridDailySpecials from '~/components/GridDailySpecials'
@@ -77,6 +78,13 @@ export default {
         page(id: 30, idType: DATABASE_ID) {
           ${basics}
           ${featured_image}
+          seo {
+            metaDesc
+            title
+            opengraphImage {
+              sourceUrl
+            }
+          }
           DailySpecialFields {
             dailySpecialFilters {
               name
@@ -90,6 +98,14 @@ export default {
     const { page } = await $graphql.default.request(query)
     console.log(page)
     return { page }
+  },
+  head() {
+    if (this.page && this.page.seo) {
+      return {
+        title: this.page.seo.title,
+        meta: meta(this.page.seo),
+      }
+    }
   },
 }
 </script>

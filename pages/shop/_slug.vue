@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import meta from '~/plugins/meta.js'
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, link, page_builder } from '~/gql/common'
 export default {
@@ -26,6 +27,13 @@ export default {
         product(id: $uri, idType: URI) {
           ${basics}
           ${featured_image} 
+          seo {
+            metaDesc
+            title
+            opengraphImage {
+              sourceUrl
+            }
+          }
           ProductPrice {
             productPrice
           }  
@@ -37,6 +45,14 @@ export default {
     const { product } = await $graphql.default.request(query, variables)
     console.log(product)
     return { product }
+  },
+  head() {
+    if (this.product && this.product.seo) {
+      return {
+        title: this.product.seo.title,
+        meta: meta(this.product.seo),
+      }
+    }
   },
 }
 </script>

@@ -89,7 +89,7 @@ export default {
   },
   computed: {},
   mounted() {
-    console.log(this.data)
+    // console.log(this.data)
     if (this.$refs.flickity) {
       this.$refs.flickity.on('change', index => {
         // console.log('Selected Slide: ' + index)

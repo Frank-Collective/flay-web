@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import meta from '~/plugins/meta.js'
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, link } from '~/gql/common'
 import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
@@ -122,6 +123,13 @@ export default {
         page(id: 31, idType: DATABASE_ID) {
           ${basics}
           ${featured_image}
+          seo {
+            metaDesc
+            title
+            opengraphImage {
+              sourceUrl
+            }
+          }
           PortfolioFields {
             featuredPortfolioItems {
               ... on Portfolio {
@@ -148,6 +156,14 @@ export default {
 
     const { page } = await $graphql.default.request(query)
     return { page }
+  },
+  head() {
+    if (this.page && this.page.seo) {
+      return {
+        title: this.page.seo.title,
+        meta: meta(this.page.seo),
+      }
+    }
   },
 }
 </script>

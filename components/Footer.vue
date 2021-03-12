@@ -9,15 +9,9 @@
           <li><nuxt-link to="/daily-special" tabindex="0">Daily Special</nuxt-link></li>
           <li><nuxt-link to="/contact" tabindex="0">Contact</nuxt-link></li>
         </ul>
-        <ul class="socialmedia">
-          <li>
-            <a href="https://www.instagram.com">Instagram</a>
-          </li>
-          <li>
-            <a href="https://www.twitter.com">Twitter</a>
-          </li>
-          <li>
-            <a href="https://www.facebook.com">Facebook</a>
+        <ul class="socialmedia" v-if="socialmedias">
+          <li v-for="(socialmedia, index) in socialmedias" :key="index">
+            <a :href="socialmedia.link" target="_blank">{{ socialmedia.title }}</a>
           </li>
         </ul>
       </div>
@@ -27,7 +21,36 @@
 </template>
 
 <script>
-export default {}
+import { gql } from 'nuxt-graphql-request'
+import { basics, image, featured_image, categories, link } from '~/gql/common'
+
+export default {
+  data() {
+    return {
+      socialmedias: null,
+    }
+  },
+  async fetch() {
+    const query = gql`
+      query MyQuery {
+        globalContent {
+          SocialLinksFields {
+            socialMediaIconLink {
+              title
+              icon {
+                ${image}
+              }
+              link
+            }
+          }
+        }
+      }
+    `
+    const data = await this.$graphql.default.request(query)
+    // console.log(data.globalContent.SocialLinksFields.socialMediaIconLink)
+    this.socialmedias = data.globalContent.SocialLinksFields.socialMediaIconLink
+  },
+}
 </script>
 
 <style lang="scss" scoped>

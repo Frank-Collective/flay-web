@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import meta from '~/plugins/meta.js'
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, link, page_builder } from '~/gql/common'
 import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
@@ -33,6 +34,13 @@ export default {
         dailySpecial(id: $uri, idType: URI) {
           ${basics}
           ${featured_image} 
+          seo {
+            metaDesc
+            title
+            opengraphImage {
+              sourceUrl
+            }
+          }
           ${page_builder('DailySpecial')}
           HeaderCTALink {
             link {
@@ -58,6 +66,14 @@ export default {
     console.log(dailySpecial)
     // console.log('DID WE GET IT????')
     return { dailySpecial }
+  },
+  head() {
+    if (this.dailySpecial && this.dailySpecial.seo) {
+      return {
+        title: this.dailySpecial.seo.title,
+        meta: meta(this.dailySpecial.seo),
+      }
+    }
   },
   mounted() {
     if (this.dailySpecial) {

@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import meta from '~/plugins/meta.js'
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
 import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
@@ -24,7 +25,13 @@ export default {
         page(id: "contact", idType: URI, asPreview: true) {
           ${basics}
           ${featured_image}
-          
+          seo {
+            metaDesc
+            title
+            opengraphImage {
+              sourceUrl
+            }
+          }
           isPreview
           preview {
             node {
@@ -44,6 +51,14 @@ export default {
     console.log(page)
     // console.log(page, 'VIEWER: ', viewer)
     return { page }
+  },
+  head() {
+    if (this.page && this.page.seo) {
+      return {
+        title: this.page.seo.title,
+        meta: meta(this.page.seo),
+      }
+    }
   },
   data() {
     return {}

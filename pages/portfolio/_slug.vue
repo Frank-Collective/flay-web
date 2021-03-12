@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import meta from '~/plugins/meta.js'
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, link, page_builder } from '~/gql/common'
 import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
@@ -35,6 +36,13 @@ export default {
         portfolio(id: $uri, idType: URI) {
           ${basics}
           ${featured_image} 
+          seo {
+            metaDesc
+            title
+            opengraphImage {
+              sourceUrl
+            }
+          }
           ${page_builder('Portfolio')}
           HeaderCTALink {
             link {
@@ -60,6 +68,14 @@ export default {
     // console.log(portfolio)
 
     return { portfolio }
+  },
+  head() {
+    if (this.portfolio && this.portfolio.seo) {
+      return {
+        title: this.portfolio.seo.title,
+        meta: meta(this.portfolio.seo),
+      }
+    }
   },
   mounted() {
     if (this.portfolio) {

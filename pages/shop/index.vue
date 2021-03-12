@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import meta from '~/plugins/meta.js'
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
 import GridProducts from '../../components/GridProducts.vue'
@@ -29,6 +30,13 @@ export default {
       query MyQuery {
         page(id: 127, idType: DATABASE_ID) {
           ${basics}
+          seo {
+            metaDesc
+            title
+            opengraphImage {
+              sourceUrl
+            }
+          }
           ShopFields {
             products {
               ... on Product {
@@ -66,6 +74,14 @@ export default {
     console.log(page)
     // console.log(page, 'VIEWER: ', viewer)
     return { page }
+  },
+  head() {
+    if (this.page && this.page.seo) {
+      return {
+        title: this.page.seo.title,
+        meta: meta(this.page.seo),
+      }
+    }
   },
 }
 </script>
