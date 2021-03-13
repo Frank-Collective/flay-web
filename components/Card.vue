@@ -26,10 +26,10 @@
             />
           </div>
           <!-- Description -->
-          <div v-if="data.Descriptions.thumbnailDescription">
+          <div v-if="data.Descriptions.thumbnailDescription && !featured">
             <p>{{ data.Descriptions.thumbnailDescription }}</p>
           </div>
-          <div v-else-if="data.Descriptions.featuredDescription">
+          <div v-else-if="data.Descriptions.featuredDescription && featured">
             <p>{{ data.Descriptions.featuredDescription }}</p>
           </div>
           <div v-else v-html="data.content.substr(0, 100) + '...'"></div>
