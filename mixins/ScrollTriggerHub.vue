@@ -63,7 +63,7 @@ export default {
             trigger: el,
             start: 'top bottom',
             ease: 'power2',
-            toggleActions: 'play none none reverse',
+            toggleActions: 'play none none none',
           },
         })
         .from(el, {
@@ -87,30 +87,30 @@ export default {
         })
     },
     add_slide_up_leave_animation(el, index) {
-      const timeline = gsap
-        .timeline({
-          scrollTrigger: {
-            trigger: el,
-            start: 'bottom 40%',
-            end: 'bottom 0px',
-            scrub: 1,
-          },
-        })
-        .to(el, {
-          y: -50,
-          scale: 0.95,
-          opacity: 0,
-        })
+      // const timeline = gsap
+      //   .timeline({
+      //     scrollTrigger: {
+      //       trigger: el,
+      //       start: 'bottom 40%',
+      //       end: 'bottom 0px',
+      //       scrub: 1,
+      //     },
+      //   })
+      //   .to(el, {
+      //     y: -50,
+      //     scale: 0.95,
+      //     opacity: 0,
+      //   })
     },
     toggle_animate_in_class(el, index) {
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: el,
           start: 'top bottom',
-          toggleClass: { targets: el, className: 'animate-in' },
-          // onEnter: () => {
-          //   el.classList.add('animate-in')
-          // },
+          // toggleClass: { targets: el, className: 'animate-in' },
+          onEnter: () => {
+            el.classList.add('animate-in')
+          },
         },
       })
     },
