@@ -131,6 +131,7 @@ export default {
         @include breakpoint(medium) {
           bottom: 7px;
           right: 28px;
+          transform: translate(-100%, 50%);
         }
       }
     }
@@ -218,10 +219,26 @@ export default {
             bottom: auto;
             right: auto;
             top: 50%;
-            left: -15px;
+            left: 100px;
+            transition: 3s left;
             transform: none;
           }
         }
+      }
+    }
+
+    &.animate-in {
+      opacity: 1;
+
+      .image {
+        transform: translateX(0px);
+
+        .big-letter {
+          left: -15px;
+        }
+      }
+
+      .content {
       }
     }
   }

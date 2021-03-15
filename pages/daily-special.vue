@@ -116,11 +116,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 110px 0 40px;
+  padding: 110px 0 40px;
 
   @include breakpoint(small) {
     flex-direction: column;
-    margin: 126px 0 100px;
+    padding: 126px 0 100px;
     overflow: hidden;
   }
 
