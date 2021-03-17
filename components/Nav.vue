@@ -192,7 +192,7 @@ export default {
         top: 12px;
         left: 7px;
         z-index: 1;
-        cursor: pointer;
+        @include fork_hover;
         // border: 1px solid pink;
 
         @include breakpoint(small) {
@@ -260,7 +260,7 @@ export default {
               width: 30px;
               height: 30px;
               // border: 1px solid black;
-              cursor: pointer;
+              @include fork_hover;
             }
           }
 
@@ -311,7 +311,7 @@ export default {
               width: 30px;
               height: 30px;
               // border: 1px solid black;
-              cursor: pointer;
+              @include fork_hover;
             }
           }
         }
@@ -373,7 +373,7 @@ export default {
     .burger-btn {
       display: none;
       align-items: center;
-      cursor: pointer;
+      @include fork_hover;
 
       @include breakpoint(small) {
         display: flex;

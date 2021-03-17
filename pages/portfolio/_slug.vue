@@ -5,6 +5,7 @@
       :preheader="cats"
       :header="portfolio.title"
       :content="portfolio.content"
+      :linkType="portfolio.HeaderCTALink.linkType"
       :link="portfolio.HeaderCTALink.link != null ? portfolio.HeaderCTALink.link : null"
     />
 
@@ -45,6 +46,7 @@ export default {
           }
           ${page_builder('Portfolio')}
           HeaderCTALink {
+            linkType
             link {
               target
               title

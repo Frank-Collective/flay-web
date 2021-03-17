@@ -64,7 +64,7 @@ export default {
   width: 33.333333%;
   flex-shrink: 0;
   padding: 5px;
-  cursor: pointer;
+  @include fork_hover;
   opacity: 0;
   transform: translateY(10px);
   transition: 3s transform, 1s opacity;

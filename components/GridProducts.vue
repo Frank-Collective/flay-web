@@ -122,7 +122,7 @@ h4 {
   display: flex;
   justify-content: center;
   .button {
-    cursor: pointer;
+    @include fork_hover;
   }
 }
 </style>

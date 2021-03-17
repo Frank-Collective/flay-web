@@ -5,6 +5,7 @@
       :preheader="cats"
       :header="dailySpecial.title"
       :content="dailySpecial.content"
+      :linkType="dailySpecial.HeaderCTALink.linkType"
       :link="dailySpecial.HeaderCTALink.link != null ? dailySpecial.HeaderCTALink.link : null"
     />
 
@@ -43,6 +44,7 @@ export default {
           }
           ${page_builder('DailySpecial')}
           HeaderCTALink {
+            linkType
             link {
               target
               title

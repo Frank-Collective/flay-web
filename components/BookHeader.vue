@@ -246,7 +246,7 @@ export default {
             background: transparent;
             appearance: none;
             padding: 0;
-            cursor: pointer;
+            @include fork_hover;
             font-weight: bold;
             @include breakpoint(small) {
               font-size: 15px;
@@ -271,7 +271,7 @@ export default {
       .cta {
         margin-bottom: 30px;
         .button {
-          cursor: pointer;
+          @include fork_hover;
           width: 100%;
           display: flex;
           align-items: center;
@@ -292,7 +292,7 @@ export default {
       .cart-controls {
         li {
           margin-bottom: 14px;
-          cursor: pointer;
+          @include fork_hover;
         }
       }
     }
