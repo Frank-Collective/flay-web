@@ -11,41 +11,42 @@
           </li>
         </ul>
       </div>
-      <div class="grid" v-if="instafeed">
-        <div class="card" v-for="(data, index) in instafeed" :key="index">
-          <div class="image"><img :src="data.media_url" :alt="data.caption" /></div>
-        </div>
-      </div>
+      <div class="grid" id="instagram-feed"></div>
     </div>
   </section>
 </template>
 
 <script>
-import axios from 'axios'
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, link } from '~/gql/common'
 
 export default {
   data() {
     return {
-      insta_token:
-        'IGQVJVRTd6WlljcmV6ZA1I4QWRRQVFFLTRZANG1sTW5qVDctWEFuazY0QV9saS1GMjBHWURWVnVORUl4U3FHZATRHdjBVcGdENWU3SURxMl9JdThEZAGkxLWROaGhQV3JPdXgtUmZAhSUx2U0VWYWtSYWpPcAZDZD',
-      instafeed: null,
       socialmedias: null,
     }
   },
-  mounted() {},
-  created() {
+  mounted() {
+    this.getInstaFeed()
+  },
+  updated() {
     this.getInstaFeed()
   },
   methods: {
     getInstaFeed() {
-      axios
-        .get(`https://graph.instagram.com/me/media?fields=id,caption,media_type,media_url&access_insta_token=${this.insta_token}`)
-        .then(response => {
-          this.instafeed = response.data.data
-          // console.log(response)
-        })
+      new InstagramFeed({
+        username: 'bobbyflay',
+        container: document.getElementById('instagram-feed'),
+        display_profile: false,
+        display_biography: false,
+        display_gallery: true,
+        display_captions: false,
+        callback: null,
+        styling: false,
+        items: 8,
+        items_per_row: 4,
+        margin: 1,
+      })
     },
   },
   async fetch() {
@@ -141,41 +142,61 @@ export default {
       }
     }
     .grid {
-      position: relative;
-      display: flex;
-      flex-wrap: wrap;
-      width: calc(100% + 10px);
-      left: -5px;
+      /deep/ .instagram_gallery {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        width: calc(100% + 10px);
+        left: -5px;
 
-      .card {
-        width: 25%;
-        height: 381px;
-        padding: 5px;
-
-        @include breakpoint(maxlarge) {
-          width: 25%;
-          height: 23.87vw;
-        }
-
-        @include breakpoint(medium) {
-          width: 33.333333;
-          height: 30.8vw;
-        }
-
-        @include breakpoint(small) {
-          width: 50%;
-          height: 47vw;
-        }
-
-        .image {
+        /deep/ a {
           position: relative;
-          width: 100%;
-          height: 100%;
+          width: calc(25% - 10px);
+          height: 381px;
+          margin: 5px;
           border: 1px solid $black;
           box-sizing: border-box;
 
+          @include breakpoint(maxlarge) {
+            width: calc(25% - 10px);
+            height: 23.87vw;
+          }
+
+          @include breakpoint(medium) {
+            width: calc(33.333333% - 10px);
+            height: 30.8vw;
+          }
+
+          @include breakpoint(small) {
+            width: calc(50% - 10px);
+            height: 47vw;
+          }
+
+          &.instagram-sidecar,
+          &.instagram-video {
+            &:before {
+              content: '';
+              display: block;
+              position: absolute;
+              top: 0;
+              right: 0;
+              width: 32px;
+              height: 32px;
+              background-image: url('/images/icon-insta-carousel.png');
+              background-size: 100%;
+              background-repeat: no-repeat;
+              z-index: 1;
+            }
+          }
+
+          &.instagram-video {
+            &:before {
+              background-image: url('/images/icon-insta-video.png');
+            }
+          }
+
           img {
-            position: absolute;
+            position: relative;
             width: 100%;
             height: 100%;
             object-fit: cover;
