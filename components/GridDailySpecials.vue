@@ -6,7 +6,7 @@
     <div class="grid" v-if="dailySpecials && dailySpecials.length && !$fetchState.pending">
       <Card v-for="(card, index) in dailySpecials" :key="index" :data="card.node" :directory="'/daily-specials/'" />
     </div>
-    <div class="fetch-message" v-else-if="!searchTerm">No results</div>
+    <!-- <div class="fetch-message" v-else-if="!searchTerm">No results</div> -->
     <div v-if="pageInfo && pageInfo.hasNextPage" class="loadmore">
       <div class="button primary" @click="fetchMore()">
         <span>Load More</span>
