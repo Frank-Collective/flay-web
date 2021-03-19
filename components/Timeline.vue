@@ -1,7 +1,7 @@
 <template>
   <div class="timeline-wrapper" v-if="timelineData" data-st-slide_up_enter>
     <div class="inner" data-st-slide_up_leave>
-      <div class="filters">
+      <div class="filters" v-if="timelineData.eventsFilters">
         <ul v-bind:class="{ open: filtersOpen }">
           <li v-on:click="filterTimeline('')" v-bind:class="{ active: selectedCat == '' }">All</li>
           <li
@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <div class="timeline">
+      <div class="timeline" v-if="timelineData.yearOfEvents">
         <div class="images">
           <FadeImage
             v-if="timelineData.defaultImage"
