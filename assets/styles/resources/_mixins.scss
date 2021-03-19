@@ -40,3 +40,7 @@ $tiny: 480px;
     }
   }
 }
+
+@mixin fork_hover() {
+  cursor: url('/images/icon-fork-2.svg') 6 6, auto;
+}

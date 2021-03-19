@@ -8,6 +8,7 @@
       :preheader="page.PrimaryHeader.preHeader"
       :header="page.PrimaryHeader.header"
       :content="page.PrimaryHeader.content"
+      :linkType="page.PrimaryHeader.linkType"
       :link="page.PrimaryHeader.link"
     />
 
@@ -109,6 +110,7 @@ export default {
             preHeader
             header
             content
+            linkType
             link {
               ${link}
             }

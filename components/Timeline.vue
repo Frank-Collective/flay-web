@@ -3,7 +3,6 @@
     <div class="inner" data-st-slide_up_leave>
       <div class="filters" v-if="timelineData.eventsFilters">
         <ul v-bind:class="{ open: filtersOpen }">
-          <li v-on:click="filterTimeline('')" v-bind:class="{ active: selectedCat == '' }">All</li>
           <li
             v-for="(data, index) in timelineData.eventsFilters"
             :key="index"
@@ -12,6 +11,7 @@
           >
             {{ data.name }}
           </li>
+          <li v-on:click="filterTimeline('')" v-bind:class="{ active: selectedCat == '' }">All</li>
         </ul>
         <div class="toggler">
           <span v-html="selectedCat == '' ? 'All' : selectedCat.name"></span>
@@ -200,17 +200,21 @@ export default {
 
         ol {
           li {
-            font-size: 30px;
+            font-size: 20px;
             line-height: 1;
             margin-bottom: 1em;
             padding: 10px 50px;
+
+            @include breakpoint(medium) {
+              font-size: 14px;
+            }
 
             @include breakpoint(small) {
               padding: 10px 40px;
             }
 
             &.has_image {
-              cursor: pointer;
+              @include fork_hover;
 
               &:hover {
                 opacity: 0.5;

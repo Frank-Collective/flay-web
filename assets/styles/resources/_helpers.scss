@@ -42,7 +42,7 @@
       font-size: 20px;
       line-height: calc(30 / 20);
       margin: 0 2em;
-      cursor: pointer;
+      @include fork_hover;
 
       &.active {
         font-weight: bold;
@@ -82,8 +82,8 @@
       position: relative;
       width: 45px;
       height: 45px;
-      cursor: pointer;
       margin-right: 25px;
+      @include fork_hover;
 
       div {
         position: absolute;
@@ -152,10 +152,10 @@
     border-radius: 0px;
   }
   &::-webkit-scrollbar-thumb:hover {
-    background: #000000;
+    background: rgba($black, 0.5);
   }
   &::-webkit-scrollbar-thumb:active {
-    background: #000000;
+    background: rgba($black, 0.5);
   }
   &::-webkit-scrollbar-track {
     background: #f8f5ee;

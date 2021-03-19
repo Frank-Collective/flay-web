@@ -19,7 +19,7 @@
         <h1 v-if="header">{{ header }}</h1>
         <div v-if="content" v-html="content" class="text"></div>
         <div class="cta" v-if="link">
-          <a v-if="link.target != ''" class="button primary" :href="link.url" tabindex="0" :target="link.target">{{
+          <a v-if="linkType == 'external'" class="button primary" :href="link.url" tabindex="0" target="_blank">{{
             link.title
           }}</a>
           <nuxt-link v-else class="button primary" :to="link.url" tabindex="0">{{ link.title }}</nuxt-link>
@@ -37,6 +37,7 @@ export default {
     preheader: null,
     header: null,
     content: null,
+    linkType: null,
     link: null,
   },
   data() {

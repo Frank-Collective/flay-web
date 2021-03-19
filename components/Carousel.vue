@@ -273,7 +273,7 @@ export default {
           font-weight: bold;
           font-size: 14px;
           padding: 0.7em 0.8em 0.4em;
-          cursor: pointer;
+          @include fork_hover;
 
           &.selected {
             text-decoration: underline;
