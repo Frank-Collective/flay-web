@@ -3,7 +3,7 @@
     <div class="fetch-message fetching" v-if="$fetchState.pending">Loading...</div>
     <div class="fetch-message error" v-if="$fetchState.error">Error while fetching posts</div>
     <h4 v-if="searchTerm && products && products.length">Shop Results for "{{ searchTerm }}"</h4>
-    <div class="grid" v-if="products && products.length">
+    <div class="grid" v-if="products && products.length && !$fetchState.pending">
       <ProductCard v-for="card in products" :key="card.node.slug" :data="card.node" />
     </div>
     <div class="fetch-message" v-else-if="!searchTerm">No results</div>
