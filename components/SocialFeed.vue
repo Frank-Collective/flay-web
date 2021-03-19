@@ -142,14 +142,14 @@ export default {
       }
     }
     .grid {
-      /deep/ .instagram_gallery {
+      ::v-deep .instagram_gallery {
         position: relative;
         display: flex;
         flex-wrap: wrap;
         width: calc(100% + 10px);
         left: -5px;
 
-        /deep/ a {
+        a {
           position: relative;
           width: calc(25% - 10px);
           height: 381px;

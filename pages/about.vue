@@ -140,7 +140,7 @@ export default {
       }
     }
 
-    /deep/ .content {
+    ::v-deep .content {
       position: relative;
       padding: 90px 6vw 0 33%;
       opacity: 0;

@@ -164,12 +164,12 @@ export default {
         margin-bottom: 2.5em;
       }
 
-      /deep/ h1,
+      ::v-deep h1,
       h2 {
         @extend .h3;
       }
 
-      /deep/ p {
+      ::v-deep p {
         a {
           text-decoration: underline;
         }

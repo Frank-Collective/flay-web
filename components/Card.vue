@@ -187,7 +187,7 @@ export default {
             }
           }
         }
-        /deep/ p {
+        ::v-deep p {
           font-size: 14px;
         }
         .cta {
@@ -247,7 +247,7 @@ export default {
           }
         }
 
-        /deep/ p {
+        ::v-deep p {
           font-size: 20px;
 
           @include breakpoint(small) {

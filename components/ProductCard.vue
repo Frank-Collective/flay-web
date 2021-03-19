@@ -165,7 +165,7 @@ export default {
             }
           }
         }
-        /deep/ p {
+        ::v-deep p {
           font-size: 14px;
         }
         .price {
