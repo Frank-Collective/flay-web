@@ -27,10 +27,10 @@ export default {
     }
   },
   mounted() {
-    this.getInstaFeed()
+    //this.getInstaFeed()
   },
   updated() {
-    this.getInstaFeed()
+    //this.getInstaFeed()
   },
   methods: {
     getInstaFeed() {
