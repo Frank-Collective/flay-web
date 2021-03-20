@@ -26,48 +26,49 @@ import meta from '~/plugins/meta.js'
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
 import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
-
+const gql_content = `
+  ${basics}
+  ${featured_image}
+  seo {
+    metaDesc
+    title
+    opengraphImage {
+      sourceUrl
+    }
+  }
+  ${page_builder('Page')}
+  TimelineFields {
+    eventsFilters {
+      name
+      slug
+    }
+    defaultImage {
+      ${image}
+    }
+    yearOfEvents {
+      events {
+        ... on Timeline {
+          id
+          title
+          ${featured_image}
+          ${categories}
+        }
+      }
+      year
+    }
+  }
+`
 export default {
   mixins: [scrollTriggerHub],
   async asyncData({ $graphql, params }) {
     const query = gql`
       query MyQuery {
         page(id: "about", idType: URI, asPreview: true) {
-          ${basics}
-          ${featured_image}
-          seo {
-            metaDesc
-            title
-            opengraphImage {
-              sourceUrl
-            }
-          }
-          ${page_builder('Page')}
-          TimelineFields {
-            eventsFilters {
-              name
-              slug
-            }
-            defaultImage {
-              ${image}
-            }
-            yearOfEvents {
-              events {
-                ... on Timeline {
-                  id
-                  title
-                  ${featured_image}
-                  ${categories}
-                }
-              }
-              year
-            }
-          }
+          ${gql_content}
           isPreview
           preview {
             node {
-              ${basics}
-              ${featured_image}
+              ${gql_content}
             }
           }
         }
@@ -75,12 +76,20 @@ export default {
           name
           firstName
           nicename
-        }        
+        }
       }
     `
-    const { page, viewer } = await $graphql.default.request(query)
+    let { page, viewer } = await $graphql.default.request(query)
     console.log('ABOUT PAGE: ', page)
-    console.log(page, 'VIEWER: ', viewer)
+    console.log('VIEWER: ', viewer)
+    //console.log('PREVIEW', this.$preview)
+    if (page.isPreview) {
+      page = page.preview.node
+      console.log('THIS IS A PREVIEW SO LETS SHOW EM')
+    } else {
+      console.log('NOT A PREIVEW')
+    }
+    console.log('')
     return { page }
   },
   head() {
@@ -94,12 +103,22 @@ export default {
   data() {
     return {
       bigLetter: String,
+      isPreviewContent: false,
     }
   },
   mounted() {
     // console.log('about: mounted')
     if (this.page) {
       this.bigLetter = this.page.content.substr(4, 1)
+    }
+  },
+  validate({ params, query }) {
+    if (query.preview) {
+      console.log('PREVIEW ME TRUE')
+      this.preview = true
+      return true
+    } else {
+      return true
     }
   },
   updated() {},
