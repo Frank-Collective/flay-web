@@ -109,6 +109,15 @@ export default {
       }
     }
   },
+  updated() {
+    console.log('UPDATED preview: ', this.$route.query.preview)
+    console.log('UPDATED data: ', this.page, this.viewer)
+    if (this.$route.query && this.$route.query.preview) {
+      if (this.page.preview && this.viewer) {
+        this.page = this.page.preview.node
+      }
+    }
+  },
   validate({ params, query }) {
     console.log('validating...')
     if (query.preview) {
