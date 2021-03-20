@@ -66,7 +66,7 @@ export default {
     }
   },
   mixins: [scrollTriggerHub],
-  async asyncData({ $graphql, params, preview }) {
+  async asyncData({ $graphql, route }) {
     const query = gql`
       query MyQuery {
         page(id: "about", idType: URI, asPreview: true) {
@@ -86,7 +86,12 @@ export default {
       }
     `
     const { page, viewer } = await $graphql.default.request(query)
-    console.log(page, viewer)
+    console.log('ASYNCH DATA ROUTE route', route.query)
+    console.log('ASYNCH DATA', page, viewer)
+    if (route.query && route.query.preview) {
+      console.log('PREVIEW BRO')
+      page = page.preview.node
+    }
     return { page, viewer }
   },
   head() {
@@ -100,22 +105,6 @@ export default {
   mounted() {
     if (this.page) {
       this.bigLetter = this.page.content.substr(4, 1)
-    }
-    console.log('MOUNTED preview: ', this.$route.query.preview)
-    console.log('MOUNTED data: ', this.page, this.viewer)
-    if (this.$route.query && this.$route.query.preview) {
-      if (this.page.preview && this.viewer) {
-        this.page = this.page.preview.node
-      }
-    }
-  },
-  updated() {
-    console.log('UPDATED preview: ', this.$route.query.preview)
-    console.log('UPDATED data: ', this.page, this.viewer)
-    if (this.$route.query && this.$route.query.preview) {
-      if (this.page.preview && this.viewer) {
-        this.page = this.page.preview.node
-      }
     }
   },
   validate({ params, query }) {
