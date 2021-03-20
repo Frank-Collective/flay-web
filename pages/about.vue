@@ -85,7 +85,7 @@ export default {
         }
       }
     `
-    const { page, viewer } = await $graphql.default.request(query)
+    let { page, viewer } = await $graphql.default.request(query)
     console.log('ASYNCH DATA ROUTE route', route.query)
     console.log('ASYNCH DATA', page, viewer)
     if (route.query && route.query.preview) {
