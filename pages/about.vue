@@ -26,6 +26,7 @@ import meta from '~/plugins/meta.js'
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
 import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
+let content_preview = false
 const gql_content = `
   ${basics}
   ${featured_image}
@@ -59,8 +60,14 @@ const gql_content = `
   }
 `
 export default {
+  data() {
+    return {
+      bigLetter: String,
+      isPreviewContent: false,
+    }
+  },
   mixins: [scrollTriggerHub],
-  async asyncData({ $graphql, params }) {
+  async asyncData({ $graphql, params, preview }) {
     const query = gql`
       query MyQuery {
         page(id: "about", idType: URI, asPreview: true) {
@@ -80,17 +87,10 @@ export default {
       }
     `
     let { page, viewer } = await $graphql.default.request(query)
-    console.log('ABOUT PAGE: ', page)
     console.log('VIEWER: ', viewer)
-    //console.log('PREVIEW', this.$preview)
-    if (page.isPreview) {
+    if (content_preview && viewer) {
       page = page.preview.node
-      console.log('THIS IS A PREVIEW SO LETS SHOW EM')
-    } else {
-      console.log('NOT A PREIVEW')
     }
-    page = page.preview.node
-    console.log('TRIED ANYWAY')
     return { page }
   },
   head() {
@@ -101,27 +101,16 @@ export default {
       }
     }
   },
-  data() {
-    return {
-      bigLetter: String,
-      isPreviewContent: false,
-    }
-  },
   mounted() {
-    // console.log('about: mounted')
     if (this.page) {
       this.bigLetter = this.page.content.substr(4, 1)
     }
   },
   validate({ params, query }) {
     if (query.preview) {
-      console.log('PREVIEW ME TRUE')
-      this.preview = true
-      return true
-    } else {
-      console.log('PREVIEW ME FALSE')
-      return true
+      content_preview = true
     }
+    return true
   },
   updated() {},
   computed: {},

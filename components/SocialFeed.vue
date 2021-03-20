@@ -27,10 +27,10 @@ export default {
     }
   },
   mounted() {
-    //this.getInstaFeed()
+    this.getInstaFeed()
   },
   updated() {
-    //this.getInstaFeed()
+    this.getInstaFeed()
   },
   methods: {
     getInstaFeed() {
@@ -66,7 +66,6 @@ export default {
       }
     `
     const data = await this.$graphql.default.request(query)
-    // console.log(data.globalContent.SocialLinksFields.socialMediaIconLink)
     this.socialmedias = data.globalContent.SocialLinksFields.socialMediaIconLink
   },
 }

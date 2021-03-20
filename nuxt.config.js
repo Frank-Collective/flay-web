@@ -24,7 +24,7 @@ export default {
     script: [
       {
         type: 'text/javascript',
-        src: 'js/InstagramFeed.min.js',
+        src: '/js/InstagramFeed.min.js',
       },
     ],
   },
