@@ -26,7 +26,6 @@ import meta from '~/plugins/meta.js'
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
 import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
-let content_preview = false
 const gql_content = `
   ${basics}
   ${featured_image}
@@ -86,14 +85,8 @@ export default {
         }
       }
     `
-    let { page, viewer } = await $graphql.default.request(query)
-    console.log('VIEWER: ', viewer)
-    console.log('PREVIEW: ', content_preview)
-    if (content_preview && viewer) {
-      console.log('Should display as preview')
-      page = page.preview.node
-    }
-    return { page }
+    const { page, viewer } = await $graphql.default.request(query)
+    return { page, viewer }
   },
   head() {
     if (this.page && this.page.seo) {
@@ -107,11 +100,17 @@ export default {
     if (this.page) {
       this.bigLetter = this.page.content.substr(4, 1)
     }
+    console.log('MOUNTED preview: ', this.$route.query.preview)
+    console.log('MOUNTED data: ', this.page, this.viewer)
+    if (this.$route.query && this.$route.query.preview) {
+      if (this.page.preview && this.viewer) {
+        this.page = this.page.preview.node
+      }
+    }
   },
   validate({ params, query }) {
-    console.log('vaidating...')
+    console.log('validating...')
     if (query.preview) {
-      content_preview = true
       console.log('Validating as preview')
     }
     return true
