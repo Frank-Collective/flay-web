@@ -109,6 +109,7 @@ export default {
     }
   },
   validate({ params, query }) {
+    console.log('vaidating...')
     if (query.preview) {
       content_preview = true
       console.log('Validating as preview')
