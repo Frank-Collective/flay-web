@@ -22,6 +22,34 @@ import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, link, page_builder } from '~/gql/common'
 import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
 
+const gql_content = `
+  ${basics}
+  ${featured_image} 
+  seo {
+    metaDesc
+    title
+    opengraphImage {
+      sourceUrl
+    }
+  }
+  ${page_builder('Portfolio')}
+  HeaderCTALink {
+    linkType
+    link {
+      target
+      title
+      url
+    }
+  }
+  categories {
+    edges {
+      node {
+        name
+        slug
+      }
+    }
+  } 
+`
 export default {
   mixins: [scrollTriggerHub],
   data() {
@@ -35,39 +63,21 @@ export default {
     const query = gql`
       query PostQuery ($uri: ID!) {
         portfolio(id: $uri, idType: URI) {
-          ${basics}
-          ${featured_image} 
-          seo {
-            metaDesc
-            title
-            opengraphImage {
-              sourceUrl
+          ${gql_content}
+          preview {
+            node {
+              ${gql_content}
             }
-          }
-          ${page_builder('Portfolio')}
-          HeaderCTALink {
-            linkType
-            link {
-              target
-              title
-              url
-            }
-          }
-          categories {
-            edges {
-              node {
-                name
-                slug
-              }
-            }
-          }  
+          }          
         }
       }
     `
     const variables = { uri: post_uri }
-
-    const { portfolio } = await $graphql.default.request(query, variables)
-    // console.log(portfolio)
+    let { portfolio } = await $graphql.default.request(query, variables)
+    if (route.query && route.query.preview && portfolio.preview) {
+      console.log('PORTFOLIO PREVIEW BRO')
+      portfolio = portfolio.preview.node
+    }
     return { portfolio }
   },
   head() {
