@@ -57,9 +57,9 @@ export default {
       cats: String,
     }
   },
-  async asyncData({ $graphql, params }) {
-    const post_uri = params.slug
-
+  async asyncData({ $graphql, route }) {
+    const post_uri = route.params.slug
+    console.log(route.params.slug, route.query)
     const query = gql`
       query PostQuery ($uri: ID!) {
         portfolio(id: $uri, idType: URI) {
