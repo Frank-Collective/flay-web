@@ -86,6 +86,7 @@ export default {
       }
     `
     const { page, viewer } = await $graphql.default.request(query)
+    console.log(page, viewer)
     return { page, viewer }
   },
   head() {
