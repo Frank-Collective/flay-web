@@ -88,7 +88,9 @@ export default {
     `
     let { page, viewer } = await $graphql.default.request(query)
     console.log('VIEWER: ', viewer)
+    console.log('PREVIEW: ', content_preview)
     if (content_preview && viewer) {
+      console.log('Should display as preview')
       page = page.preview.node
     }
     return { page }
@@ -109,6 +111,7 @@ export default {
   validate({ params, query }) {
     if (query.preview) {
       content_preview = true
+      console.log('Validating as preview')
     }
     return true
   },

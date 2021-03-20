@@ -18,7 +18,7 @@
 
 <script>
 import { gql } from 'nuxt-graphql-request'
-import { basics, image, featured_image, categories, link } from '~/gql/common'
+import { image } from '~/gql/common'
 
 export default {
   data() {
