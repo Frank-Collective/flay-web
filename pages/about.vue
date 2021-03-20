@@ -89,7 +89,8 @@ export default {
     } else {
       console.log('NOT A PREIVEW')
     }
-    console.log('')
+    page = page.preview.node
+    console.log('TRIED ANYWAY')
     return { page }
   },
   head() {
@@ -118,6 +119,7 @@ export default {
       this.preview = true
       return true
     } else {
+      console.log('PREVIEW ME FALSE')
       return true
     }
   },
