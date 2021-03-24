@@ -95,10 +95,7 @@ export default {
       }
     `
     let { page, viewer } = await $graphql.default.request(query)
-    console.log('ASYNCH DATA ROUTE route', route.query)
-    console.log('ASYNCH DATA', page, viewer)
     if (route.query && route.query.preview && page.preview) {
-      console.log('PREVIEW BRO')
       page = page.preview.node
     }
     return { page, viewer }
@@ -115,13 +112,6 @@ export default {
     if (this.page) {
       this.bigLetter = this.page.content.substr(4, 1)
     }
-  },
-  validate({ params, query }) {
-    console.log('validating...')
-    if (query.preview) {
-      console.log('Validating as preview')
-    }
-    return true
   },
   updated() {},
   computed: {},

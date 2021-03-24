@@ -21,58 +21,55 @@ import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
 import GridProducts from '../../components/GridProducts.vue'
 import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
-
+const gql_content = `
+  ${basics}
+  seo {
+    metaDesc
+    title
+    opengraphImage {
+      sourceUrl
+    }
+  }
+  ShopFields {
+    products {
+      ... on Product {
+        ${basics}
+        ${featured_image}
+        CardLink {
+          cardLinkText
+        }
+        Descriptions {
+          featuredDescription
+          thumbnailDescription
+        }
+        ProductPrice {
+          productPrice
+        }
+      }
+    }
+  }
+`
 export default {
   mixins: [scrollTriggerHub],
   components: { GridProducts },
-  async asyncData({ $graphql, params }) {
+  async asyncData({ $graphql, route }) {
     const query = gql`
       query MyQuery {
         page(id: 127, idType: DATABASE_ID) {
-          ${basics}
-          seo {
-            metaDesc
-            title
-            opengraphImage {
-              sourceUrl
-            }
-          }
-          ShopFields {
-            products {
-              ... on Product {
-                ${basics}
-                ${featured_image}
-                CardLink {
-                  cardLinkText
-                }
-                Descriptions {
-                  featuredDescription
-                  thumbnailDescription
-                }
-                ProductPrice {
-                  productPrice
-                }
-              }
-            }
-          }
+          ${gql_content}
           isPreview
           preview {
             node {
-              ${basics}
-              ${featured_image}
+              ${gql_content}
             }
           }
-        }
-        viewer {
-          name
-          firstName
-          nicename
-        }        
+        }      
       }
     `
-    const { page, viewer } = await $graphql.default.request(query)
-    console.log(page)
-    // console.log(page, 'VIEWER: ', viewer)
+    let { page } = await $graphql.default.request(query)
+    if (route.query && route.query.preview && page.preview) {
+      page = page.preview.node
+    }
     return { page }
   },
   head() {

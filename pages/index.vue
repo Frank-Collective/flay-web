@@ -87,101 +87,110 @@ import meta from '~/plugins/meta.js'
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, link } from '~/gql/common'
 import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
-
-export default {
-  async asyncData({ $graphql, params }) {
-    const query = gql`
-      query MyQuery {
-        page(id: "home", idType: URI, asPreview: true) {
+const gql_content = `
+  ${basics}
+  ${featured_image}
+  seo {
+    metaDesc
+    title
+    opengraphImage {
+      sourceUrl
+    }
+  }
+  PrimaryHeader {
+    image {
+      ${image}
+    }
+    bigLetter
+    preHeader
+    header
+    content
+    linkType
+    link {
+      ${link}
+    }
+  }
+  HomeFields {
+    portfolio {
+      title
+      link {
+        ${link}
+      }
+      portfolioItems {
+        ... on Portfolio {
           ${basics}
           ${featured_image}
-          seo {
-            metaDesc
-            title
-            opengraphImage {
-              sourceUrl
-            }
+          ${categories}
+          CardLink {
+            cardLinkText
           }
-          PrimaryHeader {
-            image {
-              ${image}
-            }
-            bigLetter
-            preHeader
-            header
-            content
-            linkType
-            link {
-              ${link}
-            }
-          }
-          HomeFields {
-            portfolio {
-              title
-              link {
-                ${link}
-              }
-              portfolioItems {
-                ... on Portfolio {
-                  ${basics}
-                  ${featured_image}
-                  ${categories}
-                  CardLink {
-                    cardLinkText
-                  }
-                  Descriptions {
-                    featuredDescription
-                    thumbnailDescription
-                  }
-                }
-              }
-              firstIsFeatured
-            }
-            dailySpecial {
-              title
-              link {
-                ${link}
-              }
-              dailySpecialItems {
-                ... on DailySpecial {
-                  ${basics}
-                  ${featured_image}
-                  ${categories}
-                  CardLink {
-                    cardLinkText
-                  }
-                  Descriptions {
-                    featuredDescription
-                    thumbnailDescription
-                  }
-                }
-              }
-            }
-            shop {
-              products {
-                ... on Product {
-                  ${basics}
-                  ${featured_image}
-                  CardLink {
-                    cardLinkText
-                  }
-                  Descriptions {
-                    featuredDescription
-                    thumbnailDescription
-                  }
-                  ProductPrice {
-                    productPrice
-                  }
-                }
-              }
-            }
+          Descriptions {
+            featuredDescription
+            thumbnailDescription
           }
         }
       }
+      firstIsFeatured
+    }
+    dailySpecial {
+      title
+      link {
+        ${link}
+      }
+      dailySpecialItems {
+        ... on DailySpecial {
+          ${basics}
+          ${featured_image}
+          ${categories}
+          CardLink {
+            cardLinkText
+          }
+          Descriptions {
+            featuredDescription
+            thumbnailDescription
+          }
+        }
+      }
+    }
+    shop {
+      products {
+        ... on Product {
+          ${basics}
+          ${featured_image}
+          CardLink {
+            cardLinkText
+          }
+          Descriptions {
+            featuredDescription
+            thumbnailDescription
+          }
+          ProductPrice {
+            productPrice
+          }
+        }
+      }
+    }
+  }
+`
+export default {
+  async asyncData({ $graphql, route }) {
+    const query = gql`
+      query MyQuery {
+        page(id: "home", idType: URI, asPreview: true) {
+          ${gql_content}
+          isPreview
+          preview {
+            node {
+              ${gql_content}
+            }
+          }  
+        }
+      }
     `
-
-    const { page } = await $graphql.default.request(query)
-    console.log(page)
+    let { page } = await $graphql.default.request(query)
+    if (route.query && route.query.preview && page.preview) {
+      page = page.preview.node
+    }
     return { page }
   },
   head() {

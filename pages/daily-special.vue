@@ -53,7 +53,23 @@ import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, page_builder } from '~/gql/common'
 import GridDailySpecials from '~/components/GridDailySpecials'
 import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
-
+const gql_content = `
+  ${basics}
+  ${featured_image}
+  seo {
+    metaDesc
+    title
+    opengraphImage {
+      sourceUrl
+    }
+  }
+  DailySpecialFields {
+    dailySpecialFilters {
+      name
+      slug
+    }
+  }
+`
 export default {
   mixins: [scrollTriggerHub],
   components: { GridDailySpecials },
@@ -72,31 +88,25 @@ export default {
       this.filtersOpen = false
     },
   },
-  async asyncData({ $graphql, params }) {
+  async asyncData({ $graphql, route }) {
     const query = gql`
       query MyQuery {
         page(id: 30, idType: DATABASE_ID) {
-          ${basics}
-          ${featured_image}
-          seo {
-            metaDesc
-            title
-            opengraphImage {
-              sourceUrl
+          ${gql_content}
+          isPreview
+          preview {
+            node {
+              ${gql_content}
             }
-          }
-          DailySpecialFields {
-            dailySpecialFilters {
-              name
-              slug
-            }
-          }
+          }          
         }
       }
     `
 
-    const { page } = await $graphql.default.request(query)
-    console.log(page)
+    let { page } = await $graphql.default.request(query)
+    if (route.query && route.query.preview && page.preview) {
+      page = page.preview.node
+    }
     return { page }
   },
   head() {

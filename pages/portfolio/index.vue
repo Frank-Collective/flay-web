@@ -86,7 +86,37 @@ import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, categories, link } from '~/gql/common'
 import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
 import GridPortfolio from '~/components/GridPortfolio.vue'
-
+const gql_content = `
+  ${basics}
+  ${featured_image}
+  seo {
+    metaDesc
+    title
+    opengraphImage {
+      sourceUrl
+    }
+  }
+  PortfolioFields {
+    featuredPortfolioItems {
+      ... on Portfolio {
+        ${basics}
+        ${featured_image}
+        ${categories}
+        CardLink {
+          cardLinkText
+        }
+        Descriptions {
+          featuredDescription
+          thumbnailDescription
+        }
+      }
+    }
+    portfolioFilters {
+      name
+      slug
+    }
+  }
+`
 export default {
   components: { GridPortfolio },
   mixins: [scrollTriggerHub],
@@ -117,44 +147,25 @@ export default {
       }
     },
   },
-  async asyncData({ $graphql, params }) {
+  async asyncData({ $graphql, route }) {
     const query = gql`
       query MyQuery {
         page(id: 31, idType: DATABASE_ID) {
-          ${basics}
-          ${featured_image}
-          seo {
-            metaDesc
-            title
-            opengraphImage {
-              sourceUrl
+          ${gql_content}
+          isPreview
+          preview {
+            node {
+              ${gql_content}
             }
           }
-          PortfolioFields {
-            featuredPortfolioItems {
-              ... on Portfolio {
-                ${basics}
-                ${featured_image}
-                ${categories}
-                CardLink {
-                  cardLinkText
-                }
-                Descriptions {
-                  featuredDescription
-                  thumbnailDescription
-                }
-              }
-            }
-            portfolioFilters {
-              name
-              slug
-            }
-          }
-        }
+        } 
       }
     `
 
-    const { page } = await $graphql.default.request(query)
+    let { page } = await $graphql.default.request(query)
+    if (route.query && route.query.preview && page.preview) {
+      page = page.preview.node
+    }
     return { page }
   },
   head() {

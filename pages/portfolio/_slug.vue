@@ -75,7 +75,6 @@ export default {
     const variables = { uri: post_uri }
     let { portfolio } = await $graphql.default.request(query, variables)
     if (route.query && route.query.preview && portfolio.preview) {
-      console.log('PORTFOLIO PREVIEW BRO')
       portfolio = portfolio.preview.node
     }
     return { portfolio }
