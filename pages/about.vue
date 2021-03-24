@@ -45,6 +45,15 @@ const gql_content = `
     defaultImage {
       ${image}
     }
+    filtersAndDefaultImages {
+      defaultImage {
+        ${image}
+      }
+      filter {
+        name
+        slug
+      }
+    }    
     yearOfEvents {
       events {
         ... on Timeline {

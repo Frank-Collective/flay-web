@@ -1,17 +1,17 @@
 <template>
   <div class="timeline-wrapper" v-if="timelineData" data-st-slide_up_enter>
     <div class="inner" data-st-slide_up_leave>
-      <div class="filters" v-if="timelineData.eventsFilters">
+      <div class="filters" v-if="timelineData.filtersAndDefaultImages">
         <ul v-bind:class="{ open: filtersOpen }">
           <li
-            v-for="(data, index) in timelineData.eventsFilters"
+            v-for="(data, index) in timelineData.filtersAndDefaultImages"
             :key="index"
             v-on:click="filterTimeline(data)"
-            v-bind:class="{ active: selectedCat.slug == data.slug }"
+            v-bind:class="{ active: selectedCat.slug == data.filter.slug }"
           >
-            {{ data.name }}
+            {{ data.filter.name }}
           </li>
-          <li v-on:click="filterTimeline('')" v-bind:class="{ active: selectedCat == '' }">All</li>
+          <li v-on:click="filterTimeline('all')" v-bind:class="{ active: selectedCat == '' }">All</li>
         </ul>
         <div class="toggler">
           <span v-html="selectedCat == '' ? 'All' : selectedCat.name"></span>
@@ -25,11 +25,11 @@
       <div class="timeline" v-if="timelineData.yearOfEvents">
         <div class="images">
           <FadeImage
-            v-if="timelineData.defaultImage"
-            :srcset="timelineData.defaultImage.srcSet"
-            :sizes="timelineData.defaultImage.sizes"
-            :src="timelineData.defaultImage.mediaItemUrl"
-            :alt="timelineData.defaultImage.altText"
+            v-if="defaultImage"
+            :srcset="defaultImage.srcSet"
+            :sizes="defaultImage.sizes"
+            :src="defaultImage.mediaItemUrl"
+            :alt="defaultImage.altText"
           />
           <template v-for="data in timelineData.yearOfEvents">
             <template v-for="event in data.events">
@@ -76,6 +76,7 @@ export default {
       eventsList: [],
       rolloverImageID: null,
       selectedCat: '',
+      defaultImage: null,
     }
   },
   mounted() {
@@ -88,6 +89,7 @@ export default {
           this.eventsList.push({ event: theEvents[event], eventYear: theYear })
         }
       }
+      this.defaultImage = this.timelineData.defaultImage
       // console.log(this.eventsList)
     }
   },
@@ -116,12 +118,20 @@ export default {
     },
     filterTimeline(cat) {
       this.filtersOpen = false
-
+      if (cat == 'all') {
+        this.defaultImage = this.timelineData.defaultImage
+      } else {
+        this.defaultImage = cat.defaultImage
+      }
       gsap.to(this.$refs.eventsList, 0.25, {
         opacity: 0,
         y: 5,
         onComplete: () => {
-          this.selectedCat = cat
+          if (cat == 'all') {
+            this.selectedCat = ''
+          } else {
+            this.selectedCat = cat.filter
+          }
 
           this.$refs.eventsListWrapper.scrollTo(0, top)
 
