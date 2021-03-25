@@ -18,32 +18,41 @@
 import meta from '~/plugins/meta.js'
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, link, page_builder } from '~/gql/common'
+const gql_content = `
+  ${basics}
+  ${featured_image} 
+  seo {
+    metaDesc
+    title
+    opengraphImage {
+      sourceUrl
+    }
+  }
+  ProductPrice {
+    productPrice
+  } 
+`
 export default {
-  async asyncData({ $graphql, params }) {
-    const post_uri = params.slug
+  async asyncData({ $graphql, route }) {
+    const post_uri = route.params.slug
 
     const query = gql`
       query PostQuery ($uri: ID!) {
         product(id: $uri, idType: URI) {
-          ${basics}
-          ${featured_image} 
-          seo {
-            metaDesc
-            title
-            opengraphImage {
-              sourceUrl
+          ${gql_content}
+          preview {
+            node {
+              ${gql_content}
             }
-          }
-          ProductPrice {
-            productPrice
-          }  
+          }           
         }
       }
     `
     const variables = { uri: post_uri }
-
-    const { product } = await $graphql.default.request(query, variables)
-    console.log(product)
+    let { product } = await $graphql.default.request(query, variables)
+    if (route.query && route.query.preview && product.preview) {
+      product = product.preview.node
+    }
     return { product }
   },
   head() {

@@ -19,7 +19,34 @@ import meta from '~/plugins/meta.js'
 import { gql } from 'nuxt-graphql-request'
 import { basics, image, featured_image, link, page_builder } from '~/gql/common'
 import scrollTriggerHub from '~/mixins/ScrollTriggerHub'
-
+const gql_content = `
+  ${basics}
+  ${featured_image} 
+  seo {
+    metaDesc
+    title
+    opengraphImage {
+      sourceUrl
+    }
+  }
+  ${page_builder('DailySpecial')}
+  HeaderCTALink {
+    linkType
+    link {
+      target
+      title
+      url
+    }
+  }
+  categories {
+    edges {
+      node {
+        name
+        slug
+      }
+    }
+  } 
+`
 export default {
   mixins: [scrollTriggerHub],
   data() {
@@ -27,45 +54,26 @@ export default {
       cats: String,
     }
   },
-  async asyncData({ $graphql, params }) {
-    const post_uri = params.slug
+  async asyncData({ $graphql, route }) {
+    const post_uri = route.params.slug
 
     const query = gql`
       query PostQuery ($uri: ID!) {
         dailySpecial(id: $uri, idType: URI) {
-          ${basics}
-          ${featured_image} 
-          seo {
-            metaDesc
-            title
-            opengraphImage {
-              sourceUrl
-            }
-          }
-          ${page_builder('DailySpecial')}
-          HeaderCTALink {
-            linkType
-            link {
-              target
-              title
-              url
-            }
-          }
-          categories {
-            edges {
-              node {
-                name
-                slug
-              }
+          ${gql_content}
+          preview {
+            node {
+              ${gql_content}
             }
           } 
         }
       }
     `
     const variables = { uri: post_uri }
-
-    const { dailySpecial } = await $graphql.default.request(query, variables)
-    // console.log(dailySpecial)
+    let { dailySpecial } = await $graphql.default.request(query, variables)
+    if (route.query && route.query.preview && dailySpecial.preview) {
+      dailySpecial = dailySpecial.preview.node
+    }
     return { dailySpecial }
   },
   head() {
