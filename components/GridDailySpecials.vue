@@ -27,7 +27,7 @@ const query = gql`
       $cat: String
       $term: String
     ){
-    dailySpecials(first: $first, after: $after, where: {categoryName: $cat, search: $term})  {
+    dailySpecials(first: $first, after: $after, where: {orderby: {field: MENU_ORDER, order: ASC}, categoryName: $cat, search: $term})  {
       edges {
         node {
           ${basics}

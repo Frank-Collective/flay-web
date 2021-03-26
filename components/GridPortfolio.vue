@@ -27,7 +27,7 @@ const query = gql`
       $cat: String
       $term: String
     ){
-    portfolioItems(first: $first, after: $after, where: {categoryName: $cat, search: $term})  {
+    portfolioItems(first: $first, after: $after, where: {orderby: {field: MENU_ORDER, order: ASC}, categoryName: $cat, search: $term})  {
       edges {
         node {
           ${basics}

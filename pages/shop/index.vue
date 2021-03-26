@@ -30,24 +30,6 @@ const gql_content = `
       sourceUrl
     }
   }
-  ShopFields {
-    products {
-      ... on Product {
-        ${basics}
-        ${featured_image}
-        CardLink {
-          cardLinkText
-        }
-        Descriptions {
-          featuredDescription
-          thumbnailDescription
-        }
-        ProductPrice {
-          productPrice
-        }
-      }
-    }
-  }
 `
 export default {
   mixins: [scrollTriggerHub],

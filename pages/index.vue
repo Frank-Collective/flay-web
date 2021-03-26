@@ -79,7 +79,6 @@
 
     <SocialFeed />
   </div>
-  <div v-else>wtf</div>
 </template>
 
 <script>
