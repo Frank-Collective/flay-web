@@ -47,7 +47,6 @@ export default {
       }
     `
     const data = await this.$graphql.default.request(query)
-    // console.log(data.globalContent.SocialLinksFields.socialMediaIconLink)
     this.socialmedias = data.globalContent.SocialLinksFields.socialMediaIconLink
   },
 }
