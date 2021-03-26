@@ -126,12 +126,8 @@ export default {
       selectedFilter: { slug: null, name: null },
     }
   },
-  mounted() {
-    // console.log('portfolio: mounted')
-  },
-  updated() {
-    // console.log('portfolio: updated')
-  },
+  mounted() {},
+  updated() {},
   methods: {
     toggleFiltersMenu() {
       this.filtersOpen = !this.filtersOpen

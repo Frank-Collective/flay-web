@@ -90,7 +90,6 @@ export default {
         }
       }
       this.defaultImage = this.timelineData.defaultImage
-      // console.log(this.eventsList)
     }
   },
   updated() {},

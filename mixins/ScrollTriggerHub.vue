@@ -27,16 +27,12 @@ export default {
       })
     }
 
-    // console.log('ScrollTriggerHub.vue ACTIVATED')
     this.scrollTriggerInit()
   },
-  deactivated() {
-    // console.log('ScrollTriggerHub.vue DE-ACTIVATED')
-  },
+  deactivated() {},
   methods: {
     scrollTriggerInit() {
       if (!this.scrolltrigger_initiated && process.client) {
-        // console.log('scrollTriggerInit ============================================================== scrollTriggerInit')
         this.scrolltrigger_initiated = true
 
         // Fade In & Slide Up

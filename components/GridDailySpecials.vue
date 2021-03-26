@@ -78,7 +78,6 @@ export default {
     async fetchMore() {
       const variables = { first: ppp, after: this.pageInfo.endCursor, cat: this.category, term: this.searchTerm }
       const data = await this.$graphql.default.request(query, variables)
-      console.log(data)
       this.dailySpecials = [...this.dailySpecials, ...data.dailySpecials.edges]
       this.pageInfo = data.dailySpecials.pageInfo
     },
