@@ -38,10 +38,6 @@ const gql_content = `
   }
   ${page_builder('Page')}
   TimelineFields {
-    eventsFilters {
-      name
-      slug
-    }
     defaultImage {
       ${image}
     }
