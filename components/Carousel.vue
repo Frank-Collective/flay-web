@@ -12,61 +12,57 @@
       </div>
 
       <div class="slides-container">
-        <flickity ref="flickity" :options="flickityOptions" class="slides">
-          <div class="slide" v-for="(slide, index) in data.dailySpecialItems" :key="index">
-            <div class="image">
-              <FadeImage
-                v-if="slide.featuredImage"
-                :srcset="slide.featuredImage.node.srcSet"
-                :sizes="slide.featuredImage.node.sizes"
-                :src="slide.featuredImage.node.mediaItemUrl"
-                :alt="slide.featuredImage.node.altText"
-                :width="slide.featuredImage.node.mediaDetails.width"
-                :height="slide.featuredImage.node.mediaDetails.height"
-              />
-            </div>
-            <div class="content">
-              <div class="pre-header">
-                <span v-for="(cat, index) in slide.categories.edges" :key="index">{{ cat.node.name }}</span>
+        <no-ssr>
+          <flickity ref="flickity" :options="flickityOptions" class="slides">
+            <div class="slide" v-for="(slide, index) in data.dailySpecialItems" :key="index">
+              <div class="image">
+                <FadeImage
+                  v-if="slide.featuredImage"
+                  :srcset="slide.featuredImage.node.srcSet"
+                  :sizes="slide.featuredImage.node.sizes"
+                  :src="slide.featuredImage.node.mediaItemUrl"
+                  :alt="slide.featuredImage.node.altText"
+                  :width="slide.featuredImage.node.mediaDetails.width"
+                  :height="slide.featuredImage.node.mediaDetails.height"
+                />
               </div>
-              <h4>{{ slide.title }}</h4>
-              <!-- Text Content -->
-              <div v-if="slide.Descriptions.featuredDescription">
-                <p>{{ slide.Descriptions.featuredDescription }}</p>
-              </div>
-              <div v-else v-html="slide.content.substr(0, 100) + '...'"></div>
+              <div class="content">
+                <div class="pre-header">
+                  <span v-for="(cat, index) in slide.categories.edges" :key="index">{{ cat.node.name }}</span>
+                </div>
+                <h4>{{ slide.title }}</h4>
+                <!-- Text Content -->
+                <div v-if="slide.Descriptions.featuredDescription">
+                  <p>{{ slide.Descriptions.featuredDescription }}</p>
+                </div>
+                <div v-else v-html="slide.content.substr(0, 100) + '...'"></div>
 
-              <div class="cta">
-                <nuxt-link :to="`/daily-specials/${slide.slug}`" class="button primary" v-if="slide.CardLink.cardLinkText">{{
-                  slide.CardLink.cardLinkText
-                }}</nuxt-link>
+                <div class="cta">
+                  <nuxt-link :to="`/daily-specials/${slide.slug}`" class="button primary" v-if="slide.CardLink.cardLinkText">{{
+                    slide.CardLink.cardLinkText
+                  }}</nuxt-link>
+                </div>
               </div>
             </div>
-          </div>
-        </flickity>
-        <ol class="pagination">
-          <li
-            v-for="(slide, index) in data.dailySpecialItems"
-            :key="index"
-            v-on:click="select(index)"
-            v-bind:class="{ selected: selectedIndex == index }"
-          >
-            {{ index + 1 }}
-          </li>
-        </ol>
+          </flickity>
+          <ol class="pagination">
+            <li
+              v-for="(slide, index) in data.dailySpecialItems"
+              :key="index"
+              v-on:click="select(index)"
+              v-bind:class="{ selected: selectedIndex == index }"
+            >
+              {{ index + 1 }}
+            </li>
+          </ol>
+        </no-ssr>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import Flickity from 'vue-flickity'
-import FlickityFade from 'flickity-fade'
-
 export default {
-  components: {
-    Flickity,
-  },
   props: {
     data: null,
     headerText: null,
@@ -85,15 +81,15 @@ export default {
         fade: true,
       },
       selectedIndex: 0,
+      initialized: false,
     }
   },
   computed: {},
   mounted() {
-    if (this.$refs.flickity) {
-      this.$refs.flickity.on('change', index => {
-        this.selectedIndex = index
-      })
-    }
+    this.init()
+  },
+  updated() {
+    this.init()
   },
   methods: {
     select(index) {
@@ -106,6 +102,14 @@ export default {
     },
     previous() {
       this.$refs.flickity.previous()
+    },
+    init() {
+      if (this.$refs.flickity && !this.initialized) {
+        this.$refs.flickity.on('change', index => {
+          this.selectedIndex = index
+          this.initialized = true
+        })
+      }
     },
   },
 }

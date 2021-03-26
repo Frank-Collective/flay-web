@@ -11,7 +11,9 @@
           </li>
         </ul>
       </div>
-      <div class="grid" id="instagram-feed"></div>
+      <no-ssr>
+        <div class="grid" id="instagram-feed"></div>
+      </no-ssr>
     </div>
   </section>
 </template>
@@ -27,10 +29,14 @@ export default {
     }
   },
   mounted() {
-    this.getInstaFeed()
+    if (process.client) {
+      this.getInstaFeed()
+    }
   },
   updated() {
-    this.getInstaFeed()
+    if (process.client) {
+      this.getInstaFeed()
+    }
   },
   methods: {
     getInstaFeed() {
