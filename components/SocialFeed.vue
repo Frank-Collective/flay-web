@@ -12,7 +12,7 @@
         </ul>
       </div>
       <no-ssr>
-        <div class="grid" id="instagram-feed"></div>
+        <!-- <div class="grid" id="instagram-feed"></div> -->
       </no-ssr>
     </div>
   </section>
