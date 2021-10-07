@@ -30,12 +30,12 @@ export default {
   },
   mounted() {
     if (process.client) {
-      this.getInstaFeed()
+      //this.getInstaFeed()
     }
   },
   updated() {
     if (process.client) {
-      this.getInstaFeed()
+      //this.getInstaFeed()
     }
   },
   methods: {
