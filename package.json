@@ -19,7 +19,7 @@
     "flickity-fade": "^1.0.0",
     "gsap": "^3.6.0",
     "instafeed": "^1.4.0",
-    "node-sass": "^5.0.0",
+    "sass": "^1.54.0",
     "nuxt": "^2.15.2",
     "sass-loader": "10.1.1",
     "smooth-scrollbar": "^8.6.0",
