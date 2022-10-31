@@ -27,12 +27,6 @@
             <input v-if="header" type="hidden" name="item_name" :value="header" />
             <input v-if="price" type="hidden" name="amount" :value="price" />
             <input type="hidden" name="currency_code" value="USD" />
-            <div class="form_inner">
-              <input type="hidden" name="on0" value="Personalization" />
-              <input id="optmsg" name="os0" type="text" placeholder="Request a personalized inscription here" />
-              <button type="submit">Submit</button>
-            </div>
-            <span>Please limit to 1-sentence</span>
           </form>
 
           <form ref="hackForm" target="_self" action="https://www.paypal.com/cgi-bin/webscr" method="post">
